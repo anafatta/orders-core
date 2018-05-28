@@ -1,0 +1,17 @@
+{
+  "name": "orders-core",
+  "version": "1.0.0",
+  "description": "Orders handler",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app"
+  },
+  "dependencies": {
+    "express": "*",
+    "cors": "*",
+    "body-parser": "*"
+  },
+  "author": "Ana Fatta",
+  "license": "ISC"
+}
