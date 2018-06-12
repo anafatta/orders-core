@@ -1,17 +1,28 @@
 {
-  "name": "orders-core",
+  "name": "pedidos3",
   "version": "1.0.0",
-  "description": "Orders handler",
-  "main": "app.js",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app"
+    "start:dev": "nodemon ./bin/www",
+    "test": "./node_modules/.bin/mocha --reporter spec"
   },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
   "dependencies": {
-    "express": "*",
-    "cors": "*",
-    "body-parser": "*"
+    "body-parser": "^1.18.3",
+    "chai": "^4.1.2",
+    "chai-http": "^4.0.0",
+    "express": "^4.16.3",
+    "mocha": "^5.2.0",
+    "morgan": "^1.9.0",
+    "pg": "^7.4.3",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^4.37.10",
+    "superagent": "^3.8.3"
   },
-  "author": "Ana Fatta",
-  "license": "ISC"
+  "devDependencies": {
+    "nodemon": "^1.17.5"
+  }
 }

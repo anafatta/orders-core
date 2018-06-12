@@ -1,24 +1,23 @@
-const express = require ('express');
-const cors = require ('cors');
-const bodyParser = require ('body-parser');
+const express = require('express');
+const logger = require('morgan');
+const bodyParser = require('body-parser');
 
+// Set up the express app
 const app = express();
-const port = 3000;
-const orders = require ('./routes/orders');
-const path = require ('path');
 
-app.listen(port, () => {
-    console.log('Server start and listen in port '+ port)
-})
+// Log requests to the console.
+app.use(logger('dev'));
 
-app.use(cors());
+// Parse incoming requests data (https://github.com/expressjs/body-parser)
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname , 'public')));
+app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use('/orders', orders);
+// Require our routes into the application.
+require('./server/routes')(app);
 
+// Setup a default catch-all route that sends back a welcome message in JSON format.
+app.get('*', (req, res) => res.status(200).send({
+  message: 'Welcome to the beginning of nothingness * .'+ req.param('ven'),
+}));
 
-app.get('/', (req, res) => {
-    res.send('Invalid endpoint');
-})
-// Orders 
+module.exports = app;
