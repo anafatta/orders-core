@@ -23,5 +23,6 @@ module.exports = (app) => {
   app.get('/api/articulos', articulosController.find);
   app.get('/api/articulos/name/:nom', articulosController.find);
   app.get('/api/articulos/id/:id', articulosController.find);
+  //app.get('/api/articulos/item/:id', articulosController.findyy);
 
 };

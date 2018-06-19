@@ -1,6 +1,17 @@
 const Clientes = require('../models').clientes;
+const CliDir = require('../models').clidir;
+
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
+
+CliDir.belongsTo(Clientes,{
+    foreignKey:'idcli',
+})
+
+Clientes.hasMany(CliDir,{
+    foreignKey:'idcli',
+})
+
 
 module.exports={
     find(req,res){
@@ -23,6 +34,7 @@ module.exports={
 
         if (req.params.id){
             delete att.attributes
+            att['include']=[{model:CliDir}]
             if (!att['where']){att['where']={}}  
             att['where']={id: req.params.id}
         }
