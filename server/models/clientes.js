@@ -1,7 +1,8 @@
 /* jshint indent: 2 */
 
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('clientes', {
+  
+  clientes = sequelize.define('clientes', {
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -54,6 +55,25 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     }
   }, {
-    tableName: 'clientes'
+    tableName: 'clientes',
   });
+
+  clientes.associate=function (db) {
+  
+    clientes.hasMany(db.clidir,{
+      as:'address',
+      foreignKey:'idcli',
+    })
+  
+    clientes.hasMany(db.pedcab,{
+      foreignKey:'cli',
+    })
+  
+    clientes.belongsTo(db.vend,{
+      as:'salesman',
+      foreignKey:'vend',
+    })
+  }  
+  return clientes;
 };
+

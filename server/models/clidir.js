@@ -1,7 +1,7 @@
 /* jshint indent: 2 */
 
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('clidir', {
+  clidir = sequelize.define('clidir', {
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -63,4 +63,16 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     tableName: 'clidir'
   });
+  clidir.associate = function (db) {
+
+    clidir.belongsTo(db.clientes,{
+      foreignKey:'idcli',
+    })
+
+    clidir.hasMany(db.pedcab,{
+      foreignKey:'clidir',
+    })
+  
+  }  
+  return clidir;
 };

@@ -2,6 +2,7 @@ const depositosController = require('../controllers').depositos;
 const vendController = require('../controllers').vend;
 const clientesController = require('../controllers').clientes;
 const articulosController = require('../controllers').articulos;
+const pedcabController = require('../controllers').pedcab;
 
 
 module.exports = (app) => {
@@ -22,6 +23,11 @@ module.exports = (app) => {
 
   app.get('/api/articulos', articulosController.find);
   app.get('/api/articulos/name/:nom', articulosController.find);
-  app.get('/api/articulos/id/:id', articulosController.find);
+  app.get('/api/articulos/id/:id', articulosController.findOne);
+  //app.get('/api/articulos/item/:id', articulosController.findyy);
 
+  app.get('/api/pedcab/vendedor/:ven', pedcabController.find);
+  app.get('/api/pedcab/id/:id', pedcabController.findOne);
+  app.post('/api/pedcab', pedcabController.postOne);
+  
 };

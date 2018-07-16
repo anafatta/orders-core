@@ -1,8 +1,8 @@
-const Deposito = require('../models').deposito;
+const db = require('../models');
 
 module.exports = {
   create(req, res) {
-    return Deposito
+    return db.deposito
       .create({
         id:   req.body.id,
         nom:  req.body.nom,   

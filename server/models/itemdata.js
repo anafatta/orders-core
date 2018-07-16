@@ -1,7 +1,7 @@
 /* jshint indent: 2 */
 
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('itemdata', {
+  itemdata = sequelize.define('itemdata', {
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -43,4 +43,22 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     tableName: 'itemdata'
   });
+  itemdata.associate = function(db){
+ 
+    itemdata.belongsTo(db.articulo,{
+      as:'art',
+      foreignKey:'articulo',
+    })
+  
+    itemdata.belongsTo(db.variante,{
+      //    as:'col',
+      foreignKey:'color',
+    })
+
+    itemdata.hasMany(db.peditm,{
+      foreignKey:'itemdata',
+  })
+  
+  }
+  return itemdata;
 };

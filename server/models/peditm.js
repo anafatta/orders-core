@@ -1,11 +1,11 @@
 /* jshint indent: 2 */
 
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('peditm', {
+  peditm = sequelize.define('peditm', {
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      defaultValue: 'nextval(seqpeditm::regclass)',
+      defaultValue: "nextval('seqpeditm'::regclass)",
       primaryKey: true
     },
     pedcab_id: {
@@ -66,4 +66,16 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     tableName: 'peditm'
   });
+   peditm.associate = function(db){
+     peditm.belongsTo(db.pedcab,{
+    //    as:'items',
+        foreignKey:'pedcab_id',
+    })
+     
+    peditm.belongsTo(db.itemdata,{
+        //as:'address',
+        foreignKey:'itemdata',
+    })     
+  }
+  return peditm;
 };
