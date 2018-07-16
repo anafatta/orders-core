@@ -1,0 +1,16 @@
+solucion problema secuencia postgres
+
+Agregar en node_module/squelize/lib/sql-string.js
+if (dialect === 'postgres' || dialect === 'sqlite' || dialect === 'mssql') {
+    // http://www.postgresql.org/docs/8.2/static/sql-syntax-lexical.html#SQL-SYNTAX-STRINGS
+    // http://stackoverflow.com/q/603572/130598
+
+    // *******************************Agregado por gaby
+    if(val.indexOf('nextval(')>-1) {
+      return val
+    }
+    // *******************************hasta aqui
+
+    val = val.replace(/'/g, "''");
+
+    if (dialect === 'postgres') {
