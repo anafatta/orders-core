@@ -2,6 +2,15 @@ const db = require('../models');
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 
+/*CliDir.belongsTo(Clientes,{
+    foreignKey:'idcli',
+})
+
+Clientes.hasMany(CliDir,{
+    foreignKey:'idcli',
+})
+*/
+
 module.exports={
     find(req,res){
         console.log('nro de vendedor: '+ req.params.ven)
