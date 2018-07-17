@@ -1,17 +1,15 @@
-const Clientes = require('../models').clientes;
-const CliDir = require('../models').clidir;
-
+const db = require('../models');
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 
-CliDir.belongsTo(Clientes,{
+/*CliDir.belongsTo(Clientes,{
     foreignKey:'idcli',
 })
 
 Clientes.hasMany(CliDir,{
     foreignKey:'idcli',
 })
-
+*/
 
 module.exports={
     find(req,res){
@@ -31,10 +29,14 @@ module.exports={
             att['where']['nom']={[Op.iLike]: '%'+req.params.nom+'%'}
             att['limit']= 5 
         }
-
+        att['order']=[['nom','ASC']]  
         if (req.params.id){
             delete att.attributes
-            att['include']=[{model:CliDir}]
+            att['attributes']=['id', 'nom','cuit','codfac','razonsoc'];
+            att['include']=[{model:db.clidir, as:'address',
+                attributes:['id','dir','localidad','codpos','prov']},
+                {model:db.vend, as:'salesman',
+                attributes:['id','nom']}]
             if (!att['where']){att['where']={}}  
             att['where']={id: req.params.id}
         }
@@ -42,7 +44,7 @@ module.exports={
 
         console.log('att = '+ JSON.stringify(att));
 
-        return Clientes.findAll(att)
+        return db.clientes.findAll(att)
         .then(clientes => res.status(201).send(clientes))
         .catch(error => res.status(400).send(error));
     },

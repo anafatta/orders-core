@@ -1,7 +1,7 @@
 /* jshint indent: 2 */
 
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('articulo', {
+  articulo = sequelize.define('articulo', {
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -52,6 +52,13 @@ module.exports = function(sequelize, DataTypes) {
       defaultValue: '0'
     }
   }, {
-    tableName: 'articulo'
+    tableName: 'articulo',
   });
+  
+  articulo.associate = function(db) {
+    articulo.hasMany(db.itemdata,{
+      foreignKey:'articulo',
+    })
+  }
+  return articulo;
 };

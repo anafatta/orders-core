@@ -1,7 +1,7 @@
 /* jshint indent: 2 */
 
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('vend', {
+  vend = sequelize.define('vend', {
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -16,6 +16,12 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     }
   }, {
-    tableName: 'vend'
+    tableName: 'vend',
   });
+  vend.associate = function (db) {
+      vend.hasMany(db.clientes,{
+        foreignKey:'vend',
+    })
+  }
+  return vend;
 };

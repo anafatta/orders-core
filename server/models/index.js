@@ -25,14 +25,18 @@ fs
     const model = sequelize.import(path.join(__dirname, file));
     db[model.name] = model;
   });
-
+  
 Object.keys(db).forEach(modelName => {
   if (db[modelName].associate) {
     db[modelName].associate(db);
+    console.log('modelName = ' + modelName)
   }
+  /*if (db[modelName].options.hasOwnProperty('associate')) {
+    db[modelName].options.associate(db)
+    console.log('modelName = ' + modelName)
+  }*/
 });
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
-
 module.exports = db;
