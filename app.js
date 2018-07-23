@@ -1,7 +1,6 @@
 const express = require('express');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
-const cors = require ('cors');
 
 // Set up the express app
 const app = express();
@@ -13,6 +12,8 @@ app.use(logger('dev'));
 // Parse incoming requests data (https://github.com/expressjs/body-parser)
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname , '../public')));
+console.log('Path :' + path.join(__dirname , 'public'))
 
 // Require our routes into the application.
 require('./server/routes')(app);
