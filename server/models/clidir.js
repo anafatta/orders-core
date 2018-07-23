@@ -72,6 +72,11 @@ module.exports = function(sequelize, DataTypes) {
     clidir.hasMany(db.pedcab,{
       foreignKey:'clidir',
     })
+
+    clidir.belongsTo(db.expresos,{
+      foreignKey:'expreso',
+      as:'flete'
+    })
   
   }  
   return clidir;

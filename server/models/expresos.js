@@ -54,4 +54,12 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     tableName: 'expresos'
   });
+  expresos.associate = function(db) {
+    expresos.hasMany(db.clidir,{
+      foreignKey:'expreso',
+      as:'flete'
+    })
+  }
+  return expresos;
+
 };

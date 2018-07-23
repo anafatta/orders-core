@@ -52,18 +52,32 @@ module.exports={
         att['attributes']=['id', 'nom'];
       
         if (req.params.id){
-//            delete att.attributes
             att['attributes']=['id', 'nom'];
-            // ok att['include']=[{model:ItemData,include:[{model:Variante}]}]
             att['include']=[{model:db.itemdata,include:[{model:db.variante}]}]
-            //att['include']=[{model:ItemData},]
-            //att['include']['include']=[{model:Color}]
             if (!att['where']){att['where']={}}  
             att['where']={id: req.params.id}
         }
 
-        console.log('att = '+ JSON.stringify(att));
-
+        //console.log('att = '+ JSON.stringify(att));
+        return db.articulo.findOne(att)
+        .then(articulo => {
+            var product={
+                art_id    : articulo.id,
+                nom       : articulo.nom,
+                variantes : []
+            }
+            for (var i in articulo.itemdata){
+                product.variantes.push({
+                    art_id    : articulo.itemdata.id[i],
+                    nom       : articulo.itemdata.nom[i]
+                })
+            }
+            console.log('Producto = '+ JSON.stringify(product));
+            return product
+        })
+        .catch(error => res.status(400).send(error));
+    },
+/*
         return db.articulo.findAll(att)
         .then(articulos => {
             const resObj=articulos.map(articulo => {
@@ -87,8 +101,9 @@ module.exports={
             res.status(201).json(resObj)
         })    
         .catch(error => res.status(400).send(error));
-    },
-    findyy(req,res){
+*/        
+//    },
+/*    findyy(req,res){
         console.log('id: '+ req.params.id)
         console.log('estoy en find yy ')
 
@@ -99,4 +114,5 @@ module.exports={
         .then(variante => res.status(201).send(variante))      
         .catch(error => res.status(400).send(error));
     },
+*/    
 };
