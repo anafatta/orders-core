@@ -6,7 +6,7 @@ module.exports = function(sequelize, DataTypes) {
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      defaultValue: 'nextval(seqcli::regclass)',
+      defaultValue: "nextval('seqcli'::regclass)",
       primaryKey: true
     },
     nom: {

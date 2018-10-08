@@ -21,6 +21,8 @@ module.exports = (app) => {
   app.get('/api/clientes/vendedor/:ven', clientesController.find);
   app.get('/api/clientes/vendedor/:ven/name/:nom', clientesController.find);
   app.get('/api/clientes/id/:id', clientesController.findOne);
+  app.post('/api/clientes', clientesController.post);
+  app.put('/api/clientes/id/:id', clientesController.updateClientes);
 
   app.get('/api/articulos', articulosController.find);
   app.get('/api/articulos/name/:nom', articulosController.find);

@@ -63,19 +63,21 @@ module.exports={
         .then(articulo => {
             var product={
                 art_id    : articulo.id,
+                codfac    : articulo.codfac,
                 nom       : articulo.nom,
                 variantes : []
             }
+         
             for (var i in articulo.itemdata){
                 product.variantes.push({
-                    art_id    : articulo.itemdata.id[i],
-                    nom       : articulo.itemdata.nom[i]
+                    itemdata_id : articulo.itemdata[i].id,
+                    codigo      : articulo.itemdata[i].variante.codigo,
+                    nom         : articulo.itemdata[i].variante.nom
                 })
+                
             }
-            console.log('Producto = '+ JSON.stringify(product));
-            return product
-        })
-        .catch(error => res.status(400).send(error));
+            res.status(201).send(product)
+        })        .catch(error => res.status(400).send(error));
     },
 /*
         return db.articulo.findAll(att)
