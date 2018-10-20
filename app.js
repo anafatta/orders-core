@@ -18,7 +18,7 @@ app.use(express.static(path.join(__dirname , '../public')));
 console.log('Path :' + path.join(__dirname , 'public'))
 
 // Require our routes into the application.
-require('./server/routes')(app);
+require('./app/routes')(app);
 
 // Setup a default catch-all route that sends back a welcome message in JSON format.
 app.get('*', (req, res) => res.status(200).send({
