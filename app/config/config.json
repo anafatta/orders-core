@@ -1,23 +1,38 @@
 {
   "development": {
-    "username": "postgres",
-    "password": "postgres",
+    "username": "Kirkor",
+    "password": "Gaby1109$",
     "database": "SHK",
-    "host": "127.0.0.1",
-    "dialect": "postgres"
+    "host": "shk.cty4q3ppflfp.us-east-2.rds.amazonaws.com",
+    "port": 5429,
+    "dialect": "postgres",
+    "ssl": true,
+    "dialectOptions": {
+        "ssl": true
+    }
   },
   "test": {
-    "username": "postgres",
-    "password": "postgres",
+    "username": "Kirkor",
+    "password": "Gaby1109$",
     "database": "SHK",
-    "host": "127.0.0.1",
-    "dialect": "postgres"
+    "host": "shk.cty4q3ppflfp.us-east-2.rds.amazonaws.com",
+    "port": 5429,
+    "dialect": "postgres",
+    "ssl": true,
+    "dialectOptions": {
+        "ssl": true
+    }
   },
   "production": {
-    "username": "postgres",
-    "password": "postgres",
+    "username": "Kirkor",
+    "password": "Gaby1109$",
     "database": "SHK",
-    "host": "127.0.0.1",
-    "dialect": "postgres"
+    "host": "shk.cty4q3ppflfp.us-east-2.rds.amazonaws.com",
+    "port": 5429,
+    "dialect": "postgres",
+    "ssl": true,
+    "dialectOptions": {
+        "ssl": true
+    }
   }
 }
