@@ -1,4 +1,5 @@
 /* jshint indent: 2 */
+var bcrypt = require('bcrypt-nodejs');
 
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('ssecur_user', {
@@ -72,3 +73,14 @@ module.exports = function(sequelize, DataTypes) {
     timestamps: false
   });
 };
+
+ssecur_user.hook('beforeCreate', function(user, fn) {
+var salt = bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
+  return salt;
+});
+bcrypt.hash(user.password, salt, null, function(err, hash) {
+if(err) return next(err);
+user.password = hash;
+return fn(null, user)
+});
+})
