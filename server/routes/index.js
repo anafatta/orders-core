@@ -35,5 +35,12 @@ module.exports = (app) => {
   app.get('/api/pedcab/vendedor/:ven', pedcabController.find);
   app.get('/api/pedcab/id/:id', pedcabController.findOne);
   app.post('/api/pedcab', pedcabController.postOne);
+
+  //AUTENTICATION
+  app.post('/login',
+  passport.authenticate('local', { successRedirect: '/',
+                                   failureRedirect: '/login',
+                                   failureFlash: true })
+);
   
 };

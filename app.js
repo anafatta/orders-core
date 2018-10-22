@@ -25,4 +25,16 @@ app.get('*', (req, res) => res.status(200).send({
   message: 'Welcome to the beginning of nothingness * .'+ req.param('ven'),
 }));
 
+
+//AUTHENTICATION
+SALT_WORK_FACTOR = 12;
+var passport = require('passport')
+  , passportConfig = require('./config/passportConfig');
+
+  app.use(express.cookieParser());
+  app.use(express.session({secret:'mybestsecret'}))//put this in environment variable
+  app.use(passport.initialize())
+  app.use(passport.session())
+  
+
 module.exports = app;
