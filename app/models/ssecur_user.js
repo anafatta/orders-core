@@ -84,3 +84,4 @@ user.password = hash;
 return fn(null, user)
 });
 })
+};
