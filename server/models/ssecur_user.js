@@ -67,7 +67,7 @@ module.exports = function(sequelize, DataTypes) {
   },
   {
     classMethods: {
-      validatePassword: function(password, storedPwd, done, user) {
+      validatePassword: function(password, storedPwd, done , user) {
         bcrypt.compare(password, storedPwd, function(err, isMatch){
           if(err) console.log(err)
           if(isMatch) {
@@ -83,7 +83,7 @@ module.exports = function(sequelize, DataTypes) {
     tableName: 'ssecur_user'
   }
   );
-};
+
 
 ssecur_user.hook('beforeCreate', function(user, fn) {
 var salt = bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
@@ -95,3 +95,4 @@ user.password = hash;
 return fn(null, user)
 });
 })
+};

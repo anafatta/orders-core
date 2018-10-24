@@ -4,7 +4,7 @@ const clientesController = require('../controllers').clientes;
 const expresosController = require('../controllers').expresos;
 const articulosController = require('../controllers').articulos;
 const pedcabController = require('../controllers').pedcab;
-
+const userController = require('../controllers').user;
 
 module.exports = (app) => {
 
@@ -37,10 +37,36 @@ module.exports = (app) => {
   app.post('/api/pedcab', pedcabController.postOne);
 
   //AUTENTICATION
-  app.post('/login',
-  passport.authenticate('local', { successRedirect: '/',
-                                   failureRedirect: '/login',
-                                   failureFlash: true })
-);
-  
-};
+
+  //app.get('/home', user.isAuthenticated, home.homepage) // CHANGE
+
+
+  //app.get('/logout', user.destrotSession);
+  //app.get('/signup', user.signup);
+  //app.post('/register', user.register);
+
+
+/* POST login. */
+app.post('api/login', userController.login);
+
+/* function (req, res, next) {
+  passport.authenticate('local', {session: false}, (err, user, info) => {
+      if (err || !user) {
+          return res.status(400).json({
+              message: 'Something is not right',
+              user   : user
+          });
+      }
+     req.login(user, {session: false}, (err) => {
+         if (err) {
+             res.send(err);
+         }
+         // generate a signed son web token with the contents of user object and return it in the response
+         const token = jwt.sign(user, 'your_jwt_secret');
+         return res.json({user, token});
+      });
+  })
+  (req, res);
+}); */
+
+}
