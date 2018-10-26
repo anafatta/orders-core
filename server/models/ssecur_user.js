@@ -1,7 +1,7 @@
 /* jshint indent: 2 */
 var bcrypt = require('bcrypt-nodejs');
 
-module.exports = function(sequelize, DataTypes) {
+module.exports = function (sequelize, DataTypes) {
   return sequelize.define('ssecur_user', {
     nro: {
       type: DataTypes.INTEGER,
@@ -65,34 +65,34 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     }
   },
-  {
-    classMethods: {
-      validatePassword: function(password, storedPwd, done , user) {
-        bcrypt.compare(password, storedPwd, function(err, isMatch){
-          if(err) console.log(err)
-          if(isMatch) {
-            return done(null, user)
-          } else {
-            return done(null, false)
-          }
+    {
+      classMethods: {
+        validatePassword: function (password, storedPwd, done, user) {
+          bcrypt.compare(password, storedPwd, function (err, isMatch) {
+            if (err) console.log(err)
+            if (isMatch) {
+              return done(null, user)
+            } else {
+              return done(null, false)
+            }
           });
+        }
       }
+    },
+    {
+      tableName: 'ssecur_user'
     }
-  }, 
-  {
-    tableName: 'ssecur_user'
-  }
   );
 
 
-ssecur_user.hook('beforeCreate', function(user, fn) {
-var salt = bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
-  return salt;
-});
-bcrypt.hash(user.password, salt, null, function(err, hash) {
-if(err) return next(err);
-user.password = hash;
-return fn(null, user)
-});
-})
+  ssecur_user.hook('beforeCreate', function (user, fn) {
+    var salt = bcrypt.genSalt(SALT_WORK_FACTOR, function (err, salt) {
+      return salt;
+    });
+    bcrypt.hash(user.password, salt, null, function (err, hash) {
+      if (err) return next(err);
+      user.password = hash;
+      return fn(null, user)
+    });
+  })
 };

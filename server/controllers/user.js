@@ -30,7 +30,23 @@ exports.destroySession = function (req, res, next) {
 module.exports = {
     login(req, res) {
         console.log('entro a la funcion de login');
-        db.ssecur_user.find({ where: { email: req.params.username } }).success(function (user) {
+        att={};
+        console.log(req.body);
+        if (req.body.username){
+            delete att.attributes
+            //att['attributes']=['id', 'username','firstname','lastname','role'];
+            att['attributes']=['nro', 'email','firstname','lastname'];
+            if (!att['where']){att['where']={}}  
+            att['where']={email: req.body.username}
+            db.ssecur_user.findOne(att)
+            .then(user => {
+                console.log('generando el token');
+                    const token = jwt.sign(user, 'your_jwt_secret');
+                    console.log('token generado : ' + token);
+                res.status(201).send(user,token )})
+        .catch(error => res.status(400).send(error));
+
+       /*  db.ssecur_user.find({ where: { email: req.params.username } }).success(function (user) {
             console.log('entro a la success de DB');
             storedPwd = user ? user.password : '';
             db.ssecur_user.validatePassword(password, storedPwd, user, function (err, user) {
@@ -51,9 +67,33 @@ module.exports = {
                     console.log('generando el token');
                     const token = jwt.sign(user, 'your_jwt_secret');
                     console.log('token generado : ' + token);
-                    return res.status(200).json({ user, token });
-                });
-            });
-        })
+                    return res.status(200).json({ user, token }); */
+                //});
+            };
+        }
     }
-}
+
+
+
+/* console.log('ID de Cliente: '+ req.params.id)
+        
+        att={};
+    
+        if (req.params.id){
+            delete att.attributes
+            att['attributes']=['id', 'nom','cuit','codfac','razonsoc'];
+            att['include']=[{model:db.clidir, as:'address',
+                attributes:['id','dir','localidad','codpos','prov','expreso'],
+                include:{model:db.expresos, as:'flete',
+                attributes:['nom']}},
+                {model:db.vend, as:'salesman',
+                attributes:['id','nom']}]
+            if (!att['where']){att['where']={}}  
+            att['where']={id: req.params.id}
+        }
+
+        //console.log('att = '+ JSON.stringify(att));
+
+        return db.clientes.findOne(att)
+        .then(clientes => res.status(201).send(clientes))
+        .catch(error => res.status(400).send(error)); */
