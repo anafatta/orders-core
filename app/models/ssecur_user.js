@@ -70,6 +70,10 @@ module.exports = function (sequelize, DataTypes) {
     }  
   }, {
     tableName: 'ssecur_user',
-    timestamps: false
+    timestamps: false,
+    freezeTableName: true
   });
 };
+
+
+

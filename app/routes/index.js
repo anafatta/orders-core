@@ -48,6 +48,7 @@ module.exports = (app) => {
 
 /* POST login. */
   app.post('/api/login', userController.login);
+  app.post('/api/signup', userController.signup);
 
 /* function (req, res, next) {
   passport.authenticate('local', {session: false}, (err, user, info) => {
