@@ -1,4 +1,5 @@
 const db = require('../models');
+const jwt = require('jsonwebtoken');
 
 /* exports.IsAuthenticated = function (req, res, next) {
     if (req.IsAuthenticated()) {
@@ -13,87 +14,116 @@ exports.destroySession = function (req, res, next) {
     req.session.destroy();
     req.redirect("/");
 } */
-
-/* exports.signUp = function(req, res) {
-    db.ssecure_user.find({where:{username: req.username}}).success(function(user){
-        if(!user) {
-            db.ssecure_user.create({username:req.body.username, password:req.body.password}).error(function(err) {
-                console.log(err);
-            });
-        } else {
-            res.redirect('/signup')
-        }
-    })
-    res.redirect('/')
-} */
-
 module.exports = {
-    login(req, res) {
-        console.log('entro a la funcion de login');
-        att={};
+/*   signup(req, res) {
+    att = {};
+    console.log(req.body);
+    if (req.body.username) {
+        delete att.attributes
+        //att['attributes']=['id', 'username','firstname','lastname','role'];
+        att['attributes'] = ['nro', 'email', 'firstname', 'lastname'];
+        if (!att['where']) { att['where'] = {} }
+        att['where'] = { email: req.body.username }
+        
+        db.ssecur_user.findOne(att).then(user => {
+            if (!user) {
+                var user = {
+                    email: req.body.username,
+                    password: req.body.password,
+                    lastname: req.body.lastname,
+                    firstname: req.body.firstname,
+                    slevel :0,
+                    nro:25
+                }
+                console.log('no user');
+               // return db.sequelize.transaction(transaction => {
+                db.ssecure_user.create(new_user).then(userCreated => {
+                    //VALIDATE PASSWORD
+                    console.log(userCreated);
+                    console.log('generando el token');
+                    //const token = jwt.sign(user, 'your_jwt_secret');
+                    var token = jwt.sign({ id: userCreated._id }, 'your_jwt_secret', {
+                        expiresIn: 86400 // expires in 24 hours
+                    });
+                    console.log(token);
+                    console.log('token generado : ' + token);
+                    res.status(200).send({ auth: true, token: token })
+                }).catch(error => res.status(500).send('Error 1' + error));
+           // })
+            } else {
+                res.status(200).send({ message: 'The user already exists' })
+            }
+        }).catch(error => res.status(500).send( 'Error 2' + error));
+    }}, */
+
+
+    signup(req, res) {
+        att = {};
         console.log(req.body);
-        if (req.body.username){
+         if (req.body.username) {
             delete att.attributes
             //att['attributes']=['id', 'username','firstname','lastname','role'];
-            att['attributes']=['nro', 'email','firstname','lastname'];
-            if (!att['where']){att['where']={}}  
-            att['where']={email: req.body.username}
-            db.ssecur_user.findOne(att)
-            .then(user => {
-                console.log('generando el token');
-                    const token = jwt.sign(user, 'your_jwt_secret');
-                    console.log('token generado : ' + token);
-                res.status(201).send(user,token )})
-        .catch(error => res.status(400).send(error));
-
-       /*  db.ssecur_user.find({ where: { email: req.params.username } }).success(function (user) {
-            console.log('entro a la success de DB');
-            storedPwd = user ? user.password : '';
-            db.ssecur_user.validatePassword(password, storedPwd, user, function (err, user) {
-                if (err || !user) {
-                    console.log('err o no user');
-                    return res.status(400).json({
-                        message: 'Something is not right',
-                        user: user
-                    });
+            att['attributes'] = ['nro', 'email', 'firstname', 'lastname'];
+            if (!att['where']) { att['where'] = {} }
+            att['where'] = { email: req.body.username }
+            db.ssecur_user.findOne(att).then(user => {
+                if (user) {
+                    res.status(200).send({ message: 'The user already exists' })
                 }
-                console.log('setting the login');
-                req.login(user, { session: false }, (err) => {
-                    if (err) {
-                        console.log('error en res.login');
-                        res.send(err);
+            }).catch(error => res.status(500).send( 'Error 2' + error)); 
+            console.log('no user');
+            var new_user = {
+                        email: req.body.username,
+                        password: req.body.password,
+                        lastname: req.body.lastname,
+                        firstname: req.body.firstname,
+                        slevel :0,
+                        nro:req.body.nro
                     }
-                    // generate a signed son web token with the contents of user object and return it in the response
+
+                   // return db.sequelize.transaction(transaction => {
+                    db.ssecur_user.create(new_user).then(userCreated => {
+                        //VALIDATE PASSWORD
+                        console.log(userCreated);
+                        console.log('generando el token');
+                        //const token = jwt.sign(user, 'your_jwt_secret');
+                        var token = jwt.sign({ id: userCreated._id }, 'your_jwt_secret', {
+                            expiresIn: 86400 // expires in 24 hours
+                        });
+                        console.log(token);
+                        console.log('token generado : ' + token);
+                        res.status(200).send({ auth: true, token: token })
+                    }).catch(error => res.status(500).send('Error 1' + error));
+               // })
+                } } ,       
+     
+
+
+    login(req, res) {
+        console.log('entro a la funcion de login');
+        att = {};
+        console.log(req.body);
+        if (req.body.username) {
+            delete att.attributes
+            //att['attributes']=['id', 'username','firstname','lastname','role'];
+            att['attributes'] = ['nro', 'email', 'firstname', 'lastname'];
+            if (!att['where']) { att['where'] = {} }
+            att['where'] = { email: req.body.username }
+            db.ssecur_user.findOne(att)
+                .then(user => {
+                    //VALIDATE PASSWORD
+                    console.log(user);
                     console.log('generando el token');
-                    const token = jwt.sign(user, 'your_jwt_secret');
+                    //const token = jwt.sign(user, 'your_jwt_secret');
+                    var token = jwt.sign({ id: user._id }, 'your_jwt_secret', {
+                        expiresIn: 86400 // expires in 24 hours
+                    });
+                    console.log(token);
                     console.log('token generado : ' + token);
-                    return res.status(200).json({ user, token }); */
-                //});
-            };
+                    res.status(200).send({ auth: true, token: token })
+                        .catch(error => res.status(500).send(error));
+                });
         }
     }
 
-
-
-/* console.log('ID de Cliente: '+ req.params.id)
-        
-        att={};
-    
-        if (req.params.id){
-            delete att.attributes
-            att['attributes']=['id', 'nom','cuit','codfac','razonsoc'];
-            att['include']=[{model:db.clidir, as:'address',
-                attributes:['id','dir','localidad','codpos','prov','expreso'],
-                include:{model:db.expresos, as:'flete',
-                attributes:['nom']}},
-                {model:db.vend, as:'salesman',
-                attributes:['id','nom']}]
-            if (!att['where']){att['where']={}}  
-            att['where']={id: req.params.id}
-        }
-
-        //console.log('att = '+ JSON.stringify(att));
-
-        return db.clientes.findOne(att)
-        .then(clientes => res.status(201).send(clientes))
-        .catch(error => res.status(400).send(error)); */
+}

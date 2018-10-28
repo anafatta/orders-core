@@ -66,33 +66,39 @@ module.exports = function (sequelize, DataTypes) {
     }
   },
     {
-      classMethods: {
-        validatePassword: function (password, storedPwd, done, user) {
-          bcrypt.compare(password, storedPwd, function (err, isMatch) {
-            if (err) console.log(err)
-            if (isMatch) {
-              return done(null, user)
-            } else {
-              return done(null, false)
-            }
-          });
-        }
-      }
-    },
-    {
-      tableName: 'ssecur_user'
+      freezeTableName: true,
+      tableName: 'ssecur_user',
+      timestamps: false
     }
   );
 
 
-  ssecur_user.hook('beforeCreate', function (user, fn) {
+   ssecur_user.hook('beforeCreate', function (user, fn) {
+    console.log('entro al hook');
     var salt = bcrypt.genSalt(SALT_WORK_FACTOR, function (err, salt) {
       return salt;
     });
     bcrypt.hash(user.password, salt, null, function (err, hash) {
       if (err) return next(err);
+      console.log('hash = '+ hash);
       user.password = hash;
       return fn(null, user)
     });
-  })
+  }) 
 };
+
+
+/* {
+  classMethods: { 
+    validatePassword: function (password, storedPwd, done, user) {
+      bcrypt.compare(password, storedPwd, function (err, isMatch) {
+        if (err) console.log(err)
+        if (isMatch) {
+          return done(null, user)
+        } else {
+          return done(null, false)
+        }
+      });
+    }
+  }
+}, */
