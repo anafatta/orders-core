@@ -41,7 +41,8 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     }
   }, {
-    tableName: 'itemdata'
+    tableName: 'itemdata',
+    timestamps: false
   });
   itemdata.associate = function(db){
  
