@@ -82,6 +82,7 @@ module.exports = function(sequelize, DataTypes) {
       defaultValue: '0'
     }
   }, {
-    tableName: 'storagelocation'
+    tableName: 'storagelocation',
+    timestamps: false
   });
 };

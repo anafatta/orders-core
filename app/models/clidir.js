@@ -61,7 +61,8 @@ module.exports = function(sequelize, DataTypes) {
       }
     }
   }, {
-    tableName: 'clidir'
+    tableName: 'clidir',
+    timestamps: false
   });
   clidir.associate = function (db) {
 

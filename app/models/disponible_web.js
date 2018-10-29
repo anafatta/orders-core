@@ -28,6 +28,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     }
   }, {
-    tableName: 'disponible_web'
+    tableName: 'disponible_web',
+    timestamps: false
   });
 };

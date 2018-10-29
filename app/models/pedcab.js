@@ -116,7 +116,8 @@ module.exports = function(sequelize, DataTypes) {
       defaultValue: '4'
     }
   }, {
-    tableName: 'pedcab'
+    tableName: 'pedcab',
+    timestamps: false
   });
   pedcab.associate = function(db){
 

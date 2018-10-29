@@ -16,6 +16,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     }
   }, {
-    tableName: 'ssecur_doorgroup'
+    tableName: 'ssecur_doorgroup',
+    timestamps: false
   });
 };

@@ -19,6 +19,7 @@ module.exports = function(sequelize, DataTypes) {
       unique: true
     }
   }, {
-    tableName: 'color'
+    tableName: 'color',
+    timestamps: false
   });
 };

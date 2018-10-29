@@ -63,6 +63,7 @@ module.exports = function(sequelize, DataTypes) {
       defaultValue: 'NULL'
     }
   }, {
-    tableName: 'sql'
+    tableName: 'sql',
+    timestamps: false
   });
 };

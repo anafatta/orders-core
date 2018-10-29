@@ -19,7 +19,8 @@ module.exports = function(sequelize, DataTypes) {
       unique: true
     }
   }, {
-    tableName: 'color'
+    tableName: 'color',
+    timestamps: false
   });
   variante.associate = function(db){
     variante.hasMany(db.itemdata,{

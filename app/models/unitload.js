@@ -25,6 +25,7 @@ module.exports = function(sequelize, DataTypes) {
       }
     }
   }, {
-    tableName: 'unitload'
+    tableName: 'unitload',
+    timestamps: false
   });
 };

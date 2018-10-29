@@ -87,6 +87,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     }
   }, {
-    tableName: 'remcabout'
+    tableName: 'remcabout',
+    timestamps: false
   });
 };

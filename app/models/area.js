@@ -13,6 +13,8 @@ module.exports = function(sequelize, DataTypes) {
       defaultValue: 'NULL'
     }
   }, {
-    tableName: 'area'
+    tableName: 'area',
+    timestamps: false
+    
   });
 };

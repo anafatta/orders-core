@@ -57,6 +57,7 @@ module.exports = function(sequelize, DataTypes) {
       defaultValue: '1'
     }
   }, {
-    tableName: 'packcab'
+    tableName: 'packcab',
+    timestamps: false
   });
 };

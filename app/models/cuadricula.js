@@ -13,6 +13,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     }
   }, {
-    tableName: 'cuadricula'
+    tableName: 'cuadricula',
+    timestamps: false
   });
 };

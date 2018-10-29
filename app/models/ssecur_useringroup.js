@@ -13,6 +13,7 @@ module.exports = function(sequelize, DataTypes) {
       primaryKey: true
     }
   }, {
-    tableName: 'ssecur_useringroup'
+    tableName: 'ssecur_useringroup',
+    timestamps: false
   });
 };

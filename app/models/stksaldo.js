@@ -41,6 +41,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     }
   }, {
-    tableName: 'stksaldo'
+    tableName: 'stksaldo',
+    timestamps: false
   });
 };

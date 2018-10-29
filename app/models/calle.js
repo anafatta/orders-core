@@ -26,6 +26,7 @@ module.exports = function(sequelize, DataTypes) {
       defaultValue: '2'
     }
   }, {
-    tableName: 'calle'
+     : 'calle',
+    timestamps: false
   });
 };

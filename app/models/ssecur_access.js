@@ -17,6 +17,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     }
   }, {
-    tableName: 'ssecur_access'
+    tableName: 'ssecur_access',
+    timestamps: false
   });
 };

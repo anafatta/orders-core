@@ -17,6 +17,7 @@ module.exports = function(sequelize, DataTypes) {
     }
   }, {
     tableName: 'vend',
+    timestamps: false
   });
   vend.associate = function (db) {
       vend.hasMany(db.clientes,{

@@ -28,6 +28,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     }
   }, {
-    tableName: 'loghistory'
+    tableName: 'loghistory',
+    timestamps: false
   });
 };

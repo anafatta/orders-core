@@ -56,6 +56,7 @@ module.exports = function(sequelize, DataTypes) {
     }
   }, {
     tableName: 'clientes',
+    timestamps: false
   });
 
   clientes.associate=function (db) {

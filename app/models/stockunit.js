@@ -75,6 +75,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     }
   }, {
-    tableName: 'stockunit'
+    tableName: 'stockunit',
+    timestamps: false
   });
 };

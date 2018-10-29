@@ -49,6 +49,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     }
   }, {
-    tableName: 'ctapencli'
+    tableName: 'ctapencli',
+    timestamps: false
   });
 };

@@ -59,6 +59,7 @@ module.exports = function(sequelize, DataTypes) {
       defaultValue: '1'
     }
   }, {
-    tableName: 'remcab'
+    tableName: 'remcab',
+    timestamps: false
   });
 };

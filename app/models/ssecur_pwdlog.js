@@ -24,6 +24,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     }
   }, {
-    tableName: 'ssecur_pwdlog'
+    tableName: 'ssecur_pwdlog',
+    timestamps: false
   });
 };

@@ -13,6 +13,7 @@ module.exports = function(sequelize, DataTypes) {
       defaultValue: 'NULL'
     }
   }, {
-    tableName: 'ssecur_program'
+    tableName: 'ssecur_program',
+    timestamps: false
   });
 };

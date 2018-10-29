@@ -48,6 +48,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     }
   }, {
-    tableName: 'ssecur_call'
+    tableName: 'ssecur_call',
+    timestamps: false
   });
 };

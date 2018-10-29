@@ -52,7 +52,8 @@ module.exports = function(sequelize, DataTypes) {
       }
     }
   }, {
-    tableName: 'expresos'
+    tableName: 'expresos',
+    timestamps: false
   });
   expresos.associate = function(db) {
     expresos.hasMany(db.clidir,{

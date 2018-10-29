@@ -71,6 +71,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     }
   }, {
-    tableName: 'remcabin'
+    tableName: 'remcabin',
+    timestamps: false
   });
 };

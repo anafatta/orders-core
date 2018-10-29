@@ -64,7 +64,8 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     }
   }, {
-    tableName: 'peditm'
+    tableName: 'peditm',
+    timestamps: false
   });
    peditm.associate = function(db){
      peditm.belongsTo(db.pedcab,{
