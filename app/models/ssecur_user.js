@@ -62,7 +62,11 @@ module.exports = function(sequelize, DataTypes) {
     email: {
       type: DataTypes.CHAR,
       allowNull: true
-    }
+    },
+    pwdhash: {
+      type: DataTypes.BLOB,
+      allowNull: true
+    }  
   }, {
     tableName: 'ssecur_user',
     timestamps: false
