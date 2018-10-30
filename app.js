@@ -18,11 +18,10 @@ app.use(express.static(path.join(__dirname , '../public')));
 console.log('Path :' + path.join(__dirname , 'public'))
 
 //AUTHENTICATION
-
 const passport = require('passport');
 app.use(passport.initialize());
-
 const passportConfig = require('./server/config/passportConfig');
+
 // Require our routes into the application.
 require('./server/routes')(app);
 
@@ -30,13 +29,5 @@ require('./server/routes')(app);
 app.get('*', (req, res) => res.status(200).send({
   message: 'Welcome to the beginning of nothingness * .'+ req.param('ven'),
 }));
-
-
-
-//app.use(express.cookieParser());
-//app.use(express.session({ secret: 'mybestsecret' }))//put this in environment variable
-//app.use(passport.initialize())
-//app.use(passport.session())
-  
 
 module.exports = app;
