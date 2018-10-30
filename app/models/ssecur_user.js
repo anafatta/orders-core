@@ -1,7 +1,7 @@
 /* jshint indent: 2 */
-var bcrypt = require('bcrypt-nodejs');
 
-module.exports = function (sequelize, DataTypes) {
+
+module.exports = function(sequelize, DataTypes) {
   return sequelize.define('ssecur_user', {
     nro: {
       type: DataTypes.INTEGER,
@@ -74,6 +74,4 @@ module.exports = function (sequelize, DataTypes) {
     freezeTableName: true
   });
 };
-
-
 
