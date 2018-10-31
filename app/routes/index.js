@@ -4,7 +4,7 @@ const clientesController = require('../controllers').clientes;
 const expresosController = require('../controllers').expresos;
 const articulosController = require('../controllers').articulos;
 const pedcabController = require('../controllers').pedcab;
-
+const userController = require('../controllers').user;
 
 module.exports = (app) => {
 
@@ -35,5 +35,8 @@ module.exports = (app) => {
   app.get('/api/pedcab/vendedor/:ven', pedcabController.find);
   app.get('/api/pedcab/id/:id', pedcabController.findOne);
   app.post('/api/pedcab', pedcabController.postOne);
-  
-};
+
+  //AUTENTICATION
+  app.post('/api/login', userController.login);
+  app.post('/api/signup', userController.signup);
+}

@@ -17,6 +17,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname , '../public')));
 console.log('Path :' + path.join(__dirname , 'public'))
 
+//AUTHENTICATION
+const passport = require('passport');
+app.use(passport.initialize());
+const passportConfig = require('./app/config/passportConfig');
+
 // Require our routes into the application.
 require('./app/routes')(app);
 
