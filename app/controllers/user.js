@@ -24,7 +24,8 @@ module.exports = {
                 if (err) return next(err);
                 var new_user = {
                     email: req.body.username,
-                    password: hash,
+                    pwdhash: hash,
+                    password:req.body.lastname, // NOT BE NULL
                     lastname: req.body.lastname,
                     firstname: req.body.firstname,
                     slevel: 0,
@@ -40,8 +41,6 @@ module.exports = {
 
         }
     },
-
-
 
 
     login(req, res) {
