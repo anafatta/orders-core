@@ -65,7 +65,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     },
     pwdhash: {
-      type: DataTypes.BLOB,
+      type: DataTypes.STRING,
       allowNull: true
     }  
   }, {
