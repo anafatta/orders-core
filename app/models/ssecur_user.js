@@ -1,5 +1,6 @@
 /* jshint indent: 2 */
 
+
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('ssecur_user', {
     nro: {
@@ -69,6 +70,8 @@ module.exports = function(sequelize, DataTypes) {
     }  
   }, {
     tableName: 'ssecur_user',
-    timestamps: false
+    timestamps: false,
+    freezeTableName: true
   });
 };
+
