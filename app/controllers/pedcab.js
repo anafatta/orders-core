@@ -1,4 +1,6 @@
 const db = require('../models');
+const Request = require("request");
+
 /*
 const Articulos = require('../models').articulo;
 const ItemData = require('../models').itemdata;
@@ -128,10 +130,83 @@ module.exports={
         }
 
         console.log('att = '+ JSON.stringify(att));
+        return db.pedcab.findOne(att).then (pedcab => {
+            //let pedido=JSON.parse(pedcab)
+            //console.log('TIPO = ' + typeof(pedcab))
+            
+            //pedcab.peditms.forEach(element => {
+                //console.log('element antes = '+ JSON.stringify(element));
+                //console.log('TIPO = ' + typeof(element))
+                //for (var i in pedcab.peditms){
+                //    pedcab.peditms[i].img = "**************";
+                //console.log('Imagaen despues = '+ JSON.stringify(pedcab.peditms[i]));
+                /*console.log('Variante despues = '+ JSON.stringify(xx));
+                console.log('xx solo = '+ xx);
+                */
+               ROOT_URL = 'https://simsiroglu.com.ar/sim/wp-content/themes/shk/productgallery.php?action=getimg';            
+            
+                    const ped={
+                            id: pedcab.id,
+                            nro: pedcab.nro,
+                            fem: pedcab.fem,
+                            ven: pedcab.ven,
+                            cli: pedcab.cli,
+                            conven:pedcab.conven,
+                            clidir:pedcab.clidir,
+                            cliente:pedcab.cliente,
+                            vend:pedcab.vend,
+                            address:pedcab.address,
+                            peditms:[]
+                         } 
+                                
+                        var promesas= []
+                        for (var i in pedcab.peditms){
+                            let item = pedcab.peditms[i]
+                            console.log('Articulo= ' + item.itemdatum.art.codfac+' Color '+ item.itemdatum.variante.codigo)
+                            // Request.get(this.ROOT_URL + '&codigo=' + item.itemdatum.art.codfac + '&color=' + item.itemdatum.variante.codigo, (error, response, body) => {
+                                promesas[i] = new Promise(function(resolve, reject) {
+                                    Request.get(this.ROOT_URL + '&codigo=' + '102' + '&color=' + '100', (error, response, body) => {
+                                if(error) {
+                                    //return console.log(error);
+                                    reject(error)
+                                } 
+                                //console.log('body = '+ JSON.stringify(body));
+                                //console.log('error = '+ JSON.stringify(error));
+                                // console.log('response = '+ JSON.stringify(response));
+                                console.log(item.itemdata + ' ' + ped.id)                                
+                                ped.peditms.push({
+                                    "itemdata"  : item.itemdata,
+                                    "can_ped"   : item.can_ped,
+                                    "can_aut"   : item.can_aut,
+                                    "pre_ped"   : item.pre_ped,
+                                    "pre_aut"   : item.pre_aut,
+                                    "itemdatum" : item.itemdatum,
+                                    "imagen"   : body
+                                                   
+                                })
+                                resolve(item.itemdata)
+                            })   
+                            })
+                        }
+                        console.log('promesas ' + promesas.length);
+                        Promise.all(promesas)
+                        .then(function(results) {
+                            // console.log(results)
+                            res.status(201).send(ped);
+                           }).catch(function(error) {
+                             console.log(error);
+                             res.status(400).send(error)     
+                           });;  
+          // console.log('pedcab = '+ JSON.stringify(pedcab));
+          // res.status(201).send(ped)
+        })
+        //.then(pedcab => )
+        //.catch(error => res.status(400).send(error));
+ 
 
-        return db.pedcab.findOne(att)
-        .then(pedcab => res.status(201).send(pedcab))
-        .catch(error => res.status(400).send(error));
+        // return db.pedcab.findOne(att)
+        //.then(pedcab => res.status(201).send(pedcab))
+        //.catch(error => res.status(400).send(error));
     }, 
     
     postOne(req,res){
