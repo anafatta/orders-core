@@ -7,6 +7,7 @@ const Variante = require('../models').variante;
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 
+
 /*ItemData.belongsTo(Articulos,{
     as:'art',
     foreignKey:'articulo',
@@ -54,11 +55,11 @@ module.exports={
       
         if (req.params.id){
             att['attributes']=['id', 'codfac', 'nom'];
-            att['include']=[{model:db.itemdata,include:[{model:db.variante}]}]
+            //att['include']=[{model:db.itemdata,include:[{model:db.variante}]}]
             if (!att['where']){att['where']={}}  
             att['where']={id: req.params.id}
         }
-
+    
         //console.log('att = '+ JSON.stringify(att));
         return db.articulo.findOne(att)
         .then(articulo => {
@@ -72,36 +73,48 @@ module.exports={
                 variantes : []
             }
             console.log("articulo.codfac = " + articulo.codfac)
+
+            var xitemdata=[]
             var promesas= []
-            for (var i in articulo.itemdata){
-                promesas[i] = new Promise(function(resolve, reject) {
-                    
-                    //console.log('&codigo=' + product.codfac + '&color=' + articulo.itemdata[i].variante.codigo)
-                    Request.get(this.ROOT_URL + '&codigo=' + product.codfac + '&color=' + articulo.itemdata[i].variante.codigo, (error, response, body) => {
-                    //Request.get(this.ROOT_URL + '&codigo=' + '102' + '&color=' + '100', (error, response, body) => {
-                        if(error) {
-                           reject(error)
-                         } 
-
-                        product.variantes.push({
-                            itemdata_id : articulo.itemdata[i].id,
-                            codigo      : articulo.itemdata[i].variante.codigo,
-                            nom         : articulo.itemdata[i].variante.nom,
-                            imagen      : body
+            qq="select * from fndisp("+ articulo.id +")"
+            db.sequelize.query (qq,{ type : db.sequelize.QueryTypes.SELECT})
+            .then(data => {
+                xitemdata=data;
+                for (var i in xitemdata) {
+                    console.log(xitemdata[i].id+' '+xitemdata[i].codigo+' '+xitemdata[i].nom  +' '+ xitemdata[i].pza)
+                    promesas[i] = new Promise(function(resolve, reject) {
+                        let n=i; // for remain the value after promise
+                        Request.get(this.ROOT_URL + '&codigo=' + product.codfac + '&color=' + xitemdata[i].codigo, (error, response, body) => {
+                            if(error) {
+                               reject(error)
+                             } 
+    
+                            product.variantes.push({
+                                itemdata_id : xitemdata[n].id,
+                                codigo      : xitemdata[n].codigo,
+                                nom         : xitemdata[n].nom,
+                                pza         : xitemdata[n].pza,
+                                imagen      : body
+                            })
+                            resolve(xitemdata[n].id)                              
                         })
-                        resolve(articulo.itemdata[i].id)                              
                     })
-                })
-            }
+                }
+                Promise.all(promesas)
+                .then(function(results) {
+                    console.log(JSON.stringify(product))
+                    res.status(201).send(product);
+                   })
+                .catch(function(error) {
+                     console.log(error);
+                     res.status(400).send(error)     
+                   });  
+                console.log('success ...'  ) 
+    
+            }).catch(error => {
+                console.log('error ...' + error)
+            });
 
-            Promise.all(promesas)
-            .then(function(results) {
-                // console.log(results)
-                res.status(201).send(product);
-               }).catch(function(error) {
-                 console.log(error);
-                 res.status(400).send(error)     
-               });  
         })
     }
 
