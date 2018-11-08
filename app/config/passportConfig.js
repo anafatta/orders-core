@@ -10,11 +10,18 @@ passport.use(new JWTStrategy({
         secretOrKey   : config.jwt_secret // Put this value in a environmet var
     },
     function (jwtPayload, cb) {
-        return UserModel.findOneById(jwtPayload.id)
+        att = {};
+        att['attributes'] = ['nro', 'email', 'firstname', 'lastname', 'pwdhash'];
+        if (!att['where']) { att['where'] = {} }
+        att['where'] = { nro: jwtPayload.id }
+        db.ssecur_user.findOne(att)
             .then(user => {
+                console.log(user)
+                console.log(jwtPayload)
                 return cb(null, user);
             })
             .catch(err => {
+                console.log('error' + err)
                 return cb(err);
             });
     }

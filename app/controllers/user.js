@@ -80,7 +80,7 @@ module.exports = {
                         return res.status(500).send({ auth: false, message: message.auth.unexpected_error })
                     }
                     if (isValid) {
-                        var token = jwt.sign({ id: user._id }, config.jwt_secret, {
+                        var token = jwt.sign({ id: user.nro }, config.jwt_secret, {
                             expiresIn: 86400 // expires in 24 hours
                         });
                         return res.status(200).send({ auth: true, token: token });
@@ -128,7 +128,7 @@ module.exports = {
                         }
                         db.ssecur_user.update({ pwdhash: hash }, { where: { email: username } })
                             .then(user => {
-                                var token = jwt.sign({ id: user._id }, config.jwt_secret, {
+                                var token = jwt.sign({ id: user.nro }, config.jwt_secret, {
                                     expiresIn: 86400 // expires in 24 hours
                                 });
                                 return res.status(200).send({ auth: true, token: token });
@@ -148,6 +148,11 @@ module.exports = {
             console.log('error in user findOne: ' + error)
             res.status(500).send({ auth: false , message :  message.auth.unexpected_error})
         });
+    },
+    protected(req, res) {
+
+        console.log("entro a la funcion protegida")
+        return res.status(200).send({ message : 'entro a la funcion protegida'});
     }
 
 
