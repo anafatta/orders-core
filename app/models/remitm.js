@@ -4,8 +4,9 @@ module.exports = function(sequelize, DataTypes) {
   return sequelize.define('remitm', {
     id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-      defaultValue: 'nextval(seqremitm::regclass)',
+      allowNull: true,      
+      autoIncrement: true, 
+      //      defaultValue: 'nextval(seqremitm::regclass)',
       primaryKey: true
     },
     idremcab: {

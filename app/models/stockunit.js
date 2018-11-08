@@ -4,8 +4,9 @@ module.exports = function(sequelize, DataTypes) {
   return sequelize.define('stockunit', {
     id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-      defaultValue: 'nextval(seqstockunit::regclass)',
+      allowNull: true,       
+      autoIncrement: true, 
+      //      defaultValue: 'nextval(seqstockunit::regclass)',
       primaryKey: true
     },
     itemdata: {

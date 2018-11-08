@@ -4,8 +4,9 @@ module.exports = function(sequelize, DataTypes) {
   clidir = sequelize.define('clidir', {
     id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-      defaultValue: "nextval('seqclidir'::regclass)",
+      allowNull: true,
+      autoIncrement: true,
+//    defaultValue: "nextval('seqclidir'::regclass)",
       primaryKey: true
     },
     idcli: {

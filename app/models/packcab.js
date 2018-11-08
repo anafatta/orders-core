@@ -4,8 +4,9 @@ module.exports = function(sequelize, DataTypes) {
   return sequelize.define('packcab', {
     id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-      defaultValue: 'nextval(seqpackcab::regclass)',
+      allowNull: true,
+      autoIncrement: true,
+       //            allowNull: true,       autoIncrement: true, //          (seqpackcab::regclass)',
       primaryKey: true
     },
     obs: {

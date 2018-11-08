@@ -4,8 +4,9 @@ module.exports = function(sequelize, DataTypes) {
   return sequelize.define('calle', {
     id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-      defaultValue: 'nextval(seqcalle::regclass)',
+      allowNull: true,
+      autoIncrement: true,
+//      defaultValue: 'nextval(seqcalle::regclass)',
       primaryKey: true
     },
     nom: {

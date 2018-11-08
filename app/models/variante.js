@@ -4,8 +4,9 @@ module.exports = function(sequelize, DataTypes) {
   variante = sequelize.define('variante', {
     id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-      defaultValue: 'nextval(seqcolor::regclass)',
+      allowNull: true,       
+      autoIncrement: true, 
+      //      defaultValue: 'nextval(seqcolor::regclass)',
       primaryKey: true
     },
     nom: {

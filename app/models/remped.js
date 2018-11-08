@@ -4,8 +4,9 @@ module.exports = function(sequelize, DataTypes) {
   return sequelize.define('remped', {
     id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-      defaultValue: 'nextval(seqremped::regclass)',
+      allowNull: true,       
+      autoIncrement: true, 
+      //      defaultValue: 'nextval(seqremped::regclass)',
       primaryKey: true
     },
     remcab_id: {

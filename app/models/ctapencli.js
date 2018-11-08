@@ -5,7 +5,8 @@ module.exports = function(sequelize, DataTypes) {
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      defaultValue: 'nextval(seqctacli::regclass)',
+      // autoIncrement: true,
+      //          (seqctacli::regclass)',
       primaryKey: true
     },
     cli: {

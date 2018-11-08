@@ -4,8 +4,9 @@ module.exports = function(sequelize, DataTypes) {
   return sequelize.define('unitload', {
     id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-      defaultValue: 'nextval(sequnitload::regclass)',
+      allowNull: true,       
+      autoIncrement: true, 
+      //      defaultValue: 'nextval(sequnitload::regclass)',
       primaryKey: true
     },
     unitloadtype: {

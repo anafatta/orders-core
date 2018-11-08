@@ -4,8 +4,9 @@ module.exports = function(sequelize, DataTypes) {
   pedcab = sequelize.define('pedcab', {
     id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-      defaultValue: "nextval('seqpedcab'::regclass)",
+      allowNull: true,
+      autoIncrement: true,
+      //defaultValue:"DEFAULT", //"nextval('seqpedcab'::regclass)",
       primaryKey: true
     },
     nro: {

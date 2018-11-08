@@ -4,8 +4,9 @@ module.exports = function(sequelize, DataTypes) {
   return sequelize.define('storagelocation', {
     id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-      defaultValue: 'nextval(seqstoragelocation::regclass)',
+      allowNull: true,       
+      autoIncrement: true, 
+      //            allowNull: true,       autoIncrement: true, //      defaultValue: 'nextval(seqstoragelocation::regclass)',
       primaryKey: true
     },
     checkcapacity: {

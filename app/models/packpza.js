@@ -4,8 +4,9 @@ module.exports = function(sequelize, DataTypes) {
   return sequelize.define('packpza', {
     id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-      defaultValue: 'nextval(seqpackpza::regclass)',
+      allowNull: true,
+      autoIncrement: true,
+       //      defaultValue: 'nextval(seqpackpza::regclass)',
       primaryKey: true
     },
     packcab_id: {

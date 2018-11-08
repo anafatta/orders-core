@@ -4,8 +4,9 @@ module.exports = function(sequelize, DataTypes) {
   articulo = sequelize.define('articulo', {
     id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-      defaultValue: 'nextval(seqart::regclass)',
+      allowNull: true,
+      autoIncrement: true,
+//      defaultValue: 'nextval(seqart::regclass)',
       primaryKey: true
     },
     nom: {

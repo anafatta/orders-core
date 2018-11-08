@@ -5,8 +5,9 @@ module.exports = function(sequelize, DataTypes) {
   clientes = sequelize.define('clientes', {
     id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-      defaultValue: "nextval('seqcli'::regclass)",
+      allowNull: true,
+      autoIncrement: true,
+//      defaultValue: "nextval('seqcli'::regclass)",
       primaryKey: true
     },
     nom: {

@@ -4,8 +4,9 @@ module.exports = function(sequelize, DataTypes) {
   return sequelize.define('stksaldo', {
     id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-      defaultValue: 'nextval(seqstksaldos::regclass)',
+      allowNull: true,       
+      autoIncrement: true, 
+      //      defaultValue: 'nextval(seqstksaldos::regclass)',
       primaryKey: true
     },
     deposito: {
