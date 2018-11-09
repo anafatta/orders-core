@@ -34,5 +34,7 @@
     "dialectOptions": {
         "ssl": true
     }
-  }
+  },
+  "salt_work_factor" : 12,
+  "jwt_secret" : "Sh1v4N4t4rj4"
 }

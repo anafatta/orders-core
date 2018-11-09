@@ -5,6 +5,7 @@ const expresosController = require('../controllers').expresos;
 const articulosController = require('../controllers').articulos;
 const pedcabController = require('../controllers').pedcab;
 const userController = require('../controllers').user;
+const passport = require('passport');
 
 module.exports = (app) => {
 
@@ -39,5 +40,6 @@ module.exports = (app) => {
   //AUTENTICATION
   app.post('/api/login', userController.login);
   app.post('/api/signup', userController.signup);
-  app.put('/api/changepass', userController.changePassword)
+  app.put('/api/changepass', userController.changePassword);
+  app.post('/api/protected', passport.authenticate('jwt', {session: false}), userController.protected );
 }
