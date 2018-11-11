@@ -2003,8 +2003,8 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 var CustomersService = /** @class */ (function () {
     function CustomersService(httpClient) {
         this.httpClient = httpClient;
-        // ROOT_URL = 'https://enigmatic-cove-26128.herokuapp.com/api';
-        this.ROOT_URL = 'http://localhost.:8000/api';
+        this.ROOT_URL = 'https://enigmatic-cove-26128.herokuapp.com/api';
+        // ROOT_URL = 'http://localhost.:8000/api';
         // ROOT_URL = 'http://192.168.1.100:8000/api';
         this.GET_CUSTOMERS_URL = '/clientes/vendedor/';
         this.GET_CUSTOMER_URL = '/clientes/id/';
@@ -2166,8 +2166,8 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 var OrdersService = /** @class */ (function () {
     function OrdersService(httpClient) {
         this.httpClient = httpClient;
-        // ROOT_URL = 'https://enigmatic-cove-26128.herokuapp.com/api';
-        this.ROOT_URL = 'http://localhost.:8000/api';
+        this.ROOT_URL = 'https://enigmatic-cove-26128.herokuapp.com/api';
+        // ROOT_URL = 'http://localhost.:8000/api';
         // ROOT_URL = 'http://192.168.1.100:8000/api';
         this.GET_ORDERS_URL = '/pedcab/vendedor/';
         this.GET_ORDER_URL = '/pedcab/id/';
@@ -2280,13 +2280,13 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 // import { AppState } from '../store/reducers';
 // import { appReducerState }  from '../store/reducers/appReducers';
 var UserService = /** @class */ (function () {
+    // ROOT_URL = 'http://lumasoft.dyndns.org:8000/api';
+    // ROOT_URL = 'http://localhost.:8000/api';
+    //   ROOT_URL = 'http://192.168.1.100:8000/api';
     // constructor(private store: Store<AppState>) { }
     function UserService(httpClient) {
         this.httpClient = httpClient;
-        // ROOT_URL = 'https://enigmatic-cove-26128.herokuapp.com/api';
-        // ROOT_URL = 'http://lumasoft.dyndns.org:8000/api';
-        // ROOT_URL = 'http://localhost.:8000/api';
-        this.ROOT_URL = 'http://192.168.1.100:8000/api';
+        this.ROOT_URL = 'https://enigmatic-cove-26128.herokuapp.com/api';
     }
     UserService.prototype.getSellers = function () {
         return this.httpClient.get(this.ROOT_URL + '/vend');
