@@ -6,6 +6,7 @@ const Variante = require('../models').variante;
 */
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
+var   kk = new Array();
 
 
 /*ItemData.belongsTo(Articulos,{
@@ -29,6 +30,19 @@ Variante.hasMany(ItemData,{
 */
 
 module.exports={
+    async loadUrls(req,res){
+        await Request.get("https://simsiroglu.com.ar/sim/wp-content/themes/shk/productgallery.php?action=getimg", (error, response, body) => {
+           console.log("Adentro de loadUrls")    
+           //console.log(JSON.stringify(body))
+           
+           kk=JSON.parse(body) ;
+           for (var i = 0; i < kk.length ; i+=1) {
+           //console.log(i+' '+kk[i].codigo+' '+kk[i].color) 
+        }
+            
+        });  
+        return(kk)
+    },     
     find(req,res){
         console.log('id: '+ req.params.id)
         console.log('nom: '+ req.params.nom)
@@ -59,7 +73,7 @@ module.exports={
             if (!att['where']){att['where']={}}  
             att['where']={id: req.params.id}
         }
-    
+            
         //console.log('att = '+ JSON.stringify(att));
         return db.articulo.findOne(att)
         .then(articulo => {
@@ -72,53 +86,57 @@ module.exports={
                 nom       : articulo.nom,
                 variantes : []
             }
-            console.log("articulo.codfac = " + articulo.codfac)
-
+            
             var xitemdata=[]
-            var promesas= []
+            
+            // var promesas= []
             qq="select * from fndisp("+ articulo.id +")"
             db.sequelize.query (qq,{ type : db.sequelize.QueryTypes.SELECT})
             .then(data => {
                 xitemdata=data;
                 for (var i in xitemdata) {
-                    console.log(xitemdata[i].id+' '+xitemdata[i].codigo+' '+xitemdata[i].nom  +' '+ xitemdata[i].pza)
-                    promesas[i] = new Promise(function(resolve, reject) {
-                        let n=i; // for remain the value after promise
-                        Request.get(this.ROOT_URL + '&codigo=' + product.codfac + '&color=' + xitemdata[i].codigo, (error, response, body) => {
-                            if(error) {
-                               reject(error)
-                             } 
-    
-                            product.variantes.push({
-                                itemdata_id : xitemdata[n].id,
-                                codigo      : xitemdata[n].codigo,
-                                nom         : xitemdata[n].nom,
-                                pza         : xitemdata[n].pza,
-                                imagen      : body
-                            })
-                            resolve(xitemdata[n].id)                              
-                        })
+                    // console.log(xitemdata[i].id+' '+xitemdata[i].codigo+' '+xitemdata[i].nom  +' '+ xitemdata[i].pza)
+                    // promesas[i] = new Promise(function(resolve, reject) {
+                    //    let n=i; // for remain the value after promise
+                    //    Request.get(this.ROOT_URL + '&codigo=' + product.codfac + '&color=' + xitemdata[i].codigo, (error, response, body) => {
+                    //        if(error) {
+                    //           reject(error)
+                    //         } 
+                    // console.log("articulo.codfac = " + articulo.codfac)
+                    img=kk.find(element =>{
+                        //console.log('element = ' + JSON.stringify(element))
+                        return (element.codigo == articulo.codfac) && ((element.color).trim() == (xitemdata[i].codigo).trim())
+                    })
+                    if (!img) {image_url=''}else{image_url=img.image_url}
+
+                    product.variantes.push({
+                        itemdata_id : xitemdata[i].id,
+                        codigo      : xitemdata[i].codigo,
+                        nom         : xitemdata[i].nom,
+                        pza         : xitemdata[i].pza,
+                        imagen      : image_url
                     })
                 }
-                Promise.all(promesas)
-                .then(function(results) {
-                    console.log(JSON.stringify(product))
-                    res.status(201).send(product);
-                   })
-                .catch(function(error) {
-                     console.log(error);
-                     res.status(400).send(error)     
-                   });  
-                console.log('success ...'  ) 
+            })
+            .then(function(results) {
+                // console.log(JSON.stringify(product))
+                res.status(201).send(product)
+            })
     
-            }).catch(error => {
-                console.log('error ...' + error)
-            });
-
         })
+
+        .catch(function(error) {
+            console.log(error);
+            res.status(400).send(error);     
+        })  
+                //Promise.all(promesas)
     }
 
-/*
+      
+};    
+
+
+  /*
         return db.articulo.findAll(att)
         .then(articulos => {
             const resObj=articulos.map(articulo => {
@@ -156,4 +174,3 @@ module.exports={
         .catch(error => res.status(400).send(error));
     },
 */    
-};

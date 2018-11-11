@@ -7,6 +7,9 @@ const pedcabController = require('../controllers').pedcab;
 const userController = require('../controllers').user;
 
 module.exports = (app) => {
+  var imagenes=articulosController.loadUrls()
+  // console.log("======================IMAGENES")
+  // console.log(imagenes)
 
   app.get('/api', (req, res) => res.status(200).send({
     message: 'Welcome to the Pedidos API!'+ req.param('ven'),
