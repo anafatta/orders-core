@@ -14,7 +14,7 @@ Clientes.hasMany(CliDir,{
 
 module.exports={
     find(req,res){
-        console.log('nro de vendedor: '+ req.params.ven)
+        // console.log('nro de vendedor: '+ req.params.ven)
         console.log('nom: '+ req.params.nom)
 
         att={};
