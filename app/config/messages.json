@@ -1,0 +1,9 @@
+{
+    "auth": {
+        "invalid_pass": "La contraseña es inválida",
+        "invalid_user": "EL usuario es inválido",
+        "user_already_exists": "EL usuario ya existe",
+        "unexpected_error": "Se produjo un error insesperado.",
+        "user_created" : "El usuario ha sido creado existosamente" 
+    }
+}
