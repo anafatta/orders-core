@@ -1,4 +1,8 @@
+Esto no va mas. usar autonumber=true;
+
 solucion problema secuencia postgres
+
+
 
 Agregar en node_module/squelize/lib/sql-string.js
 if (dialect === 'postgres' || dialect === 'sqlite' || dialect === 'mssql') {
