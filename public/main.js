@@ -2038,7 +2038,7 @@ var CustomersService = /** @class */ (function () {
         console.log(data);
         sessionStorage.setItem('ctype', JSON.stringify(data));
         var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]().set('Content-Type', 'application/json');
-        return this.httpClient.put(this.ROOT_URL + this.CUSTOMERS_URL, JSON.stringify(data), { headers: headers });
+        return this.httpClient.put(this.ROOT_URL + this.GET_CUSTOMER_URL + data.id, JSON.stringify(data), { headers: headers });
     };
     CustomersService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
