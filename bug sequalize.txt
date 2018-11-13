@@ -1,7 +1,5 @@
 Esto no va mas. usar autonumber=true;
 
-Esto ya es para probar
-
 solucion problema secuencia postgres
 
 
