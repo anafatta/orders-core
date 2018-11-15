@@ -2,6 +2,7 @@ const depositosController = require('../controllers').depositos;
 const vendController = require('../controllers').vend;
 const clientesController = require('../controllers').clientes;
 const expresosController = require('../controllers').expresos;
+const provinciaController = require('../controllers').provincia;
 const articulosController = require('../controllers').articulos;
 const pedcabController = require('../controllers').pedcab;
 const userController = require('../controllers').user;
@@ -35,6 +36,8 @@ module.exports = (app) => {
 
   app.get('/api/expresos', expresosController.find);
   app.get('/api/expresos/id/:id', expresosController.findOne);
+  app.get('/api/provincia', provinciaController.find);
+  app.get('/api/provincia/id/:id', provinciaController.findOne);
 
   app.get('/api/pedcab/vendedor/:ven', pedcabController.find);
   app.get('/api/pedcab/id/:id', pedcabController.findOne);
