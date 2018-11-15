@@ -51,7 +51,18 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.DOUBLE,
       allowNull: true,
       defaultValue: '0'
+    },
+    precio:{
+      type: DataTypes.DECIMAL(16,4),
+      allowNull: true,
+      defaultValue:0.00
+    },
+    margen:{
+      type: DataTypes.DECIMAL(16,4),
+      allowNull: true,
+      defaultValue:0.00
     }
+
   }, {
     tableName: 'articulo',
     timestamps: false
