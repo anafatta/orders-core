@@ -54,7 +54,12 @@ module.exports = function(sequelize, DataTypes) {
     blk: {
       type: DataTypes.INTEGER,
       allowNull: true
-    }
+    },
+    cat: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
+
   }, {
     tableName: 'clientes',
     timestamps: false
