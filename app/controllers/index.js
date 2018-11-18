@@ -6,6 +6,7 @@ const pedcab    = require('./pedcab');
 const expresos  = require('./expresos');
 const provincia = require('./provincia');
 const conpag    = require('./conpag');
+const precio    = require('./precio');
 const user      = require('./user');
 
 module.exports = {
@@ -17,5 +18,6 @@ module.exports = {
   expresos,
   provincia,
   conpag,
+  precio,
   user
 };

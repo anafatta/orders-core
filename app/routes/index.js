@@ -4,6 +4,7 @@ const clientesController = require('../controllers').clientes;
 const expresosController = require('../controllers').expresos;
 const provinciaController = require('../controllers').provincia;
 const conpagController = require('../controllers').conpag;
+const precioController = require('../controllers').precio;
 const articulosController = require('../controllers').articulos;
 const pedcabController = require('../controllers').pedcab;
 const userController = require('../controllers').user;
@@ -45,9 +46,12 @@ module.exports = (app) => {
   app.get('/api/conpag', conpagController.find);
   app.get('/api/conpag/id/:id', conpagController.findOne);
 
+  app.get('/api/precio/id_articulo/:id_articulo/id_conpag/:id_conpag/id_cliente/:id_cliente', precioController.findOne);
+
   app.get('/api/pedcab/vendedor/:ven', pedcabController.find);
   app.get('/api/pedcab/id/:id', pedcabController.findOne);
   app.post('/api/pedcab', pedcabController.postOne);
+
 
   //AUTENTICATION
   app.post('/api/login', userController.login);

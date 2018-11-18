@@ -59,6 +59,11 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER,
       allowNull: true
     },
+    descuento:{
+      type: DataTypes.DECIMAL(12,4),
+      allowNull: true,
+      defaultValue:0.00
+    }
 
   }, {
     tableName: 'clientes',
