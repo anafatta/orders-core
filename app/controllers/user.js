@@ -83,7 +83,7 @@ module.exports = {
                         var token = jwt.sign({ id: user.nro }, config.jwt_secret, {
                             expiresIn: 86400 // expires in 24 hours
                         });
-                        return res.status(200).send({ auth: true, token: token });
+                        return res.status(200).send({ auth: true, userId: user.nro, firstname: user.firstname, lastname : user.lastname,  token: token });
                     } else {
                         return res.status(400).send({ auth: false, message: message.auth.invalid_pass })
                     }
@@ -131,7 +131,7 @@ module.exports = {
                                 var token = jwt.sign({ id: user.nro }, config.jwt_secret, {
                                     expiresIn: 86400 // expires in 24 hours
                                 });
-                                return res.status(200).send({ auth: true, token: token });
+                                return res.status(200).send({ auth: true , userId: user.nro, firstname: user.firstname, lastname : user.lastname, token: token });
                             })
                             .catch(error => {
                                 console.log('error in user update: ' + error)
