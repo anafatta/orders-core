@@ -8,4 +8,14 @@ module.exports = {
         .catch(error => res.status(400).send(error));
         att['order']=[['nom','ASC']]
     },
+
+    findOne(req, res){
+    delete att.attributes
+    att['attributes'] = ['id', 'nom'];
+    if (!att['where']) { att['where'] = {} }
+    att['where'] = { usr : req.params.userId }
+    db.vend.findOne(att)
+        .then(seller =>  res.status(201).send(seller))
+        .catch(error => res.status(400).send(error));
+    },
 };

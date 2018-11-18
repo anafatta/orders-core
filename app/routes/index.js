@@ -19,6 +19,7 @@ module.exports = (app) => {
   //app.post('/api/depositos', depositosController.create);
 
   app.get('/api/vend', vendController.findAll);
+  app.get('/api/vend/:userId', vendController.findOne);
 
   app.get('/api/clientes', clientesController.find);
   app.get('/api/clientes/name/:nom', clientesController.find);
