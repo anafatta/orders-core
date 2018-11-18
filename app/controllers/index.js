@@ -1,11 +1,12 @@
 const depositos = require('./depositos');
-const vend = require('./vend');
-const clientes = require('./clientes');
+const vend      = require('./vend');
+const clientes  = require('./clientes');
 const articulos = require('./articulos');
-const pedcab = require('./pedcab');
-const expresos = require('./expresos');
+const pedcab    = require('./pedcab');
+const expresos  = require('./expresos');
 const provincia = require('./provincia');
-const user = require('./user');
+const conpag    = require('./conpag');
+const user      = require('./user');
 
 module.exports = {
   depositos,
@@ -15,5 +16,6 @@ module.exports = {
   pedcab,
   expresos,
   provincia,
+  conpag,
   user
 };
