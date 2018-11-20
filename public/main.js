@@ -1569,8 +1569,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_user_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../services/user.service */ "./src/app/services/user.service.ts");
 /* harmony import */ var _services_data_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../services/data.service */ "./src/app/services/data.service.ts");
 /* harmony import */ var _services_orders_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../services/orders.service */ "./src/app/services/orders.service.ts");
-/* harmony import */ var _services_sidenav_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../services/sidenav.service */ "./src/app/services/sidenav.service.ts");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _services_otherdata_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../services/otherdata.service */ "./src/app/services/otherdata.service.ts");
+/* harmony import */ var _services_sidenav_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../services/sidenav.service */ "./src/app/services/sidenav.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1586,12 +1587,14 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var CreateOrderComponent = /** @class */ (function () {
-    function CreateOrderComponent(router, dataservice, userService, orderService, sidenavend) {
+    function CreateOrderComponent(router, dataservice, userService, orderService, otherService, sidenavend) {
         this.router = router;
         this.dataservice = dataservice;
         this.userService = userService;
         this.orderService = orderService;
+        this.otherService = otherService;
         this.sidenavend = sidenavend;
         /*Ligthbox */
         this.myImgUrl = 'https://simsiroglu.com.ar/sim/wp-content/uploads/2017/07/polish.png';
@@ -1625,7 +1628,7 @@ var CreateOrderComponent = /** @class */ (function () {
         console.log('Selected value');
         console.log(event);
         this.clientId = event;
-        //this.clientId = '621';
+        // this.clientId = '621';
         this.userService.getClient(this.clientId).subscribe(function (data) {
             _this.selectedClient = data;
             _this.selectedAddress = _this.selectedClient.address[0];
@@ -1648,6 +1651,10 @@ var CreateOrderComponent = /** @class */ (function () {
             else {
                 _this.hasVariantes = false;
             }
+            _this.otherService.getPrecio(_this.articulo.art_id, _this.conven, _this.selectedClient.id).subscribe(function (data) {
+                _this.price = data.precio;
+                console.log('Precio = ' + _this.price);
+            });
             console.log('call getArticuloById works... ' + _this.articulo.art_id + ' ' + _this.variantes.length);
         });
     };
@@ -1722,11 +1729,12 @@ var CreateOrderComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./create-order.component.html */ "./src/app/orders/create-order/create-order.component.html"),
             styles: [__webpack_require__(/*! ./create-order.component.css */ "./src/app/orders/create-order/create-order.component.css")]
         }),
-        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"],
+        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_6__["Router"],
             _services_data_service__WEBPACK_IMPORTED_MODULE_2__["DataService"],
             _services_user_service__WEBPACK_IMPORTED_MODULE_1__["UserService"],
             _services_orders_service__WEBPACK_IMPORTED_MODULE_3__["OrdersService"],
-            _services_sidenav_service__WEBPACK_IMPORTED_MODULE_4__["SidenavService"]])
+            _services_otherdata_service__WEBPACK_IMPORTED_MODULE_4__["OtherdataService"],
+            _services_sidenav_service__WEBPACK_IMPORTED_MODULE_5__["SidenavService"]])
     ], CreateOrderComponent);
     return CreateOrderComponent;
 }());
@@ -2321,6 +2329,7 @@ var OtherdataService = /** @class */ (function () {
         this.Get_Expreso_Id = '/expresos/id/';
         this.Get_Provincia = '/provincia';
         this.Get_Provincia_Id = '/provincia/id/';
+        this.Get_Precio_id = '/precio/id_articulo/';
         this.httpOptions = {
             headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]({
                 'Content-Type': 'application/json'
@@ -2339,6 +2348,12 @@ var OtherdataService = /** @class */ (function () {
     };
     OtherdataService.prototype.getProvincia = function (id) {
         return this.httpClient.get(this.ROOT_URL + this.Get_Provincia_Id + id);
+    };
+    OtherdataService.prototype.getPrecio = function (id_articulo, id_conpag, id_cliente) {
+        return this.httpClient.get(this.ROOT_URL +
+            this.Get_Precio_id + id_articulo +
+            '/id_conpag/' + id_conpag +
+            '/id_cliente/' + id_cliente);
     };
     OtherdataService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
