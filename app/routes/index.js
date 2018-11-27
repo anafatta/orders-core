@@ -8,6 +8,7 @@ const precioController = require('../controllers').precio;
 const articulosController = require('../controllers').articulos;
 const pedcabController = require('../controllers').pedcab;
 const userController = require('../controllers').user;
+const messageController = require('../controllers').messages;
 const passport = require('passport');
 
 module.exports = (app) => {
@@ -58,4 +59,8 @@ module.exports = (app) => {
   app.post('/api/signup', userController.signup);
   app.put('/api/changepass', userController.changePassword);
   app.post('/api/protected', passport.authenticate('jwt', {session: false}), userController.protected );
+
+  //MESSAGES
+  app.post('/api/message', messageController.saveMessageFromTo);
+  app.get('/api/messages/:to', messageController.getMessagesTo);
 }
