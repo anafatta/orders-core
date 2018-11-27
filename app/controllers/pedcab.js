@@ -1,89 +1,8 @@
 const db = require('../models');
 const Request = require("request");
 
-/*
-const Articulos = require('../models').articulo;
-const ItemData = require('../models').itemdata;
-const Variante = require('../models').variante;
-const Clientes = require('../models').clientes;
-const CliDir = require('../models').clidir;
-const PedCab = require('../models').pedcab;
-const PedItm = require('../models').peditm;
-const Vend =require('../models').vend;
-*/
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
-/*
-ItemData.belongsTo(Articulos,{
-    as:'art1',
-    foreignKey:'articulo',
-})
-Articulos.hasMany(ItemData,{
-    foreignKey:'articulo',
-})
-
-ItemData.belongsTo(Variante,{
-//    as:'col',
-    foreignKey:'color',
-})
-
-Variante.hasMany(ItemData,{
-//    as:'col',
-    foreignKey:'color',
-})
-
-CliDir.belongsTo(Clientes,{
-    foreignKey:'idcli',
-})
-
-Clientes.hasMany(CliDir,{
-    foreignKey:'idcli',
-})
-
-Clientes.hasMany(PedCab,{
-    foreignKey:'cli',
-})
-
-PedCab.belongsTo(Clientes,{
-    foreignKey:'cli',
-})
-
-Vend.hasMany(PedCab,{
-    foreignKey:'ven',
-})
-
-PedCab.belongsTo(Vend,{
-    foreignKey:'ven',
-})
-
-CliDir.hasMany(PedCab,{
-    foreignKey:'clidir',
-})
-
-PedCab.belongsTo(CliDir,{
-    as:'address',
-    foreignKey:'clidir',
-})
-
-PedCab.hasMany(PedItm,{
-    foreignKey:'pedcab_id',
-})
-
-PedItm.belongsTo(PedCab,{
-//    as:'items',
-    foreignKey:'pedcab_id',
-})
-
-ItemData.hasMany(PedItm,{
-    foreignKey:'itemdata',
-})
-
-PedItm.belongsTo(ItemData,{
-    //as:'address',
-    foreignKey:'itemdata',
-})
-*/
-//console.log('db=: '+ JSON.stringify(db ['articulo']))
 
 module.exports={
     find(req,res){
@@ -107,7 +26,53 @@ module.exports={
         .then(pedcab => res.status(201).send(pedcab))
         .catch(error => res.status(400).send(error));
     },
+
+    findbyEstadoxVen (req,res){
+        console.log('nro de vendedor: '+ req.params.ven)
+        console.log('nro de estado: '+ req.params.est)
+
+        att={};
+        att['attributes']=['id', 'nro','fem','est'];
+        if (req.params.ven){
+            att['include']=[{model:db.clientes,attributes:['id','nom']},
+                            {model:db.vend,attributes:['id','nom']},
+                            {model:db.clidir, as:'address',
+                                attributes:['id','dir','localidad','codpos','prov']}]
+                                      
+            att['where']={ven:req.params.ven}
+            att['where']['est']={[Op.eq]:req.params.est}
+            att['order']=[['est','ASC'],['id','ASC']]
+        }
+
+        console.log('att = '+ JSON.stringify(att));
+
+        return db.pedcab.findAll(att)
+        .then(pedcab => res.status(201).send(pedcab))
+        .catch(error => res.status(400).send(error));
+    },
+
+    findbyEstado(req,res){
+        console.log('nro de vendedor: '+ req.params.ven)
+        console.log('nro de vendedor: '+ req.params.est)
+
+        att={};
+        att['attributes']=['id', 'nro','fem','est'];
+        att['include']=[{model:db.clientes,attributes:['id','nom']},
+                        {model:db.vend,attributes:['id','nom']},
+                        {model:db.clidir, as:'address',
+                         attributes:['id','dir','localidad','codpos','prov']}]
+        att['where']={est:req.params.est}
+        // att['where']['est']={[Op.eq]:req.params.est}
+        att['order']=[['est','ASC'],['id','ASC']]
     
+
+        console.log('att = '+ JSON.stringify(att));
+
+        return db.pedcab.findAll(att)
+        .then(pedcab => res.status(201).send(pedcab))
+        .catch(error => res.status(400).send(error));
+    },
+
     findOne(req,res){
         console.log('id: '+ req.params.id)
         att={};
@@ -253,7 +218,25 @@ module.exports={
             console.log(err);
         })
 */        
-    }
+    },
+    
+    putEstado(req,res){
+        console.log('id: '+ req.params.id)
+        return db.pedcab.findByPk(req.params.id).then (pedido => {
+            // verificar derechos
+            if (pedido.est==0) {newEst=2}
+            if (pedido.est==2) {newEst=4}
+            // Actualizar obsaut
+            db.pedcab.update(
+                {est: newEst},
+                {returning: true,
+                    where: {id: req.params.id}
+                }
+            )
+            .then(pedido => res.status(201).send(pedido))
+            .catch(error => res.status(400).send(error));
+        })
+    }, 
   
 }
 /*
