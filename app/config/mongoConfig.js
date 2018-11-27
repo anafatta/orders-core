@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
-const uri = "mongodb://localhost:27017/admin";
-mongoose.connect(uri);
+// const uri = "mongodb://localhost:27017/admin";
+const uri ="mongodb+srv://anafatta:Aurelio1@anafatta-awe1b.mongodb.net/test?retryWrites=true"
+
+mongoose.connect(uri, { useNewUrlParser: true });
 
 var connection = mongoose.connection;
 
