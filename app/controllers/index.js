@@ -8,6 +8,7 @@ const provincia = require('./provincia');
 const conpag    = require('./conpag');
 const precio    = require('./precio');
 const user      = require('./user');
+const messages  = require('./messages');
 
 module.exports = {
   depositos,
@@ -19,5 +20,6 @@ module.exports = {
   provincia,
   conpag,
   precio,
-  user
+  user,
+  messages
 };
