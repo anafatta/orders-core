@@ -5,5 +5,9 @@
         "user_already_exists": "EL usuario ya existe",
         "unexpected_error": "Se produjo un error insesperado.",
         "user_created" : "El usuario ha sido creado existosamente" 
+    },
+    "messages" : {
+        "toUserRequired" : "Debe ingresar para quien es el mensaje",
+        "messageRequired" : "Debe ingresar el mensaje"
     }
 }
