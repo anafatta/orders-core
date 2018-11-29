@@ -90,7 +90,17 @@ module.exports={
             var xitemdata=[]
             
             // var promesas= []
+
             qq="select * from fndisp("+ articulo.id +")"
+            if (req.params.id_pack) {
+                if (req.params.id_pack != 0) {
+                    qq='SELECT packitm.itemdata as id, color.codigo as codigo, color.nom as nom, fnstockpack('+ req.params.id_pack +',packitm.itemdata) as pza'+
+                        ' FROM   public.packitm, public.itemdata, public.color ' +
+                        ' WHERE  packitm.itemdata = itemdata.id AND itemdata.color = color.id AND packitm.packcab_id = ' +req.params.id_pack+ ' AND packitm.estado < 30 ' +
+                        ' ORDER BY color.codigo ASC;'
+                }        
+            }
+            
             db.sequelize.query (qq,{ type : db.sequelize.QueryTypes.SELECT})
             .then(data => {
                 xitemdata=data;
@@ -132,7 +142,7 @@ module.exports={
                 //Promise.all(promesas)
     }
 
-      
+    
 };    
 
 

@@ -10,6 +10,7 @@ const precio    = require('./precio');
 const user      = require('./user');
 const messages  = require('./messages');
 const ctacli    = require('./ctacli');
+const packing    = require('./packing');
 
 module.exports = {
   depositos,
@@ -23,5 +24,6 @@ module.exports = {
   precio,
   user,
   messages,
-  ctacli
+  ctacli,
+  packing
 };

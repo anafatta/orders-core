@@ -25,10 +25,10 @@ module.exports={
         }
         //res.status(400).send(error)
     },
-    getCtaPenxClixVen(req,res){
+    getSaldosxVen(req,res){
         att={};   
         if (req.params.id_cli){
-            return db.clientes.findByPk(req.params.id_cli).then (cliente=>{
+            return db.clientes.findAll(req.params.id_cli).then (cliente=>{
                 console.log('db.clientes.findByPk ====> ' + JSON.stringify(cliente))
                 att['attributes']=['id', 'cli','nro','tip','tiptxt','fem','fve','obs','itot','ipen','est'];
                 if (req.params.fve){

@@ -11,6 +11,7 @@ const userController = require('../controllers').user;
 const messageController = require('../controllers').messages;
 const passport = require('passport');
 const ctacliController = require('../controllers').ctacli;
+const packingController = require('../controllers').packing;
 
 module.exports = (app) => {
   var imagenes=articulosController.loadUrls()
@@ -37,6 +38,8 @@ module.exports = (app) => {
   app.get('/api/articulos', articulosController.find);
   app.get('/api/articulos/name/:nom', articulosController.find);
   app.get('/api/articulos/id/:id', articulosController.findOne);
+  app.get('/api/articulos/id/:id/:id_pack', articulosController.findOne);
+  app.get('/api/packings/id/:id_art', packingController.getPackingxArt);
   //app.get('/api/articulos/item/:id', articulosController.findyy);
 
   app.get('/api/expresos', expresosController.find);
