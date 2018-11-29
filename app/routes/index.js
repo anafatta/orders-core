@@ -55,6 +55,7 @@ module.exports = (app) => {
 
 
   //AUTENTICATION
+  app.get('/api/users', userController.findAll)
   app.post('/api/login', userController.login);
   app.post('/api/signup', userController.signup);
   app.put('/api/changepass', userController.changePassword);

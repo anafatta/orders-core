@@ -149,6 +149,14 @@ module.exports = {
             res.status(500).send({ auth: false , message :  message.auth.unexpected_error})
         });
     },
+
+    findAll(req, res) {
+        return db.ssecur_user.findAll({attributes: ['nro', 'firstname', 'lastname'],'order':[['lastname','ASC']]})
+        .then(user => res.status(200).send(user))
+        .catch(error => res.status(400).send(error));
+    },
+
+
     protected(req, res) {
 
         console.log("entro a la funcion protegida")
