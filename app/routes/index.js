@@ -62,6 +62,7 @@ module.exports = (app) => {
   app.get('/api/pedcab/vendedor/:ven/estado/:est', pedcabController.findbyEstadoxVen);
   
   //AUTENTICATION
+  app.get('/api/users', userController.findAll)
   app.post('/api/login', userController.login);
   app.post('/api/signup', userController.signup);
   app.put('/api/changepass', userController.changePassword);
