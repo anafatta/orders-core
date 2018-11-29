@@ -10,6 +10,7 @@ const pedcabController = require('../controllers').pedcab;
 const userController = require('../controllers').user;
 const messageController = require('../controllers').messages;
 const passport = require('passport');
+const ctacliController = require('../controllers').ctacli;
 
 module.exports = (app) => {
   var imagenes=articulosController.loadUrls()
@@ -49,11 +50,17 @@ module.exports = (app) => {
 
   app.get('/api/precio/id_articulo/:id_articulo/id_conpag/:id_conpag/id_cliente/:id_cliente', precioController.findOne);
 
+  // PEDIDOS
   app.get('/api/pedcab/vendedor/:ven', pedcabController.find);
   app.get('/api/pedcab/id/:id', pedcabController.findOne);
   app.post('/api/pedcab', pedcabController.postOne);
-
-
+  
+  
+  //PEDIDOS X ESTADO
+  app.get('/api/pedcab/estado/:est', pedcabController.findbyEstado);
+  app.put('/api/pedcab/id/:id',pedcabController.putEstado);
+  app.get('/api/pedcab/vendedor/:ven/estado/:est', pedcabController.findbyEstadoxVen);
+  
   //AUTENTICATION
   app.get('/api/users', userController.findAll)
   app.post('/api/login', userController.login);
@@ -64,4 +71,10 @@ module.exports = (app) => {
   //MESSAGES
   app.post('/api/message', messageController.saveMessageFromTo);
   app.get('/api/messages/:to', messageController.getMessagesTo);
+
+  //CTA. CTE. CLIENTES
+  app.get('/api/ctacli/cli/:id_cli', ctacliController.getCtaPenxCli);
+  app.get('/api/ctacli/cli/:id_cli/:fve', ctacliController.getCtaPenxCli);
+
+
 }
