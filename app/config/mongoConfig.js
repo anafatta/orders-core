@@ -15,10 +15,12 @@ connection.on('disconnected', function(){
 connection.on('error', function(){
     console.log("MongoDB connection error..")
 });
+/*
 process.on('SIGINT', function(){
     connection.close(function(){
         console.log("MongoDB clossing connection ..")
     });
    
 });
+*/
 module.exports = connection; 
