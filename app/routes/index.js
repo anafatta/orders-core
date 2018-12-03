@@ -76,8 +76,10 @@ module.exports = (app) => {
   app.get('/api/messages/:to', messageController.getMessagesTo);
 
   //CTA. CTE. CLIENTES
-  app.get('/api/ctacli/cli/:id_cli', ctacliController.getCtaPenxCli);
-  app.get('/api/ctacli/cli/:id_cli/:fve', ctacliController.getCtaPenxCli);
-
+  app.get('/api/ctacli/cli/:id_cli', ctacliController.getCtaPenxCli);      // detalle x cliente 
+  app.get('/api/ctacli/cli/:id_cli/:fve', ctacliController.getCtaPenxCli); // detalle x cliente vencido a :fve
+  app.get('/api/ctacli/det0/ven/:vend', ctacliController.getEstadoVen);    // saldos generales  x vendedor
+  app.get('/api/ctacli/det1/ven/:vend', ctacliController.getSaldosxVen);   // saldos x cliente  x vendedor
+  app.get('/api/ctacli/det2/ven/:vend', ctacliController.getCtaPenxVen);   // detalle x cliente x vendedor
 
 }
