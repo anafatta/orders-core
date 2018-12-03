@@ -76,7 +76,7 @@ module.exports={
     findOne(req,res){
         console.log('id: '+ req.params.id)
         att={};
-        att['attributes']=['id', 'nro','fem','ven','cli','conven','clidir'];
+        att['attributes']=['id', 'nro','fem','ven','cli','conven','clidir','id_pack'];
         if (req.params.id){
             att['include']=[
                 {model:db.clientes,attributes:['nom']},
@@ -186,6 +186,7 @@ module.exports={
             clidir:req.body.clidir,
             precio: 1,
             articulo: 1,
+            id_pack:  req.body.id_pack | 0,
             peditms:[]
          } 
 

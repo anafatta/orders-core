@@ -48,7 +48,7 @@ module.exports={
         console.log('nom: '+ req.params.nom)
 
         att={};
-        att['attributes']=['id', 'codfac', 'nom'];
+        att['attributes']=['id', 'codfac', [Sequelize.fn('concat', Sequelize.col('codfac'), ' ', Sequelize.col('nom')),'nom']];
       
         if (req.params.nom){
             if (!att['where']){att['where']={}}  
