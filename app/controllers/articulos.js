@@ -65,7 +65,7 @@ module.exports={
     findOne(req,res){
         console.log('id: '+ req.params.id)
         att={};
-        att['attributes']=['id', 'codfac', 'nom'];
+        att['attributes']=['id', 'codfac', [Sequelize.fn('concat', Sequelize.col('codfac'), ' ', Sequelize.col('nom')),'nom']];
       
         if (req.params.id){
             att['attributes']=['id', 'codfac', 'nom'];
