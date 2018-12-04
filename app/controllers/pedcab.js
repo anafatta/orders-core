@@ -26,6 +26,23 @@ module.exports={
         .then(pedcab => res.status(201).send(pedcab))
         .catch(error => res.status(400).send(error));
     },
+    findByVenGroupByEstado(req,res){
+
+    qq='SELECT pedcab.est, pedest.nom, count(*) ' +
+       'FROM public.clientes, public.pedcab, public.pedest ' +
+       'WHERE clientes.id = pedcab.cli AND ' +
+            'clientes.vend = ' + req.params.ven + ' AND ' +
+            'pedcab.est = pedest.id AND ' +
+//            'pedcab.fem > now()::date-60 AND ' +
+            'pedcab.est < 20 ' +
+        'GROUP BY pedcab.est, pedest.nom '
+        return  db.sequelize.query (qq,{ type : db.sequelize.QueryTypes.SELECT})
+        . then(ctapen => {
+            console.log('ctapen====> ' + JSON.stringify(ctapen))
+            res.status(201).send(ctapen)
+        })
+        .catch(error => res.status(400).send(error));
+    },
 
     findbyEstadoxVen (req,res){
         console.log('nro de vendedor: '+ req.params.ven)

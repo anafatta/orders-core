@@ -60,9 +60,11 @@ module.exports = (app) => {
   
   
   //PEDIDOS X ESTADO
+  
+  app.get('/api/pedcab/estado/:ven',pedcabController.findByVenGroupByEstado);
   app.get('/api/pedcab/estado/:est', pedcabController.findbyEstado);
-  app.put('/api/pedcab/id/:id',pedcabController.putEstado);
-  app.get('/api/pedcab/vendedor/:ven/estado/:est', pedcabController.findbyEstadoxVen);
+  app.put('/api/pedcab/estado/id/:id',pedcabController.putEstado);
+  app.get('/api/pedcab/estado/:est/vendedor/:ven', pedcabController.findbyEstadoxVen);
   
   //AUTENTICATION
   app.get('/api/users', userController.findAll)
