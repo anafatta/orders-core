@@ -32,16 +32,15 @@ module.exports={
                ' WHEN (ctapencli.fve >= now()::date-7) and (ctapencli.fve <= now()::date) then \'2 YELLOW\''+
                ' WHEN ctapencli.fve > now()::date then \'3 GREEN\''+
             ' END AS estado, ' +     
-            ' clientes.vend,  vend.nom, COUNT(*),'+
+            ' COUNT(*),'+
             ' SUM( (ctapencli.itot-ctapencli.ipen) * (CASE WHEN ctapencli.tip < 50 then 1 else -1 end)) ::decimal(16,2) as saldo' +
-        ' FROM public.clientes, public.ctapencli, public.vend'+
+        ' FROM public.clientes, public.ctapencli'+
         ' WHERE' + 
             ' clientes.codfac = ctapencli.cli AND'+
-            ' vend.id = clientes.vend AND'+
             ' clientes.vend = ' +req.params.vend+ ' AND'+
             ' ctapencli.est = 0 AND' +
             ' ctapencli.tip > 0' +
-        ' GROUP BY clientes.vend, vend.nom, estado'+
+        ' GROUP BY clientes.vend, estado'+
         ' ORDER BY estado'
 
 
