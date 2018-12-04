@@ -15,9 +15,19 @@ module.exports = {
         } else {
             return res.status(400).send({ message: "Error - User missing" })
         }
+        if (req.body.fromName) {
+            var fromName = req.body.fromName;
+        } else {
+            return res.status(400).send({ message: "Error - User missing" })
+        }
 
         if (req.body.to) {
             var to = req.body.to;
+        } else {
+            return res.status(400).send({ message: message.messages.toUserRequired })
+        }
+        if (req.body.toName) {
+            var toName = req.body.toName;
         } else {
             return res.status(400).send({ message: message.messages.toUserRequired })
         }
@@ -30,7 +40,9 @@ module.exports = {
 
         var message1 = new MessageModel({
             fromUser: from,
-            toUser: to,
+            fromName: fromName,
+            toUser: to,            
+            toName: toName,
             message: message,
             createdD: Date()
         }
