@@ -23,6 +23,130 @@ webpackEmptyAsyncContext.id = "./src/$$_lazy_route_resource lazy recursive";
 
 /***/ }),
 
+/***/ "./src/app/_helpers/error.interceptor.ts":
+/*!***********************************************!*\
+  !*** ./src/app/_helpers/error.interceptor.ts ***!
+  \***********************************************/
+/*! exports provided: ErrorInterceptor */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ErrorInterceptor", function() { return ErrorInterceptor; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _services_authentication_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../services/authentication.service */ "./src/app/services/authentication.service.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var ErrorInterceptor = /** @class */ (function () {
+    function ErrorInterceptor(authenticationService) {
+        this.authenticationService = authenticationService;
+    }
+    ErrorInterceptor.prototype.intercept = function (request, next) {
+        var _this = this;
+        return next.handle(request).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(function (err) {
+            if (err.status === 401) {
+                // auto logout if 401 response returned from api
+                _this.authenticationService.logout();
+                location.reload(true);
+            }
+            var error = err.error.message || err.statusText;
+            return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["throwError"])(error);
+        }));
+    };
+    ErrorInterceptor = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
+        __metadata("design:paramtypes", [_services_authentication_service__WEBPACK_IMPORTED_MODULE_3__["AuthenticationService"]])
+    ], ErrorInterceptor);
+    return ErrorInterceptor;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/_helpers/global.ts":
+/*!************************************!*\
+  !*** ./src/app/_helpers/global.ts ***!
+  \************************************/
+/*! exports provided: GlobalApp */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GlobalApp", function() { return GlobalApp; });
+var GlobalApp = /** @class */ (function () {
+    function GlobalApp() {
+    }
+    Object.defineProperty(GlobalApp.prototype, "user", {
+        get: function () {
+            return localStorage.getItem('currentUser');
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return GlobalApp;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/_helpers/jwt.interceptor.ts":
+/*!*********************************************!*\
+  !*** ./src/app/_helpers/jwt.interceptor.ts ***!
+  \*********************************************/
+/*! exports provided: JwtInterceptor */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "JwtInterceptor", function() { return JwtInterceptor; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+var JwtInterceptor = /** @class */ (function () {
+    function JwtInterceptor() {
+    }
+    JwtInterceptor.prototype.intercept = function (request, next) {
+        // add authorization header with jwt token if available
+        var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        if (currentUser && currentUser.token) {
+            request = request.clone({
+                setHeaders: {
+                    Authorization: "Bearer " + currentUser.token
+                }
+            });
+        }
+        return next.handle(request);
+    };
+    JwtInterceptor = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])()
+    ], JwtInterceptor);
+    return JwtInterceptor;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/app.component.css":
 /*!***********************************!*\
   !*** ./src/app/app.component.css ***!
@@ -30,7 +154,7 @@ webpackEmptyAsyncContext.id = "./src/$$_lazy_route_resource lazy recursive";
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "html,\nbody {\n  height: 100%;\n  background-color: #fff;\n  margin: 0;\n  font-family: sans-serif;\n}\n\nbody {\n  /* Full height */\n  height: 100%;\n  /* Center and scale the image nicely */\n}\n\n.header img {\n  margin: auto;\n  height: auto;\n  max-height: 30px;\n}\n\n.header {\n  color: #fff;\n  background: #39643a;\n}\n\n.button-row {\n  position: fixed;\n  z-index: 999;\n  bottom: 1%;\n  right: 1%;\n}\n\n.example-container {\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n}\n\n.example-events {\n  width: 300px;\n  height: 200px;\n  overflow: auto;\n  border: 1px solid #555;\n}\n\n.mat-grid-tile .mat-figure {\n  align-items: flex-start!important;\n}\n\n.header img {\n  margin: auto;\n}\n\n.header {\n  color: #fff !important;\n}\n\n.static_label {\n  color: #4caf50;\n}\n\n.example-container {\n  position: absolute;\n  top: 60px;\n  bottom: 0px;\n  left: 0;\n  right: 0;\n}\n\n.example-sidenav {\n  display: block;\n  align-items: center;\n  justify-content: center;\n  width: 200px;\n  background: rgba(224, 224, 224, 0.5);\n}\n\n.example-header {\n  position: fixed;\n  top: 0;\n  left: 0;\n  right: 0;\n}\n\n.example-footer {\n  position: fixed;\n  bottom: 0;\n  left: 0;\n  right: 0;\n}\n\n.sidenavend {\n  min-width: 200px;\n}\n\n@media only screen and (max-width: 768px) {\n  .header img {\n    max-height: 20px;\n  }\n}"
+module.exports = "html,\nbody {\n  height: 100%;\n  background-color: #fff;\n  margin: 0;\n  font-family: sans-serif;\n}\n\nbody {\n  /* Full height */\n  height: 100%;\n  /* Center and scale the image nicely */\n}\n\n.header img {\n  margin: auto;\n  height: auto;\n  max-height: 30px;\n}\n\n.header {\n  color: #fff;\n  background: #39643a;\n}\n\n.button-row {\n  position: fixed;\n  z-index: 999;\n  bottom: 1%;\n  right: 1%;\n}\n\n.example-container {\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n}\n\n.example-events {\n  width: 300px;\n  height: 200px;\n  overflow: auto;\n  border: 1px solid #555;\n}\n\n.mat-grid-tile .mat-figure {\n  align-items: flex-start!important;\n}\n\n.header img {\n  margin: auto;\n}\n\n.header {\n  color: #fff !important;\n}\n\n.static_label {\n  color: #4caf50;\n}\n\n.example-container {\n  position: absolute;\n  top: 60px;\n  bottom: 0px;\n  left: 0;\n  right: 0;\n}\n\n.example-sidenav {\n  display: block;\n  align-items: center;\n  justify-content: center;\n  width: 200px;\n  background: rgba(224, 224, 224, 0.5);\n}\n\n.example-header {\n  position: fixed;\n  top: 0;\n  left: 0;\n  right: 0;\n}\n\n.example-footer {\n  position: fixed;\n  bottom: 0;\n  left: 0;\n  right: 0;\n}\n\n.sidenavend {\n  min-width: 200px;\n}\n\n.user {\n  font-size: 14px;\n  font-weight: 400;\n  padding-right: 15px;\n}\n\n@media only screen and (max-width: 768px) {\n  .header img {\n    max-height: 20px;\n  }\n}"
 
 /***/ }),
 
@@ -41,7 +165,7 @@ module.exports = "html,\nbody {\n  height: 100%;\n  background-color: #fff;\n  m
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ng-container>\n  <mat-toolbar color=\"primary\" class=\"header\">\n    <button mat-icon-button (click)=\"sidenavmenu.toggle()\">\n      <mat-icon>menu</mat-icon>\n    </button>\n\n    <img src=\"assets/img/Simsiroglu-Logo-Blanco.svg\" alt=\"{{title}}\" (click)=\"sidenavmenu.close()\" />\n\n    <i class=\"material-icons\" matBadge=\"0\" matBadgeColor=\"warn\" matBadgePosition=\"above after\" style=\"cursor: pointer\"\n      matTooltip=\"Mensajes - Proximamente\" matTooltipPosition=\"left\" (click)=\"sidenavmenu.close()\">chat</i>\n  </mat-toolbar>\n\n  <mat-sidenav-container class=\"example-container\" (backdropClick)=\"close()\">\n    <mat-sidenav #sidenavmenu mode=\"side\" closed class=\"example-sidenav\" (keydown.escape)=\"close('escape')\"\n      disableClose>\n      <button mat-button (click)=\"sidenavmenu.close()\">\n        <mat-icon>home</mat-icon>\n        <span routerLink='/sellers'>Dashboard</span>\n      </button>\n      <mat-divider></mat-divider>\n      <mat-list>\n        <mat-list-item>\n          <mat-icon>people</mat-icon> <span>Clientes</span>\n        </mat-list-item>\n        <mat-list-item><button mat-button (click)=\"sidenavmenu.close()\" routerLink='/customers/view'>Mis Clientes</button></mat-list-item>\n        <mat-list-item><button mat-button (click)=\"sidenavmenu.close()\" routerLink='/customers/create'>Nuevo Cliente</button></mat-list-item>\n        <mat-divider></mat-divider>\n      </mat-list>\n      <!--<button mat-menu-item routerLink='/customers/detail'>Ver Pedido</button>-->\n      <mat-list>\n        <mat-list-item>\n          <mat-icon>people</mat-icon> <span>Pedidos</span>\n        </mat-list-item>\n      </mat-list>\n      <mat-list-item><button mat-button (click)=\"sidenavmenu.close()\" routerLink='/orders/view'>Mis Pedidos</button></mat-list-item>\n      <mat-list-item><button mat-button (click)=\"sidenavmenu.close()\" routerLink='/orders/detail'>Ver Pedido</button></mat-list-item>\n      <mat-list-item><button mat-button (click)=\"sidenavmenu.close()\" routerLink='/orders/create'>Nuevo Pedido</button></mat-list-item>\n      <mat-divider></mat-divider>\n      <button mat-button (click)=\"sidenavmenu.close()\">\n        <mat-icon>timeline</mat-icon>\n        <span routerLink='/pageNotFound'>Reportes</span>\n      </button>\n      <mat-divider></mat-divider>\n      <button mat-button (click)=\"sidenavmenu.close()\">\n        <mat-icon>lock</mat-icon>\n        <span *ngIf=\"!logout\" class=\"nav-link\" routerLink=\"/logout\">Logout</span>\n        <span *ngIf=\"logout\" class=\"nav-link\" routerLink=\"/login\">Login</span>\n      </button>\n    </mat-sidenav>\n\n    <mat-sidenav-content (click)=\"sidenavmenu.close()\">\n      <router-outlet></router-outlet>\n    </mat-sidenav-content>\n    <mat-sidenav #sidenav closed mode=\"side\" position=\"end\" class=\"sidenavend\">\n      <h3>Foto de producto</h3>\n      <img src=\"{{this.imgName}}\" alt=\"Producto\" width=\"250\" />\n    </mat-sidenav>\n  </mat-sidenav-container>\n\n</ng-container>\n<app-speed-dial-fab></app-speed-dial-fab>\n"
+module.exports = "<ng-container>\n  <mat-toolbar color=\"primary\" class=\"header\">\n    <button mat-icon-button (click)=\"sidenavmenu.toggle()\">\n      <mat-icon>menu</mat-icon>\n    </button>\n\n    <img src=\"assets/img/Simsiroglu-Logo-Blanco.svg\" alt=\"{{title}}\" (click)=\"sidenavmenu.close()\" />\n    <p class=\"user\">Bienvenido, {{user.firstname}} {{user.lastname}}</p>\n    <i class=\"material-icons\" matBadge=\"0\" matBadgeColor=\"warn\" matBadgePosition=\"above after\" style=\"cursor: pointer\"\n      matTooltip=\"Mensajes - Proximamente\" matTooltipPosition=\"left\" (click)=\"sidenavmenu.close()\">chat</i>\n  </mat-toolbar>\n\n  <mat-sidenav-container class=\"example-container\" (backdropClick)=\"close()\">\n    <mat-sidenav #sidenavmenu mode=\"side\" closed class=\"example-sidenav\" (keydown.escape)=\"close('escape')\"\n      disableClose>\n      <button mat-button (click)=\"sidenavmenu.close()\">\n        <mat-icon>home</mat-icon>\n        <span routerLink='/sellers'>Dashboard</span>\n      </button>\n      <mat-divider></mat-divider>\n      <mat-list>\n        <mat-list-item>\n          <mat-icon>people</mat-icon> <span>Clientes</span>\n        </mat-list-item>\n        <mat-list-item><button mat-button (click)=\"sidenavmenu.close()\" routerLink='/customers/view'>Mis Clientes</button></mat-list-item>\n        <mat-list-item><button mat-button (click)=\"sidenavmenu.close()\" routerLink='/customers/create'>Nuevo Cliente</button></mat-list-item>\n        <mat-divider></mat-divider>\n      </mat-list>\n      <!--<button mat-menu-item routerLink='/customers/detail'>Ver Pedido</button>-->\n      <mat-list>\n        <mat-list-item>\n          <mat-icon>people</mat-icon> <span>Pedidos</span>\n        </mat-list-item>\n      </mat-list>\n      <mat-list-item><button mat-button (click)=\"sidenavmenu.close()\" routerLink='/orders/view'>Mis Pedidos</button></mat-list-item>\n      <mat-list-item><button mat-button (click)=\"sidenavmenu.close()\" routerLink='/orders/detail'>Ver Pedido</button></mat-list-item>\n      <mat-list-item><button mat-button (click)=\"sidenavmenu.close()\" routerLink='/orders/create'>Nuevo Pedido</button></mat-list-item>\n      <mat-divider></mat-divider>\n      <button mat-button (click)=\"sidenavmenu.close()\">\n        <mat-icon>timeline</mat-icon>\n        <span routerLink='/pageNotFound'>Reportes</span>\n      </button>\n      <mat-divider></mat-divider>\n      <button mat-button><i class=\"material-icons\">settings</i> <span class=\"nav-link\" routerLink=\"/change-password\">Cambiar clave</span></button>\n      <button mat-button (click)=\"sidenavmenu.close()\">\n        <mat-icon>lock</mat-icon>\n        <span class=\"nav-link\" routerLink=\"/login\" (click)=\"logOut()\">Logout</span>\n      </button>\n    </mat-sidenav>\n\n    <mat-sidenav-content (click)=\"sidenavmenu.close()\">\n      <app-alert></app-alert>\n      <router-outlet></router-outlet>\n    </mat-sidenav-content>\n    <mat-sidenav #sidenav closed mode=\"side\" position=\"end\" class=\"sidenavend\">\n    </mat-sidenav>\n  </mat-sidenav-container>\n\n</ng-container>\n<app-speed-dial-fab></app-speed-dial-fab>\n"
 
 /***/ }),
 
@@ -58,6 +182,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _services_sidenav_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./services/sidenav.service */ "./src/app/services/sidenav.service.ts");
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var _services_user_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./services/user.service */ "./src/app/services/user.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -70,16 +195,30 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var AppComponent = /** @class */ (function () {
-    function AppComponent(sidenavService) {
+    function AppComponent(sidenavService, userService) {
         this.sidenavService = sidenavService;
+        this.userService = userService;
         this.title = 'Simsiroglu Sales System';
     }
     AppComponent.prototype.ngOnInit = function () {
         this.sidenavService.setSidenav(this.sidenavend);
-        this.imgName = localStorage.getItem('img');
-        console.log('Lo guardado es ' + this.imgName);
     };
+    Object.defineProperty(AppComponent.prototype, "user", {
+        get: function () {
+            return JSON.parse(localStorage.getItem('currentUser'));
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(AppComponent.prototype, "seller", {
+        get: function () {
+            return JSON.parse(localStorage.getItem('sellerId'));
+        },
+        enumerable: true,
+        configurable: true
+    });
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('sidenav'),
         __metadata("design:type", _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatSidenav"])
@@ -90,7 +229,8 @@ var AppComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./app.component.html */ "./src/app/app.component.html"),
             styles: [__webpack_require__(/*! ./app.component.css */ "./src/app/app.component.css")]
         }),
-        __metadata("design:paramtypes", [_services_sidenav_service__WEBPACK_IMPORTED_MODULE_1__["SidenavService"]])
+        __metadata("design:paramtypes", [_services_sidenav_service__WEBPACK_IMPORTED_MODULE_1__["SidenavService"],
+            _services_user_service__WEBPACK_IMPORTED_MODULE_3__["UserService"]])
     ], AppComponent);
     return AppComponent;
 }());
@@ -129,6 +269,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_image_service__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./services/image.service */ "./src/app/services/image.service.ts");
 /* harmony import */ var _services_sidenav_service__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./services/sidenav.service */ "./src/app/services/sidenav.service.ts");
 /* harmony import */ var _commonApp_speed_dial_fab_speed_dial_fab_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./commonApp/speed-dial-fab/speed-dial-fab.component */ "./src/app/commonApp/speed-dial-fab/speed-dial-fab.component.ts");
+/* harmony import */ var _services_authentication_service__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./services/authentication.service */ "./src/app/services/authentication.service.ts");
+/* harmony import */ var _services_alert_service__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./services/alert.service */ "./src/app/services/alert.service.ts");
+/* harmony import */ var _helpers_error_interceptor__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./_helpers/error.interceptor */ "./src/app/_helpers/error.interceptor.ts");
+/* harmony import */ var _helpers_jwt_interceptor__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./_helpers/jwt.interceptor */ "./src/app/_helpers/jwt.interceptor.ts");
+/* harmony import */ var _helpers_global__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./_helpers/global */ "./src/app/_helpers/global.ts");
+/* harmony import */ var _commonApp_alerts_alerts_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./commonApp/alerts/alerts.component */ "./src/app/commonApp/alerts/alerts.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -157,6 +303,12 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 
+
+
+
+
+
+
 var appRoutes = [
     { path: '**', component: _commonApp_pagenotfound_pagenotfound_component__WEBPACK_IMPORTED_MODULE_9__["PagenotfoundComponent"] }
 ];
@@ -167,7 +319,8 @@ var AppModule = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
             declarations: [
                 _app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"],
-                _commonApp_speed_dial_fab_speed_dial_fab_component__WEBPACK_IMPORTED_MODULE_19__["SpeedDialFabComponent"]
+                _commonApp_speed_dial_fab_speed_dial_fab_component__WEBPACK_IMPORTED_MODULE_19__["SpeedDialFabComponent"],
+                _commonApp_alerts_alerts_component__WEBPACK_IMPORTED_MODULE_25__["AlertsComponent"]
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
@@ -189,7 +342,12 @@ var AppModule = /** @class */ (function () {
                 _services_customers_service__WEBPACK_IMPORTED_MODULE_15__["CustomersService"],
                 _services_image_service__WEBPACK_IMPORTED_MODULE_17__["ImageService"],
                 _services_sidenav_service__WEBPACK_IMPORTED_MODULE_18__["SidenavService"],
-                _services_otherdata_service__WEBPACK_IMPORTED_MODULE_16__["OtherdataService"]
+                _services_otherdata_service__WEBPACK_IMPORTED_MODULE_16__["OtherdataService"],
+                _services_authentication_service__WEBPACK_IMPORTED_MODULE_20__["AuthenticationService"],
+                _services_alert_service__WEBPACK_IMPORTED_MODULE_21__["AlertService"],
+                { provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_11__["HTTP_INTERCEPTORS"], useClass: _helpers_jwt_interceptor__WEBPACK_IMPORTED_MODULE_23__["JwtInterceptor"], multi: true },
+                { provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_11__["HTTP_INTERCEPTORS"], useClass: _helpers_error_interceptor__WEBPACK_IMPORTED_MODULE_22__["ErrorInterceptor"], multi: true },
+                _helpers_global__WEBPACK_IMPORTED_MODULE_24__["GlobalApp"]
             ],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"]]
         })
@@ -217,6 +375,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _logout_logout_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./logout/logout.component */ "./src/app/authentication/logout/logout.component.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _material_module__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../material.module */ "./src/app/material.module.ts");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _passwordchange_passchange_passchange_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./passwordchange/passchange/passchange.component */ "./src/app/authentication/passwordchange/passchange/passchange.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -229,9 +389,12 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 
+
+
 var authRoutes = [
     { path: 'login', component: _login_login_component__WEBPACK_IMPORTED_MODULE_2__["LoginComponent"] },
     { path: 'logout', component: _logout_logout_component__WEBPACK_IMPORTED_MODULE_3__["LogoutComponent"] },
+    { path: 'change-password', component: _passwordchange_passchange_passchange_component__WEBPACK_IMPORTED_MODULE_7__["PasschangeComponent"] },
 ];
 var AuthenticationModule = /** @class */ (function () {
     function AuthenticationModule() {
@@ -241,14 +404,18 @@ var AuthenticationModule = /** @class */ (function () {
             imports: [
                 _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
                 _angular_router__WEBPACK_IMPORTED_MODULE_4__["RouterModule"].forChild(authRoutes),
-                _material_module__WEBPACK_IMPORTED_MODULE_5__["MaterialModule"]
+                _material_module__WEBPACK_IMPORTED_MODULE_5__["MaterialModule"],
+                _angular_forms__WEBPACK_IMPORTED_MODULE_6__["ReactiveFormsModule"],
+                _angular_forms__WEBPACK_IMPORTED_MODULE_6__["FormsModule"]
             ],
             declarations: [_login_login_component__WEBPACK_IMPORTED_MODULE_2__["LoginComponent"],
-                _logout_logout_component__WEBPACK_IMPORTED_MODULE_3__["LogoutComponent"]
+                _logout_logout_component__WEBPACK_IMPORTED_MODULE_3__["LogoutComponent"],
+                _passwordchange_passchange_passchange_component__WEBPACK_IMPORTED_MODULE_7__["PasschangeComponent"]
             ],
             exports: [
                 _login_login_component__WEBPACK_IMPORTED_MODULE_2__["LoginComponent"],
                 _logout_logout_component__WEBPACK_IMPORTED_MODULE_3__["LogoutComponent"],
+                _passwordchange_passchange_passchange_component__WEBPACK_IMPORTED_MODULE_7__["PasschangeComponent"]
             ]
         })
     ], AuthenticationModule);
@@ -277,7 +444,7 @@ module.exports = "mat-card {\n  width: 90%;\n  margin: 2em auto;\n  text-align: 
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-card class=\"login\">\n  <mat-card-title>Iniciar sesión</mat-card-title>\n  <form (ngSubmit)=\"login()\">\n    <mat-form-field>\n      <input matInput type=\"email\" placeholder=\"Usuario\" dividerColor=\"accent\" formControlName=\"user\" #user required\n        autofocus>\n    </mat-form-field>\n    <mat-form-field>\n      <input matInput type=\"password\" placeholder=\"Contraseña\" dividerColor=\"accent\" formControlName=\"password\"\n        #password required>\n    </mat-form-field>\n    <mat-card-actions align=\"middle\">\n      <button mat-raised-button color=\"accent\" routerLink=\"/sellers\" type=\"submit\">Iniciar Sesión</button>\n      <p class=\"mt-5 mb-3 text-muted\">&copy;2018</p>\n    </mat-card-actions>\n  </form>\n</mat-card>\n"
+module.exports = "<mat-card class=\"login\">\n  <mat-card-title>Iniciar sesión</mat-card-title>\n  <form [formGroup]=\"loginForm\" (ngSubmit)=\"onSubmit()\">\n    <mat-form-field>\n      <input matInput type=\"email\" placeholder=\"Usuario\" dividerColor=\"accent\" formControlName=\"username\" #username\n        required autofocus [ngClass]=\"{ 'is-invalid': submitted && f.username.errors }\" autocomplete=\"username\" />\n      <mat-error *ngIf=\"submitted && f.username.errors\">\n        <div *ngIf=\"f.username.errors.required\">Debe ingresar su usuario</div>\n      </mat-error>\n    </mat-form-field>\n    <!--<div class=\"form-group\">\n      <label for=\"username\">Username</label>\n      <input type=\"text\" formControlName=\"username\" class=\"form-control\" [ngClass]=\"{ 'is-invalid': submitted && f.username.errors }\" />\n      <div *ngIf=\"submitted && f.username.errors\" class=\"invalid-feedback\">\n        <div *ngIf=\"f.username.errors.required\">Username is required</div>\n      </div>\n    </div>-->\n    <mat-form-field>\n      <input matInput type=\"password\" placeholder=\"Contraseña\" dividerColor=\"accent\" formControlName=\"password\"\n        #password required [ngClass]=\"{ 'is-invalid': submitted && f.password.errors }\" autocomplete=\"current-password\">\n      <mat-error *ngIf=\"submitted && f.password.errors\">\n        <div *ngIf=\"f.password.errors.required\">Debe ingresar su clave</div>\n      </mat-error>\n    </mat-form-field>\n    <!--<div class=\"form-group\">\n      <label for=\"password\">Password</label>\n      <input type=\"password\" formControlName=\"password\" class=\"form-control\" [ngClass]=\"{ 'is-invalid': submitted && f.password.errors }\" />\n      <div *ngIf=\"submitted && f.password.errors\" class=\"invalid-feedback\">\n        <div *ngIf=\"f.password.errors.required\">Password is required</div>\n      </div>\n    </div>-->\n    <button mat-button><i class=\"material-icons\">settings</i> <span class=\"nav-link\" routerLink=\"/change-password\">Cambiar clave</span></button>\n    <mat-card-actions align=\"middle\">\n      <button mat-raised-button color=\"accent\" type=\"submit\">Iniciar Sesión</button>\n      <p class=\"mt-5 mb-3 text-muted\">S.H.K. S.A. - &copy;2018</p>\n    </mat-card-actions>\n\n  </form>\n</mat-card>\n"
 
 /***/ }),
 
@@ -292,6 +459,11 @@ module.exports = "<mat-card class=\"login\">\n  <mat-card-title>Iniciar sesión<
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LoginComponent", function() { return LoginComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _services_authentication_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../services/authentication.service */ "./src/app/services/authentication.service.ts");
+/* harmony import */ var _services_alert_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../services/alert.service */ "./src/app/services/alert.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -302,10 +474,56 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
+
+
+
+
 var LoginComponent = /** @class */ (function () {
-    function LoginComponent() {
+    function LoginComponent(formBuilder, route, router, authenticationService, alertService) {
+        this.formBuilder = formBuilder;
+        this.route = route;
+        this.router = router;
+        this.authenticationService = authenticationService;
+        this.alertService = alertService;
+        this.loading = false;
+        this.submitted = false;
     }
     LoginComponent.prototype.ngOnInit = function () {
+        this.loginForm = this.formBuilder.group({
+            username: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+            password: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required]
+        });
+        // reset login status
+        this.authenticationService.logout();
+        // get return url from route parameters or default to '/'
+        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    };
+    Object.defineProperty(LoginComponent.prototype, "f", {
+        // convenience getter for easy access to form fields
+        get: function () { return this.loginForm.controls; },
+        enumerable: true,
+        configurable: true
+    });
+    LoginComponent.prototype.onSubmit = function () {
+        var _this = this;
+        this.submitted = true;
+        // stop here if form is invalid
+        if (this.loginForm.invalid) {
+            return;
+        }
+        this.loading = true;
+        this.authenticationService.login(this.f.username.value, this.f.password.value)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["first"])())
+            .subscribe(function (data) {
+            _this.router.navigate([_this.returnUrl + '/sellers']);
+        }, function (error) {
+            _this.alertService.error(error);
+            _this.loading = false;
+        });
+    };
+    LoginComponent.prototype.logOut = function () {
+        this.authenticationService.logout();
     };
     LoginComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -313,7 +531,11 @@ var LoginComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./login.component.html */ "./src/app/authentication/login/login.component.html"),
             styles: [__webpack_require__(/*! ./login.component.css */ "./src/app/authentication/login/login.component.css")]
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"],
+            _services_authentication_service__WEBPACK_IMPORTED_MODULE_4__["AuthenticationService"],
+            _services_alert_service__WEBPACK_IMPORTED_MODULE_5__["AlertService"]])
     ], LoginComponent);
     return LoginComponent;
 }());
@@ -379,6 +601,198 @@ var LogoutComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [])
     ], LogoutComponent);
     return LogoutComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/authentication/passwordchange/passchange/passchange.component.css":
+/*!***********************************************************************************!*\
+  !*** ./src/app/authentication/passwordchange/passchange/passchange.component.css ***!
+  \***********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "mat-card {\n    width: 90%;\n    margin: 2em auto;\n    text-align: left;\n  }\n  .login {\n      max-width: 350px;\n    }\n  .login .mat-form-field {\n    min-width: 100% !important;\n  }\n  @media only screen and (max-width: 768px) {\n    .login {\n      max-width: 90%;\n    }\n  }\n  "
+
+/***/ }),
+
+/***/ "./src/app/authentication/passwordchange/passchange/passchange.component.html":
+/*!************************************************************************************!*\
+  !*** ./src/app/authentication/passwordchange/passchange/passchange.component.html ***!
+  \************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<mat-card class=\"login\">\n  <mat-card-title>Iniciar sesión</mat-card-title>\n  <form [formGroup]=\"cpForm\" (ngSubmit)=\"onSubmit()\">\n    <mat-form-field>\n      <input matInput type=\"email\" placeholder=\"Usuario\" dividerColor=\"accent\" formControlName=\"username\" #username\n        required autofocus [ngClass]=\"{ 'is-invalid': submitted && f.username.errors }\" autocomplete=\"username\" />\n      <mat-error *ngIf=\"submitted && f.username.errors\">\n        <div *ngIf=\"f.username.errors.required\">Debe ingresar su usuario</div>\n      </mat-error>\n    </mat-form-field>\n    <mat-form-field>\n      <input matInput type=\"password\" placeholder=\"Contraseña actual\" dividerColor=\"accent\" formControlName=\"oldpassword\"\n        #oldpassword required [ngClass]=\"{ 'is-invalid': submitted && f.oldpassword.errors }\" autocomplete=\"current-password\">\n      <mat-error *ngIf=\"submitted && f.oldpassword.errors\">\n        <div *ngIf=\"f.oldpassword.errors.required\">Debe ingresar su clave actual</div>\n      </mat-error>\n    </mat-form-field>\n    <mat-form-field>\n      <input matInput type=\"password\" placeholder=\"Contraseña nueva\" dividerColor=\"accent\" formControlName=\"newpassword\"\n        #newpassword required [ngClass]=\"{ 'is-invalid': submitted && f.newpassword.errors }\">\n      <mat-error *ngIf=\"submitted && f.newpassword.errors\">\n        <div *ngIf=\"f.newpassword.errors.required\">Debe ingresar su clave nueva</div>\n      </mat-error>\n    </mat-form-field>\n    <mat-form-field>\n      <input matInput type=\"password\" placeholder=\"Reingrese la contraseña nueva\" dividerColor=\"accent\" formControlName=\"duplicatedpassword\"\n        #duplicatedpassword required [ngClass]=\"{ 'is-invalid': submitted && f.duplicatedpassword.errors }\">\n      <mat-error *ngIf=\"submitted && f.duplicatedpassword.errors\">\n        <div *ngIf=\"f.duplicatedpassword.errors.required\">Ingrese de nuevo la nueva clave</div>\n      </mat-error>\n      <mat-error *ngIf=\"f.duplicatedpassword?.errors?.nomatch\">Las nuevas contraseñas no coinciden, reintente</mat-error>\n    </mat-form-field>\n    <mat-card-actions align=\"middle\">\n      <button mat-raised-button color=\"accent\" type=\"submit\">Guardar clave</button>\n    </mat-card-actions>\n  </form>\n  <p>\n    {{cpForm.value | json}}\n    {{cpForm.errors | json}}\n  </p>\n</mat-card>\n"
+
+/***/ }),
+
+/***/ "./src/app/authentication/passwordchange/passchange/passchange.component.ts":
+/*!**********************************************************************************!*\
+  !*** ./src/app/authentication/passwordchange/passchange/passchange.component.ts ***!
+  \**********************************************************************************/
+/*! exports provided: PasschangeComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PasschangeComponent", function() { return PasschangeComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _services_authentication_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../services/authentication.service */ "./src/app/services/authentication.service.ts");
+/* harmony import */ var _services_alert_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../services/alert.service */ "./src/app/services/alert.service.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+var PasschangeComponent = /** @class */ (function () {
+    function PasschangeComponent(formBuilder, route, router, authenticationService, alertService) {
+        this.formBuilder = formBuilder;
+        this.route = route;
+        this.router = router;
+        this.authenticationService = authenticationService;
+        this.alertService = alertService;
+        this.loading = false;
+        this.submitted = false;
+    }
+    PasschangeComponent.prototype.matchValidator = function (f) {
+        // safety check
+        if (!f.get('newpassword').value || !f.get('duplicatedpassword').value) {
+            return null;
+        }
+        return f.get('newpassword').value === f.get('duplicatedpassword').value ? null : { 'nomatch': true };
+    };
+    PasschangeComponent.prototype.ngOnInit = function () {
+        this.cpForm = this.formBuilder.group({
+            username: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].email],
+            oldpassword: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+            newpassword: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+            duplicatedpassword: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+        }, { validator: this.matchValidator });
+        // get return url from route parameters or default to '/'
+        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    };
+    Object.defineProperty(PasschangeComponent.prototype, "f", {
+        // convenience getter for easy access to form fields
+        get: function () { return this.cpForm.controls; },
+        enumerable: true,
+        configurable: true
+    });
+    PasschangeComponent.prototype.onSubmit = function () {
+        var _this = this;
+        this.submitted = true;
+        // stop here if form is invalid
+        if (this.cpForm.invalid) {
+            return;
+        }
+        this.loading = true;
+        this.authenticationService.changePassword(this.f.username.value, this.f.oldpassword.value, this.f.newpassword.value)
+            .subscribe(function (data) {
+            _this.router.navigate([_this.returnUrl + '/sellers']);
+        }, function (error) {
+            _this.alertService.error(error);
+            _this.loading = false;
+        });
+    };
+    PasschangeComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-passchange',
+            template: __webpack_require__(/*! ./passchange.component.html */ "./src/app/authentication/passwordchange/passchange/passchange.component.html"),
+            styles: [__webpack_require__(/*! ./passchange.component.css */ "./src/app/authentication/passwordchange/passchange/passchange.component.css")]
+        }),
+        __metadata("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"],
+            _services_authentication_service__WEBPACK_IMPORTED_MODULE_3__["AuthenticationService"],
+            _services_alert_service__WEBPACK_IMPORTED_MODULE_4__["AlertService"]])
+    ], PasschangeComponent);
+    return PasschangeComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/commonApp/alerts/alerts.component.css":
+/*!*******************************************************!*\
+  !*** ./src/app/commonApp/alerts/alerts.component.css ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".alert {\n    max-width: 50%;\n    margin: auto;\n    padding: 14px;\n    background: #eee;\n    margin-top: 15px;\n    border-radius: 4px;\n    text-align: center;\n  }\n  \n  .alert.alert-danger {\n    background: #ffd9d9;\n  }"
+
+/***/ }),
+
+/***/ "./src/app/commonApp/alerts/alerts.component.html":
+/*!********************************************************!*\
+  !*** ./src/app/commonApp/alerts/alerts.component.html ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div *ngIf=\"message\" [ngClass]=\"{ 'alert': message, 'alert-success': message.type === 'success', 'alert-danger': message.type === 'error' }\">\n    {{message.text}}</div>\n"
+
+/***/ }),
+
+/***/ "./src/app/commonApp/alerts/alerts.component.ts":
+/*!******************************************************!*\
+  !*** ./src/app/commonApp/alerts/alerts.component.ts ***!
+  \******************************************************/
+/*! exports provided: AlertsComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AlertsComponent", function() { return AlertsComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _services_alert_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../services/alert.service */ "./src/app/services/alert.service.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var AlertsComponent = /** @class */ (function () {
+    function AlertsComponent(alertService) {
+        this.alertService = alertService;
+    }
+    AlertsComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.subscription = this.alertService.getMessage().subscribe(function (message) {
+            _this.message = message;
+        });
+    };
+    AlertsComponent.prototype.ngOnDestroy = function () {
+        this.subscription.unsubscribe();
+    };
+    AlertsComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-alert',
+            template: __webpack_require__(/*! ./alerts.component.html */ "./src/app/commonApp/alerts/alerts.component.html"),
+            styles: [__webpack_require__(/*! ./alerts.component.css */ "./src/app/commonApp/alerts/alerts.component.css")]
+        }),
+        __metadata("design:paramtypes", [_services_alert_service__WEBPACK_IMPORTED_MODULE_1__["AlertService"]])
+    ], AlertsComponent);
+    return AlertsComponent;
 }());
 
 
@@ -665,7 +1079,7 @@ module.exports = ".example-card {\n    max-width: 100%;\n}\n.mat-grid-tile .mat-
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-card ng-if=isAdmin>\n  <mat-grid-list cols=\"3\" rowHeight=\"10:1\">\n    <mat-grid-tile>\n      <mat-card-title>Bienvenido</mat-card-title>\n    </mat-grid-tile>\n    <mat-grid-tile>\n      <p>Usted a iniciado sesión como usuario Admin</p>\n    </mat-grid-tile>\n    <mat-grid-tile>\n      <mat-form-field>\n        <mat-select placeholder=\"Seleccione un vendedor\" (ngModelChange)=\"onClick($event)\" [(ngModel)]=\"selectedSeller\">\n          <mat-option *ngFor=\"let seller of sellers\" [value]=\"seller.id\">\n            {{seller.nom}}\n          </mat-option>\n        </mat-select>\n      </mat-form-field>\n\n    </mat-grid-tile>\n  </mat-grid-list>\n</mat-card>\n<mat-card>\n  <mat-card-title>Dashboard</mat-card-title>\n  <mat-grid-list cols=\"3\" rowHeight=\"1:1\">\n    <mat-grid-tile>\n      <mat-card>\n        <mat-card-title>Pedidos</mat-card-title>\n        <mat-card-subtitle>Estado de pedidos</mat-card-subtitle>\n        <mat-divider></mat-divider>\n        <mat-card-content>\n          <p></p>\n          <p> <button mat-mini-fab color=\"primary\">123</button> <strong>Aprobados</strong> </p>\n          <p><button mat-mini-fab class=\"alert\">23</button> <strong>Pendientes</strong></p>\n          <p><button mat-mini-fab color=\"warn\">12</button> <strong>Rechazados</strong> </p>\n        </mat-card-content>\n        <mat-divider></mat-divider>\n        <mat-card-actions align=\"right\">\n          <button mat-raised-button color=\"primary\">VER</button>\n        </mat-card-actions>\n      </mat-card>\n    </mat-grid-tile>\n    <mat-grid-tile>\n      <mat-card>\n        <mat-card-title>Clientes</mat-card-title>\n        <mat-card-subtitle>Estado de clientes</mat-card-subtitle>\n        <mat-divider></mat-divider>\n        <mat-card-content>\n          <p></p>\n          <p> <button mat-mini-fab color=\"primary\">123</button> <strong>Aprobados</strong> </p>\n          <p><button mat-mini-fab class=\"alert\">23</button> <strong>A confirmar</strong></p>\n          <p><button mat-mini-fab color=\"warn\">12</button> <strong>Con revisiones</strong> </p>\n        </mat-card-content>\n        <mat-divider></mat-divider>\n        <mat-card-actions align=\"right\">\n          <button mat-raised-button color=\"primary\">VER</button>\n        </mat-card-actions>\n      </mat-card>\n    </mat-grid-tile>\n    <mat-grid-tile>\n      <mat-card>\n        <mat-card-title>Reportes</mat-card-title>\n        <mat-card-subtitle>Al 31/10/2018</mat-card-subtitle>\n        <mat-divider></mat-divider>\n        <mat-card-content>\n          <p></p>\n          <p>Proximamente </p>\n        </mat-card-content>\n        <mat-divider></mat-divider>\n        <mat-card-actions align=\"right\">\n          <button mat-raised-button color=\"primary\">VER</button>\n        </mat-card-actions>\n      </mat-card>\n    </mat-grid-tile>\n  </mat-grid-list>\n</mat-card>\n"
+module.exports = "<mat-card *ngIf=\"isAdmin\">\n  <mat-grid-list cols=\"3\" rowHeight=\"10:1\">\n    <mat-grid-tile>\n      <mat-card-title>Bienvenido</mat-card-title>\n    </mat-grid-tile>\n    <mat-grid-tile>\n      <p>Usted a iniciado sesión como usuario Admin</p>\n    </mat-grid-tile>\n    <mat-grid-tile>\n      <mat-form-field>\n        <mat-select placeholder=\"Seleccione un vendedor\" (ngModelChange)=\"onClick($event)\" [(ngModel)]=\"selectedSeller\">\n          <mat-option *ngFor=\"let seller of sellers\" [value]=\"seller.id\">\n            {{seller.nom}}\n          </mat-option>\n        </mat-select>\n      </mat-form-field>\n\n    </mat-grid-tile>\n  </mat-grid-list>\n</mat-card>\n<mat-card>\n  <mat-card-title>Dashboard</mat-card-title>\n  <mat-grid-list cols=\"3\" rowHeight=\"1:1\">\n    <mat-grid-tile>\n      <mat-card>\n        <mat-card-title>Pedidos</mat-card-title>\n        <mat-card-subtitle>Estado de pedidos</mat-card-subtitle>\n        <mat-divider></mat-divider>\n        <mat-card-content>\n          <p></p>\n          <p> <button mat-mini-fab color=\"primary\">123</button> <strong>Aprobados</strong> </p>\n          <p><button mat-mini-fab class=\"alert\">23</button> <strong>Pendientes</strong></p>\n          <p><button mat-mini-fab color=\"warn\">12</button> <strong>Rechazados</strong> </p>\n        </mat-card-content>\n        <mat-divider></mat-divider>\n        <mat-card-actions align=\"right\">\n          <button mat-raised-button color=\"primary\">VER</button>\n        </mat-card-actions>\n      </mat-card>\n    </mat-grid-tile>\n    <mat-grid-tile>\n      <mat-card>\n        <mat-card-title>Clientes</mat-card-title>\n        <mat-card-subtitle>Estado de clientes</mat-card-subtitle>\n        <mat-divider></mat-divider>\n        <mat-card-content>\n          <p></p>\n          <p> <button mat-mini-fab color=\"primary\">123</button> <strong>Aprobados</strong> </p>\n          <p><button mat-mini-fab class=\"alert\">23</button> <strong>A confirmar</strong></p>\n          <p><button mat-mini-fab color=\"warn\">12</button> <strong>Con revisiones</strong> </p>\n        </mat-card-content>\n        <mat-divider></mat-divider>\n        <mat-card-actions align=\"right\">\n          <button mat-raised-button color=\"primary\">VER</button>\n        </mat-card-actions>\n      </mat-card>\n    </mat-grid-tile>\n    <mat-grid-tile>\n      <mat-card>\n        <mat-card-title>Reportes</mat-card-title>\n        <mat-card-subtitle>Al 31/10/2018</mat-card-subtitle>\n        <mat-divider></mat-divider>\n        <mat-card-content>\n          <p></p>\n          <p>Proximamente </p>\n        </mat-card-content>\n        <mat-divider></mat-divider>\n        <mat-card-actions align=\"right\">\n          <button mat-raised-button color=\"primary\">VER</button>\n        </mat-card-actions>\n      </mat-card>\n    </mat-grid-tile>\n  </mat-grid-list>\n</mat-card>\n"
 
 /***/ }),
 
@@ -703,19 +1117,50 @@ var SellerComponent = /** @class */ (function () {
         this.dataService = dataService;
     }
     SellerComponent.prototype.ngOnInit = function () {
-        // call service to retrieve client by seller
         var _this = this;
-        this.isAdmin = true;
-        this.userService.getSellers().subscribe(function (data) {
-            _this.sellers = data;
+        // call service to retrieve client by seller
+        var salesman = JSON.parse(localStorage.getItem('currentUser'));
+        console.log('El vendedor es: ' + salesman.lastname);
+        this.userService.getSeller(salesman.userId).subscribe(function (data) {
+            console.log('data ' + JSON.stringify(data));
+            if (data) {
+                localStorage.setItem('sellerId', JSON.stringify(data));
+            }
+            var isSeller = JSON.parse(localStorage.getItem('sellerId'));
+            console.log('El vendedor es: ' + isSeller);
+            if (!isSeller) {
+                _this.isAdmin = true;
+                console.log(_this.isAdmin);
+                _this.userService.getSellers().subscribe(function (data) {
+                    _this.sellers = data;
+                    console.log(_this.sellers);
+                });
+            }
         });
     };
     SellerComponent.prototype.onClick = function (ven) {
         this.selectedSeller = ven;
+        localStorage.setItem('sellerIdMaster', JSON.stringify(ven));
         this.dataService.setSellerId(this.selectedSeller);
         var root = 'orders/view';
         this.router.navigate([root]);
     };
+    Object.defineProperty(SellerComponent.prototype, "user", {
+        get: function () {
+            return JSON.parse(localStorage.getItem('currentUser'));
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(SellerComponent.prototype, "seller", {
+        get: function () {
+            if (localStorage.getItem('sellerId')) {
+                return JSON.parse(localStorage.getItem('sellerId'));
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
     SellerComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-seller',
@@ -931,8 +1376,14 @@ var CreateCustomersComponent = /** @class */ (function () {
         this.isOpen = true;
         this.isOpen1 = false;
         this.selectedItems = [];
-        // this.sellerId = '37';
-        this.sellerId = this.dataservice.getSellerId();
+        if (localStorage.getItem('sellerId')) {
+            var salesman = JSON.parse(localStorage.getItem('sellerId'));
+            this.sellerId = salesman.id;
+        }
+        if (localStorage.getItem('sellerIdMaster')) {
+            var salesman = JSON.parse(localStorage.getItem('sellerIdMaster'));
+            this.sellerId = salesman;
+        }
         this.initForm();
         this.odService.getProvincias().subscribe(function (data) {
             _this.provincias = data;
@@ -1132,7 +1583,14 @@ var EditCustomersDetailsComponent = /** @class */ (function () {
     }
     EditCustomersDetailsComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.sellerId = '37';
+        if (localStorage.getItem('sellerId')) {
+            var salesman = JSON.parse(localStorage.getItem('sellerId'));
+            this.sellerId = salesman.id;
+        }
+        if (localStorage.getItem('sellerIdMaster')) {
+            var salesman = JSON.parse(localStorage.getItem('sellerIdMaster'));
+            this.sellerId = salesman;
+        }
         this.EditCustomerForm = this.fb.group({
             id: [''],
             nom: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required],
@@ -1142,7 +1600,6 @@ var EditCustomersDetailsComponent = /** @class */ (function () {
             salesman: this.sellerId,
         });
         var customerid = this.route.snapshot.paramMap.get('id');
-        console.log('el id es ' + customerid);
         this.service.getCustomer(customerid).subscribe(function (data) {
             _this.customersDetail = data;
             _this.initForm();
@@ -1339,6 +1796,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
 /* harmony import */ var src_app_services_otherdata_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/otherdata.service */ "./src/app/services/otherdata.service.ts");
+/* harmony import */ var src_app_services_user_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/services/user.service */ "./src/app/services/user.service.ts");
 var __extends = (undefined && undefined.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -1366,12 +1824,14 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var ViewCustomersComponent = /** @class */ (function () {
-    function ViewCustomersComponent(dataservice, router, route, customersService, odService) {
+    function ViewCustomersComponent(dataservice, router, route, customersService, userService, odService) {
         this.dataservice = dataservice;
         this.router = router;
         this.route = route;
         this.customersService = customersService;
+        this.userService = userService;
         this.odService = odService;
         this.customersData = null;
         this.displayedColumns = ['id', 'nom', 'button'];
@@ -1380,11 +1840,20 @@ var ViewCustomersComponent = /** @class */ (function () {
     ViewCustomersComponent.prototype.ngOnInit = function () {
         var _this = this;
         // call service to retrieve customers by seller
-        var sellerId = '37';
-        this.customersService.getCustomers(sellerId).subscribe(function (data) {
-            _this.customersData = data;
-            _this.dataSource.data = _this.customersData;
-        });
+        if (localStorage.getItem('sellerId')) {
+            var salesman = JSON.parse(localStorage.getItem('sellerId'));
+            this.customersService.getCustomers(salesman.id).subscribe(function (data) {
+                _this.customersData = data;
+                _this.dataSource.data = _this.customersData;
+            });
+        }
+        if (localStorage.getItem('sellerIdMaster')) {
+            var salesman = JSON.parse(localStorage.getItem('sellerIdMaster'));
+            this.customersService.getCustomers(salesman).subscribe(function (data) {
+                _this.customersData = data;
+                _this.dataSource.data = _this.customersData;
+            });
+        }
         this.odService.getProvincia(this.customersData.prov).subscribe(function (data) {
             _this.provincia = data;
         });
@@ -1413,6 +1882,7 @@ var ViewCustomersComponent = /** @class */ (function () {
             _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"],
             _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"],
             _services_customers_service__WEBPACK_IMPORTED_MODULE_1__["CustomersService"],
+            src_app_services_user_service__WEBPACK_IMPORTED_MODULE_8__["UserService"],
             src_app_services_otherdata_service__WEBPACK_IMPORTED_MODULE_7__["OtherdataService"]])
     ], ViewCustomersComponent);
     return ViewCustomersComponent;
@@ -1429,14 +1899,20 @@ var CustomersSource = /** @class */ (function (_super) {
         return _this;
     }
     CustomersSource.prototype.connect = function (collectionViewer) {
-        var sellerId = '37';
-        console.log('view customers...' + sellerId);
-        return this.customersService.getCustomers(sellerId);
-        // return this.customersSubject.asObservable();
+        if (localStorage.getItem('sellerId')) {
+            var salesman = JSON.parse(localStorage.getItem('sellerId'));
+            var sellerId = salesman.id;
+            return this.customersService.getCustomers(sellerId);
+        }
+        if (localStorage.getItem('sellerIdMaster')) {
+            var salesman = JSON.parse(localStorage.getItem('sellerIdMaster'));
+            var sellerId = salesman;
+            return this.customersService.getCustomers(sellerId);
+        }
     };
     CustomersSource.prototype.disconnect = function (collectionViewer) {
-        //this.customersService.complete();
-        //this.loadingSubject.complete();
+        // this.customersService.complete();
+        // this.loadingSubject.complete();
     };
     return CustomersSource;
 }(_angular_cdk_collections__WEBPACK_IMPORTED_MODULE_4__["DataSource"]));
@@ -1540,7 +2016,7 @@ var MaterialModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".mat-form-field {\n    width: 94%;\n}\n\n.static_field {\n    text-align: left;\n    width: 100%;\n    font-size: 14px;\n    min-height: 35px;\n    display: inline-block;\n    vertical-align: top;\n    position: absolute;\n    top: 0;\n    padding-bottom: 5px;\n    border-bottom: 1px solid #949494;\n}\n\n.static_label {\n    color: #aaa;\n    display: block;\n    font-size: 11px;\n    height: 15px;\n    position: relative;\n    top: -3px;\n}\n\ntable {\n    width: 100%;\n}"
+module.exports = ".mat-form-field {\n    width: 94%;\n}\n\n.static_field {\n    text-align: left;\n    width: 100%;\n    font-size: 14px;\n    min-height: 35px;\n    display: inline-block;\n    vertical-align: top;\n    position: absolute;\n    top: 0;\n    padding-top: 5px;\n    border-bottom: 1px solid #949494;\n}\n\n.static_label {\n    color: #aaa;\n    display: block;\n    font-size: 11px;\n    height: 15px;\n    position: relative;\n    top: -8px;\n}\n\ntable {\n    width: 100%;\n}"
 
 /***/ }),
 
@@ -1551,7 +2027,7 @@ module.exports = ".mat-form-field {\n    width: 94%;\n}\n\n.static_field {\n    
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-card>\n  <mat-card-title>Orden de Pedido</mat-card-title>\n  <mat-accordion>\n    <mat-expansion-panel [expanded]=\"true\">\n      <mat-expansion-panel-header>\n        <mat-panel-title>\n          <strong>Datos del pedido</strong>\n        </mat-panel-title>\n        <mat-panel-description>\n          Información del cliente\n        </mat-panel-description>\n      </mat-expansion-panel-header>\n      <mat-grid-list cols=\"3\" rowHeight=\"60px\">\n        <mat-grid-tile>\n          <mat-form-field>\n            <mat-select class=\"custom-select\" placeholder=\"Cliente\" (ngModelChange)=\"onClientSelected($event)\"\n              [(ngModel)]=\"clientId\" data-live-search=\"true\">\n              <mat-option *ngFor=\"let client of clients\" [value]=\"client.id\">\n                {{client.id}} - {{client.nom}}\n              </mat-option>\n            </mat-select>\n          </mat-form-field>\n          <!--<select class=\"custom-select\" (ngModelChange)=\"onClientSelected($event)\" [(ngModel)]=\"clientId\"\n            data-live-search=\"true\">\n            <option [value]=\"selectedAddress\" selected=\"selected\">selectione un cliente\n            </option>\n            <option *ngFor=\"let client of clients\" [ngValue]=client.id> {{client.nom}}\n            </option>\n          </select>-->\n        </mat-grid-tile>\n        <mat-grid-tile>\n          <mat-form-field *ngIf=\"selectedClient\">\n            <mat-select class=\"custom-select\" placeholder=\"Domicilio\" (ngModelChange)=\"onAdressSelected($event)\"\n              [(ngModel)]=\"selectedAddress\" data-live-search=\"true\">\n              <!--<mat-option [value]=\"selectedAddress\">\n                {{selectedAddress.dir}} - {{selectedAddress.localidad}}\n              </mat-option>-->\n              <mat-option *ngFor=\"let addr of selectedClient.address\" [value]=addr.id> {{addr.dir}} -\n                {{addr.localidad}}\n              </mat-option>\n            </mat-select>\n          </mat-form-field>\n          <!--<select *ngIf=\"selectedClient\" class=\"custom-select\" (ngModelChange)=\"onAdressSelected($event)\" [(ngModel)]=\"selectedAddress\"\n            data-live-search=\"true\" id=\"selectedAddress\">\n            <option [value]=\"selectedAddress\" selected=\"selected\">{{selectedAddress.dir}} -\n              {{selectedAddress.localidad}}\n            </option>\n            <option *ngFor=\"let addr of selectedClient.address\" [ngValue]=addr.id> {{addr.dir}} - {{addr.localidad}}\n            </option>\n          </select>-->\n        </mat-grid-tile>\n        <mat-grid-tile>\n          <div class=\"static_field\">\n            <span class=\"static_label\">Flete</span>\n            {{ (selectedClient && selectedAddress && selectedAddress.flete) ? selectedAddress.flete.nom : ''}}\n          </div>\n        </mat-grid-tile>\n        <mat-grid-tile>\n          <mat-form-field>\n            <mat-select placeholder=\"Pago\" [(ngModel)]=\"conven\" data-live-search=\"true\" id=\"convenId\">\n              <mat-option [value]=\"1\" selected=\"selected\">CONTADO</mat-option>\n              <mat-option [value]=\"2\">CHEQUES 30 dias</mat-option>\n              <mat-option [value]=\"3\">CHEQUES 30 - 60 dias</mat-option>\n              <mat-option [value]=\"4\">CHEQUES 30 - 60 - 90 dias</mat-option>\n            </mat-select>\n          </mat-form-field>\n        </mat-grid-tile>\n        <mat-grid-tile [colspan]=\"2\">\n          <mat-form-field>\n            <textarea matInput placeholder=\"Observaciones\"></textarea>\n          </mat-form-field>\n        </mat-grid-tile>\n      </mat-grid-list>\n    </mat-expansion-panel>\n  </mat-accordion>\n  <mat-accordion>\n    <mat-expansion-panel>\n      <mat-expansion-panel-header>\n        <mat-panel-title>\n          <strong>Detalle del pedido</strong>\n        </mat-panel-title>\n        <mat-panel-description>\n          Detalle de la compra\n        </mat-panel-description>\n      </mat-expansion-panel-header>\n      <mat-grid-list cols=\"9\" rowHeight=\"60px\">\n        <mat-grid-tile [colspan]=\"8\">\n          <mat-form-field>\n            <mat-select placeholder=\"Artículo\" class=\"custom-select\" (ngModelChange)=\"onArtSelected($event)\"\n              [(ngModel)]=\"artId\" data-live-search=\"true\">\n              <mat-option *ngFor=\"let art of articulos\" [value]=art.id> {{art.id}} - {{art.nom}}\n              </mat-option>\n            </mat-select>\n          </mat-form-field>\n        </mat-grid-tile>\n        <mat-grid-tile [colspan]=\"1\">\n          <mat-form-field>\n            <input matInput placeholder=\"Precio\" [(ngModel)]=\"price\" type=\"number\" min=\"0\" step=\"0.01\"\n              data-number-to-fixed=\"2\" data-number-stepfactor=\"100\" class=\"form-control currency\" id=\"price\" />\n          </mat-form-field>\n        </mat-grid-tile>\n      </mat-grid-list>\n      <mat-grid-list cols=\"9\" rowHeight=\"40px\">\n        <mat-grid-tile [colspan]=\"1\"><strong>Código</strong></mat-grid-tile>\n        <mat-grid-tile [colspan]=\"6\"><strong>Descripción</strong></mat-grid-tile>\n        <mat-grid-tile [colspan]=\"2\"><strong>Cantidad</strong></mat-grid-tile>\n        <div *ngFor=\"let item of selectedItems; let i = index\">\n          <mat-grid-tile [colspan]=\"1\">{{item.itemdatum.variante.codigo}} </mat-grid-tile>\n          <mat-grid-tile [colspan]=\"6\">{{item.itemdatum.variante.nom}}</mat-grid-tile>\n          <mat-grid-tile [colspan]=\"1\">\n            <mat-form-field><input matInput placeholder=\"Cantidad\" #selectedCount (change)=\"addCount(i, selectedCount.value);\"></mat-form-field>\n          </mat-grid-tile>\n          <mat-grid-tile [colspan]=\"1\">\n            <button mat-icon-button color=\"accent\" (click)=\"removeVariante(i)\" matTooltip=\"Eliminar variante\"\n              matTooltipPosition=\"above\">\n              <mat-icon aria-label=\"Eliminar variante\">remove_circle_outline</mat-icon>\n            </button>\n          </mat-grid-tile>\n        </div>\n      </mat-grid-list>\n    </mat-expansion-panel>\n  </mat-accordion>\n  <mat-accordion *ngIf=\"hasVariantes\">\n    <mat-expansion-panel [expanded]=\"true\">\n      <mat-expansion-panel-header>\n        <mat-panel-title>\n          <strong>Seleccione Variantes</strong>\n        </mat-panel-title>\n        <mat-panel-description>\n          Seleccione las variantes del producto que desea agregar al pedido\n        </mat-panel-description>\n      </mat-expansion-panel-header>\n      <mat-grid-list cols=\"9\" rowHeight=\"40px\">\n        <mat-grid-tile [colspan]=\"1\"><strong>Color</strong></mat-grid-tile>\n        <mat-grid-tile [colspan]=\"1\"><strong>Código</strong></mat-grid-tile>\n        <mat-grid-tile [colspan]=\"5\"><strong>Descripción</strong></mat-grid-tile>\n        <mat-grid-tile [colspan]=\"1\"><strong>Stock</strong></mat-grid-tile>\n        <mat-grid-tile [colspan]=\"1\"><strong>Agregar</strong></mat-grid-tile>\n        <div *ngFor=\"let item of variantes; let i = index\">\n          <mat-grid-tile [colspan]=\"1\">\n              <a *ngIf=\"item.imagen !== ''\" [href]=\"item.imagen\" data-lightbox=\"image\" data-title=\"Artículo: {{item.codigo}} - Variante: {{item.nom}}  - Stock: {{item.pza}}\">\n                <img [src]=\"item.imagen\" onError=\"this.src='https://simsiroglu.com.ar/sim/wp-content/uploads/2017/07/polish.png';\"\n                  alt=\"Producto\" width=\"25\" style=\"border-radius:25px; height:25px; overflow:hidden; cursor:pointer\"\n                  class=\"pict\" matTooltip=\"Ver imagen\"\n                  matTooltipPosition=\"above\" />\n              </a>\n              <a *ngIf=\"item.imagen == ''\" href=\"https://simsiroglu.com.ar/sim/wp-content/uploads/2017/07/polish.png\" data-lightbox=\"image\" data-add=\"(item)\" data-title=\"Stock: {{item.codigo}} - Variante: {{item.nom}}  - Variante: {{item.pza}}\">\n                  <img [src]=\"item.imagen\" onError=\"this.src='https://simsiroglu.com.ar/sim/wp-content/uploads/2017/07/polish.png';\"\n                    alt=\"Producto\" width=\"25\" style=\"border-radius:25px; height:25px; overflow:hidden; cursor:pointer\"\n                    class=\"pict\"  matTooltip=\"Ver imagen\"\n                    matTooltipPosition=\"above\"/>\n                </a>\n          </mat-grid-tile>\n          <mat-grid-tile [colspan]=\"1\">{{item.codigo}}</mat-grid-tile>\n          <mat-grid-tile [colspan]=\"5\">{{item.nom}}</mat-grid-tile>\n          <mat-grid-tile [colspan]=\"1\">{{item.pza}}</mat-grid-tile>\n          <mat-grid-tile [colspan]=\"1\">\n            <button id=\"button\" mat-icon-button color=\"accent\" (click)=\"addVariante(item)\" matTooltip=\"Agregar variante\"\n              matTooltipPosition=\"above\">\n              <mat-icon aria-label=\"Agregar variante\">add_circle_outline</mat-icon>\n            </button>\n          </mat-grid-tile>\n        </div>\n      </mat-grid-list>\n    </mat-expansion-panel>\n  </mat-accordion>\n  <br />\n  <mat-card-actions align=\"middle\">\n    <div fxFlex></div><button mat-raised-button color=\"accent\" (click)=\"submitOrderDetail()\">Enviar</button>\n  </mat-card-actions>\n</mat-card>\n"
+module.exports = "<mat-card>\n  <mat-card-title>Orden de Pedido</mat-card-title>\n  <mat-accordion>\n    <mat-expansion-panel [expanded]=\"true\">\n      <mat-expansion-panel-header>\n        <mat-panel-title>\n          <strong>Datos del pedido</strong>\n        </mat-panel-title>\n        <mat-panel-description>\n          Información del cliente\n        </mat-panel-description>\n      </mat-expansion-panel-header>\n      <mat-grid-list cols=\"3\" rowHeight=\"60px\">\n        <mat-grid-tile>\n          <mat-form-field>\n            <input type=\"text\" placeholder=\"Cliente\" aria-label=\"Cliente\" matInput [formControl]=\"myControl\" [matAutocomplete]=\"auto\" (ngModelChange)=\"onClientSelected($event)\">\n            <mat-autocomplete autoActiveFirstOption #auto=\"matAutocomplete\" [displayWith]=\"displayFn\">\n              <mat-option *ngFor=\"let option of filteredOptions | async\" [value]=\"option\">\n                {{ option.nom }}\n              </mat-option>\n            </mat-autocomplete>\n          </mat-form-field>\n          <!--<mat-form-field>\n            <mat-select class=\"custom-select\" placeholder=\"Cliente\" (ngModelChange)=\"onClientSelected($event)\"\n              [(ngModel)]=\"clientId\" data-live-search=\"true\">\n              <mat-option *ngFor=\"let client of clients\" [value]=\"client.id\">\n                {{client.id}} - {{client.nom}}\n              </mat-option>\n            </mat-select>\n          </mat-form-field>-->\n        </mat-grid-tile>\n        <mat-grid-tile>\n          <mat-form-field *ngIf=\"selectedClient\">\n            <mat-select class=\"custom-select\" placeholder=\"Domicilio\" (ngModelChange)=\"onAdressSelected($event)\"\n              [(ngModel)]=\"selectedAddress\" data-live-search=\"true\">\n              <!--<mat-option [value]=\"selectedAddress\">\n                {{selectedAddress.dir}} - {{selectedAddress.localidad}}\n              </mat-option>-->\n              <mat-option *ngFor=\"let addr of selectedClient.address\" [value]=addr.id> {{addr.dir}} -\n                {{addr.localidad}}\n              </mat-option>\n            </mat-select>\n          </mat-form-field>\n          <!--<select *ngIf=\"selectedClient\" class=\"custom-select\" (ngModelChange)=\"onAdressSelected($event)\" [(ngModel)]=\"selectedAddress\"\n            data-live-search=\"true\" id=\"selectedAddress\">\n            <option [value]=\"selectedAddress\" selected=\"selected\">{{selectedAddress.dir}} -\n              {{selectedAddress.localidad}}\n            </option>\n            <option *ngFor=\"let addr of selectedClient.address\" [ngValue]=addr.id> {{addr.dir}} - {{addr.localidad}}\n            </option>\n          </select>-->\n        </mat-grid-tile>\n        <mat-grid-tile>\n          <div class=\"static_field\">\n            <span class=\"static_label\">Flete</span>\n            {{ (selectedClient && selectedAddress && selectedAddress.flete) ? selectedAddress.flete.nom : ''}}\n          </div>\n        </mat-grid-tile>\n        <mat-grid-tile>\n          <mat-form-field>\n            <mat-select placeholder=\"Condición de Pago\" [(ngModel)]=\"conven\" (ngModelChange)=\"onCondVentSelected($event)\" data-live-search=\"true\" id=\"convenId\">\n              <mat-option *ngFor=\"let cond of conpag\" [value]=\"cond\">\n                {{cond.nom}}\n              </mat-option>\n            </mat-select>\n          </mat-form-field>\n        </mat-grid-tile>\n        <mat-grid-tile [colspan]=\"2\">\n          <mat-form-field>\n            <input type=\"text\" matInput placeholder=\"Observaciones\">\n          </mat-form-field>\n        </mat-grid-tile>\n      </mat-grid-list>\n    </mat-expansion-panel>\n  </mat-accordion>\n  <mat-accordion>\n    <mat-expansion-panel>\n      <mat-expansion-panel-header>\n        <mat-panel-title>\n          <strong>Detalle del pedido</strong>\n        </mat-panel-title>\n        <mat-panel-description>\n          Detalle de la compra\n        </mat-panel-description>\n      </mat-expansion-panel-header>\n      <mat-grid-list cols=\"9\" rowHeight=\"60px\">\n        <mat-grid-tile [colspan]=\"7\">\n\n          <mat-form-field>\n            <input type=\"text\" placeholder=\"Artículo\" aria-label=\"Artículo\" matInput [formControl]=\"myControlArt\"\n              [matAutocomplete]=\"autoArt\" (ngModelChange)=\"onArtSelected($event)\">\n            <mat-autocomplete autoActiveFirstOption #autoArt=\"matAutocomplete\" [displayWith]=\"displayFnArt\">\n              <mat-option *ngFor=\"let art of filteredOptionsArt | async\" [value]=\"art\">\n                {{art.codfac}} - {{art.nom}}\n              </mat-option>\n            </mat-autocomplete>\n          </mat-form-field>\n\n        </mat-grid-tile>\n        <mat-grid-tile [colspan]=\"1\">\n          <div class=\"static_field\">\n            <span class=\"static_label\">Precio Sugerido</span>\n            $ {{ sugPrice }}\n          </div>\n        </mat-grid-tile>\n        <mat-grid-tile [colspan]=\"1\">\n          <mat-form-field>\n            <input matInput placeholder=\"Precio\" [(ngModel)]=\"price\" type=\"number\" min=\"0\" step=\"0.01\"\n              data-number-to-fixed=\"2\" data-number-stepfactor=\"100\" class=\"form-control currency\" id=\"price\" />\n          </mat-form-field>\n        </mat-grid-tile>\n      </mat-grid-list>\n      <mat-grid-list cols=\"9\" rowHeight=\"40px\">\n        <mat-grid-tile [colspan]=\"1\"><strong>Código</strong></mat-grid-tile>\n        <mat-grid-tile [colspan]=\"5\"><strong>Descripción</strong></mat-grid-tile>\n        <mat-grid-tile [colspan]=\"1\"><strong>Stock</strong></mat-grid-tile>\n        <mat-grid-tile [colspan]=\"1\"><strong>Cantidad</strong></mat-grid-tile>\n        <mat-grid-tile [colspan]=\"1\"><strong>Eliminar</strong></mat-grid-tile>\n        <div *ngFor=\"let item of selectedItems; let i = index\">\n          <mat-grid-tile [colspan]=\"1\">{{item.itemdatum.variante.codigo}} </mat-grid-tile>\n          <mat-grid-tile [colspan]=\"5\">{{item.itemdatum.variante.nom}}</mat-grid-tile>\n          <mat-grid-tile [colspan]=\"1\">{{item.itemdatum.variante.pza}}</mat-grid-tile>\n          <mat-grid-tile [colspan]=\"1\">\n            <mat-form-field>\n            <input matInput required placeholder=\"Cantidad\" #selectedCount (change)=\"addCount(i, selectedCount.value);\">\n            </mat-form-field>\n          </mat-grid-tile>\n          <mat-grid-tile [colspan]=\"1\">\n            <button mat-icon-button color=\"accent\" (click)=\"removeVariante(i)\" matTooltip=\"Eliminar variante\"\n              matTooltipPosition=\"above\">\n              <mat-icon aria-label=\"Eliminar variante\">remove_circle_outline</mat-icon>\n            </button>\n          </mat-grid-tile>\n        </div>\n      </mat-grid-list>\n    </mat-expansion-panel>\n  </mat-accordion>\n  <mat-accordion *ngIf=\"hasVariantes\">\n    <mat-expansion-panel [expanded]=\"true\">\n      <mat-expansion-panel-header>\n        <mat-panel-title>\n          <strong>Seleccione Variantes</strong>\n        </mat-panel-title>\n        <mat-panel-description>\n          Seleccione las variantes del producto que desea agregar al pedido\n        </mat-panel-description>\n      </mat-expansion-panel-header>\n      <mat-grid-list cols=\"9\" rowHeight=\"40px\">\n        <mat-grid-tile [colspan]=\"1\"><strong>Color</strong></mat-grid-tile>\n        <mat-grid-tile [colspan]=\"1\"><strong>Código</strong></mat-grid-tile>\n        <mat-grid-tile [colspan]=\"5\"><strong>Descripción</strong></mat-grid-tile>\n        <mat-grid-tile [colspan]=\"1\"><strong>Stock</strong></mat-grid-tile>\n        <mat-grid-tile [colspan]=\"1\"><strong>Agregar</strong></mat-grid-tile>\n        <div *ngFor=\"let item of variantes; let i = index\">\n          <mat-grid-tile [colspan]=\"1\">\n            <a *ngIf=\"item.imagen !== ''\" [href]=\"item.imagen\" data-lightbox=\"image\" data-title=\"Artículo: {{item.codigo}} - Variante: {{item.nom}}  - Stock: {{item.pza}}\">\n              <img [src]=\"item.imagen\" onError=\"this.src='https://simsiroglu.com.ar/sim/wp-content/uploads/2017/07/polish.png';\"\n                alt=\"Producto\" width=\"25\" style=\"border-radius:25px; height:25px; overflow:hidden; cursor:pointer\"\n                class=\"pict\" matTooltip=\"Ver imagen\" matTooltipPosition=\"above\" />\n            </a>\n            <a *ngIf=\"item.imagen == ''\" href=\"https://simsiroglu.com.ar/sim/wp-content/uploads/2017/07/polish.png\"\n              data-lightbox=\"image\" data-add=\"(item)\" data-title=\"Stock: {{item.codigo}} - Variante: {{item.nom}}  - Variante: {{item.pza}}\">\n              <img [src]=\"item.imagen\" onError=\"this.src='https://simsiroglu.com.ar/sim/wp-content/uploads/2017/07/polish.png';\"\n                alt=\"Producto\" width=\"25\" style=\"border-radius:25px; height:25px; overflow:hidden; cursor:pointer\"\n                class=\"pict\" matTooltip=\"Ver imagen\" matTooltipPosition=\"above\" />\n            </a>\n          </mat-grid-tile>\n          <mat-grid-tile [colspan]=\"1\">{{item.codigo}}</mat-grid-tile>\n          <mat-grid-tile [colspan]=\"5\">{{item.nom}}</mat-grid-tile>\n          <mat-grid-tile [colspan]=\"1\">{{item.pza}}</mat-grid-tile>\n          <mat-grid-tile [colspan]=\"1\">\n            <button id=\"button\" mat-icon-button color=\"accent\" (click)=\"addVariante(item)\" matTooltip=\"Agregar variante\"\n              matTooltipPosition=\"above\">\n              <mat-icon aria-label=\"Agregar variante\">add_circle_outline</mat-icon>\n            </button>\n          </mat-grid-tile>\n        </div>\n      </mat-grid-list>\n    </mat-expansion-panel>\n  </mat-accordion>\n  <br />\n  <mat-card-actions align=\"middle\">\n    <div fxFlex></div><button mat-raised-button color=\"accent\" (click)=\"submitOrderDetail()\">Enviar</button>\n  </mat-card-actions>\n</mat-card>\n"
 
 /***/ }),
 
@@ -1567,11 +2043,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CreateOrderComponent", function() { return CreateOrderComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _services_user_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../services/user.service */ "./src/app/services/user.service.ts");
-/* harmony import */ var _services_data_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../services/data.service */ "./src/app/services/data.service.ts");
-/* harmony import */ var _services_orders_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../services/orders.service */ "./src/app/services/orders.service.ts");
-/* harmony import */ var _services_otherdata_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../services/otherdata.service */ "./src/app/services/otherdata.service.ts");
-/* harmony import */ var _services_sidenav_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../services/sidenav.service */ "./src/app/services/sidenav.service.ts");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _services_orders_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../services/orders.service */ "./src/app/services/orders.service.ts");
+/* harmony import */ var _services_otherdata_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../services/otherdata.service */ "./src/app/services/otherdata.service.ts");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1587,24 +2062,27 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
-
 var CreateOrderComponent = /** @class */ (function () {
-    function CreateOrderComponent(router, dataservice, userService, orderService, otherService, sidenavend) {
-        this.router = router;
-        this.dataservice = dataservice;
+    function CreateOrderComponent(userService, orderService, otherService) {
         this.userService = userService;
         this.orderService = orderService;
         this.otherService = otherService;
-        this.sidenavend = sidenavend;
-        /*Ligthbox */
-        this.myImgUrl = 'https://simsiroglu.com.ar/sim/wp-content/uploads/2017/07/polish.png';
+        this.myControl = new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControl"]();
+        this.myControlArt = new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControl"]();
     }
     CreateOrderComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.isOpen = true;
         this.isOpen1 = false;
         this.selectedItems = [];
-        this.sellerId = this.dataservice.getSellerId();
+        if (localStorage.getItem('sellerId')) {
+            var salesman = JSON.parse(localStorage.getItem('sellerId'));
+            this.sellerId = salesman.id;
+        }
+        if (localStorage.getItem('sellerIdMaster')) {
+            var salesman = JSON.parse(localStorage.getItem('sellerIdMaster'));
+            this.sellerId = salesman;
+        }
         this.userService.getClientsBySeller(this.sellerId).subscribe(function (data) {
             _this.clients = data;
             _this.selectedClient = _this.clients[0];
@@ -1616,32 +2094,56 @@ var CreateOrderComponent = /** @class */ (function () {
         this.orderService.getArticulos().subscribe(function (data) {
             _this.articulos = data;
         });
+        // Autocomplete filter
+        this.filteredOptions = this.myControl.valueChanges
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["startWith"])(''), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function (value) { return value ? _this._filter(value) : _this.clients; }));
+        this.filteredOptionsArt = this.myControlArt.valueChanges
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["startWith"])(''), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function (value) { return value ? _this._filterArt(value) : _this.articulos; }));
+        this.orderService.getCondPag().subscribe(function (data) {
+            _this.conpag = data;
+        });
     };
-    // toggleActive:boolean = false;
-    /*sidenavopen(data) {
-      this.sidenavend.open();
-      localStorage.setItem('img', img);
-      console.log(img);
-    }*/
+    // Autocomplete filter
+    CreateOrderComponent.prototype.displayFn = function (user) {
+        return user ? (user.nom) : undefined;
+    };
+    CreateOrderComponent.prototype.displayFnArt = function (art) {
+        return art ? (art.codfac + ' ' + art.nom) : undefined;
+    };
+    // Autocomplete filter
+    CreateOrderComponent.prototype._filter = function (value) {
+        var filterValue = value.toLowerCase();
+        return this.clients.filter(function (option) { return (option.nom).toLowerCase().includes(filterValue); });
+    };
+    CreateOrderComponent.prototype._filterArt = function (value) {
+        var filterValueArt = value;
+        return this.articulos.filter(function (option) { return (option.codfac + ' ' + option.nom).toLowerCase().includes(filterValueArt); });
+    };
+    // Autocomplete filter
     CreateOrderComponent.prototype.onClientSelected = function (event) {
         var _this = this;
-        console.log('Selected value');
-        console.log(event);
-        this.clientId = event;
-        // this.clientId = '621';
+        this.clientId = event.id;
+        console.log(this.clientId);
         this.userService.getClient(this.clientId).subscribe(function (data) {
             _this.selectedClient = data;
             _this.selectedAddress = _this.selectedClient.address[0];
             _this.selectedFlete = _this.selectedAddress.flete;
-            _this.conven = '1';
-            console.log('call client works... ' + _this.clientId);
+            _this.convenId = 1;
         });
     };
-    CreateOrderComponent.prototype.onCondVentSelected = function () {
+    CreateOrderComponent.prototype.onCondVentSelected = function (event) {
+        var _this = this;
+        this.convenId = event.id;
+        console.log('Condición: ' + this.convenId);
+        this.orderService.getPrecio(this.articulo.art_id, this.convenId, this.selectedClient.id).subscribe(function (price) {
+            console.log('El art es: ' + _this.articulo.art_id + ' el conven es ' + _this.convenId + ' el cliente es' + _this.selectedClient.id);
+            _this.sugPrice = price.precio;
+        });
     };
     CreateOrderComponent.prototype.onArtSelected = function (event) {
         var _this = this;
-        this.artId = event;
+        console.log('Art = ' + event);
+        this.artId = event.id;
         this.orderService.getArticuloById(this.artId).subscribe(function (data) {
             _this.articulo = data;
             if (_this.articulo && _this.articulo.variantes && _this.articulo.variantes.length > 0) {
@@ -1651,15 +2153,14 @@ var CreateOrderComponent = /** @class */ (function () {
             else {
                 _this.hasVariantes = false;
             }
-            _this.otherService.getPrecio(_this.articulo.art_id, _this.conven, _this.selectedClient.id).subscribe(function (data) {
-                _this.price = data.precio;
-                console.log('Precio = ' + _this.price);
+            _this.orderService.getPrecio(_this.articulo.art_id, _this.convenId, _this.selectedClient.id).subscribe(function (price) {
+                console.log('El art es: ' + _this.articulo.art_id + ' el conven es ' + _this.convenId + ' el cliente es' + _this.selectedClient.id);
+                _this.sugPrice = price.precio;
             });
-            console.log('call getArticuloById works... ' + _this.articulo.art_id + ' ' + _this.variantes.length);
         });
     };
     CreateOrderComponent.prototype.addVariante = function (variante) {
-        if (this.selectedItems.length == 0 || !(this.selectedItems.some(function (e) { return e.itemdata === variante.itemdata_id; }))) {
+        if (this.selectedItems.length === 0 || !(this.selectedItems.some(function (e) { return e.itemdata === variante.itemdata_id; }))) {
             var peditem = void 0;
             peditem = {
                 itemdata: variante.itemdata_id,
@@ -1678,6 +2179,7 @@ var CreateOrderComponent = /** @class */ (function () {
                         itemdata_id: variante.itemdata_id,
                         codigo: variante.codigo,
                         nom: variante.nom,
+                        pza: variante.pza,
                     }
                 }
             };
@@ -1729,12 +2231,9 @@ var CreateOrderComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./create-order.component.html */ "./src/app/orders/create-order/create-order.component.html"),
             styles: [__webpack_require__(/*! ./create-order.component.css */ "./src/app/orders/create-order/create-order.component.css")]
         }),
-        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_6__["Router"],
-            _services_data_service__WEBPACK_IMPORTED_MODULE_2__["DataService"],
-            _services_user_service__WEBPACK_IMPORTED_MODULE_1__["UserService"],
-            _services_orders_service__WEBPACK_IMPORTED_MODULE_3__["OrdersService"],
-            _services_otherdata_service__WEBPACK_IMPORTED_MODULE_4__["OtherdataService"],
-            _services_sidenav_service__WEBPACK_IMPORTED_MODULE_5__["SidenavService"]])
+        __metadata("design:paramtypes", [_services_user_service__WEBPACK_IMPORTED_MODULE_1__["UserService"],
+            _services_orders_service__WEBPACK_IMPORTED_MODULE_2__["OrdersService"],
+            _services_otherdata_service__WEBPACK_IMPORTED_MODULE_3__["OtherdataService"]])
     ], CreateOrderComponent);
     return CreateOrderComponent;
 }());
@@ -1943,7 +2442,7 @@ module.exports = "table {\n    width: 100%;\n}\n.mat-form-field {\n    width: 10
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-card>\n  <mat-card-title>Mis Pedidos</mat-card-title>\n  <mat-grid-list cols=\"2\" rowHeight=\"80px\">\n    <mat-grid-tile>\n      <mat-form-field>\n        <input matInput (keyup)=\"applyFilter($event.target.value)\" placeholder=\"Filtrar resultados\">\n      </mat-form-field>\n    </mat-grid-tile>\n    <mat-grid-tile>\n      <mat-paginator [pageSizeOptions]=\"[25, 50, 100]\" showFirstLastButtons>\n      </mat-paginator>\n    </mat-grid-tile>\n  </mat-grid-list>\n  <div class=\"spinner-container\" *ngIf=\"dataSource.loading$ | async\">\n    <mat-spinner></mat-spinner>\n  </div>\n  <table mat-table [dataSource]=\"dataSource\" matSort>\n    <ng-container matColumnDef=\"id\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header> # </th>\n      <td mat-cell *matCellDef=\"let order\"> {{order.nro}} </td>\n    </ng-container>\n    <ng-container matColumnDef=\"date\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </th>\n      <td mat-cell *matCellDef=\"let order\"> {{order.fem| date:'dd-MM-yyyy'}} </td>\n    </ng-container>\n    <ng-container matColumnDef=\"nom\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header> Cliente </th>\n      <td mat-cell *matCellDef=\"let order\"> {{order.cliente.nom}} </td>\n    </ng-container>\n    <ng-container matColumnDef=\"address\">\n        <th mat-header-cell *matHeaderCellDef mat-sort-header> Dirección </th>\n        <td mat-cell *matCellDef=\"let order\"> {{(order.address && order.address.dir) ?order.address.dir : \"\"}}</td>\n      </ng-container>\n    <ng-container matColumnDef=\"button\">\n      <th mat-header-cell *matHeaderCellDef> Ver </th>\n      <td mat-cell *matCellDef=\"let order\">\n        <button mat-mini-fab color=\"accent\" class=\"col-xs-1\" [routerLink]=\"['/orders/detail', order.id]\" matTooltip=\"Ver orden completa\"\n          matTooltipPosition=\"above\">\n          <mat-icon aria-label=\"Ver detalle\">search</mat-icon>\n        </button> </td>\n    </ng-container>\n    <tr mat-header-row *matHeaderRowDef=\"displayedColumns; sticky: true\"></tr>\n    <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>\n\n  </table>\n  <button mat-raised-button color=\"accent\" [routerLink]=\"['/orders/view']\">\n    <mat-icon aria-label=\"Volver\">arrow_back</mat-icon> Volver\n  </button>\n</mat-card>\n"
+module.exports = "<mat-card>\n  <mat-card-title>Mis Pedidos</mat-card-title>\n  <mat-grid-list cols=\"2\" rowHeight=\"80px\">\n    <mat-grid-tile>\n      <mat-form-field>\n        <input matInput (keyup)=\"applyFilter($event.target.value)\" placeholder=\"Filtrar resultados\">\n      </mat-form-field>\n    </mat-grid-tile>\n    <mat-grid-tile>\n      <mat-paginator [pageSizeOptions]=\"[25, 50, 100]\" showFirstLastButtons>\n      </mat-paginator>\n    </mat-grid-tile>\n  </mat-grid-list>\n  <div class=\"spinner-container\" *ngIf=\"dataSource.loading$ | async\">\n    <mat-spinner></mat-spinner>\n  </div>\n  <table mat-table [dataSource]=\"dataSource\" matSort>\n    <ng-container matColumnDef=\"id\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header> # </th>\n      <td mat-cell *matCellDef=\"let order\"> {{order.nro}} </td>\n    </ng-container>\n    <ng-container matColumnDef=\"date\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </th>\n      <td mat-cell *matCellDef=\"let order\"> {{order.fem| date:'dd-MM-yyyy'}} </td>\n    </ng-container>\n    <ng-container matColumnDef=\"nom\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header> Cliente </th>\n      <td mat-cell *matCellDef=\"let order\"> {{order.cliente.nom}} </td>\n    </ng-container>\n    <ng-container matColumnDef=\"address\">\n        <th mat-header-cell *matHeaderCellDef mat-sort-header> Dirección </th>\n        <td mat-cell *matCellDef=\"let order\"> {{(order.address && order.address.dir) ? order.address.dir : \"-\"}}</td>\n      </ng-container>\n    <ng-container matColumnDef=\"button\">\n      <th mat-header-cell *matHeaderCellDef> Ver </th>\n      <td mat-cell *matCellDef=\"let order\">\n        <button mat-mini-fab color=\"accent\" class=\"col-xs-1\" [routerLink]=\"['/orders/detail', order.id]\" matTooltip=\"Ver orden completa\"\n          matTooltipPosition=\"above\">\n          <mat-icon aria-label=\"Ver detalle\">search</mat-icon>\n        </button> </td>\n    </ng-container>\n    <tr mat-header-row *matHeaderRowDef=\"displayedColumns; sticky: true\"></tr>\n    <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>\n\n  </table>\n  <button mat-raised-button color=\"accent\" [routerLink]=\"['/orders/view']\">\n    <mat-icon aria-label=\"Volver\">arrow_back</mat-icon> Volver\n  </button>\n</mat-card>\n"
 
 /***/ }),
 
@@ -1986,31 +2485,25 @@ var ViewOrdersComponent = /** @class */ (function () {
         this.displayedColumns = ['id', 'date', 'nom', 'address', 'button'];
         this.dataSource = new _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatTableDataSource"](this.orders);
     }
-    /*  ngOnInit() {
-        // call service to retrieve orders by seller
-        // let sellerId = this.route.snapshot.paramMap.get('sellerId');
-        let sellerId = this.dataservice.getSellerId();
-        sessionStorage.setItem('sellerId', JSON.stringify(sellerId));
-        console.log('view orders...' + sellerId);
-    
-    
-        this.ordersService.getOrders(sellerId).subscribe((data: Order[]) => {
-          console.log('ViewOrdersComponent orders...' + data);
-          this.orders = data;
-          for (let order of this.orders)
-            console.log("address " + order.address + "fem" + order.fem)
-        })
-          ;
-      } */
     ViewOrdersComponent.prototype.ngOnInit = function () {
         var _this = this;
         // call service to retrieve orders by seller
-        var sellerId = '37';
-        this.ordersService.getOrders(sellerId).subscribe(function (data) {
-            _this.ordersData = data;
-            _this.dataSource.data = _this.ordersData;
-            // error => this.error = error
-        });
+        if (localStorage.getItem('sellerId')) {
+            var salesman = JSON.parse(localStorage.getItem('sellerId'));
+            this.ordersService.getOrders(salesman.id).subscribe(function (data) {
+                _this.ordersData = data;
+                _this.dataSource.data = _this.ordersData;
+                // error => this.error = error
+            });
+        }
+        if (localStorage.getItem('sellerIdMaster')) {
+            var salesman = JSON.parse(localStorage.getItem('sellerIdMaster'));
+            this.ordersService.getOrders(salesman).subscribe(function (data) {
+                _this.ordersData = data;
+                _this.dataSource.data = _this.ordersData;
+                // error => this.error = error
+            });
+        }
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
     };
@@ -2038,6 +2531,143 @@ var ViewOrdersComponent = /** @class */ (function () {
             _services_orders_service__WEBPACK_IMPORTED_MODULE_1__["OrdersService"]])
     ], ViewOrdersComponent);
     return ViewOrdersComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/services/alert.service.ts":
+/*!*******************************************!*\
+  !*** ./src/app/services/alert.service.ts ***!
+  \*******************************************/
+/*! exports provided: AlertService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AlertService", function() { return AlertService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var AlertService = /** @class */ (function () {
+    function AlertService(router) {
+        var _this = this;
+        this.router = router;
+        this.subject = new rxjs__WEBPACK_IMPORTED_MODULE_2__["Subject"]();
+        this.keepAfterNavigationChange = false;
+        // clear alert message on route change
+        router.events.subscribe(function (event) {
+            if (event instanceof _angular_router__WEBPACK_IMPORTED_MODULE_1__["NavigationStart"]) {
+                if (_this.keepAfterNavigationChange) {
+                    // only keep for a single location change
+                    _this.keepAfterNavigationChange = false;
+                }
+                else {
+                    // clear alert
+                    _this.subject.next();
+                }
+            }
+        });
+    }
+    AlertService.prototype.success = function (message, keepAfterNavigationChange) {
+        if (keepAfterNavigationChange === void 0) { keepAfterNavigationChange = false; }
+        this.keepAfterNavigationChange = keepAfterNavigationChange;
+        this.subject.next({ type: 'success', text: message });
+    };
+    AlertService.prototype.error = function (message, keepAfterNavigationChange) {
+        if (keepAfterNavigationChange === void 0) { keepAfterNavigationChange = false; }
+        this.keepAfterNavigationChange = keepAfterNavigationChange;
+        this.subject.next({ type: 'error', text: message });
+    };
+    AlertService.prototype.getMessage = function () {
+        return this.subject.asObservable();
+    };
+    AlertService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
+        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]])
+    ], AlertService);
+    return AlertService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/services/authentication.service.ts":
+/*!****************************************************!*\
+  !*** ./src/app/services/authentication.service.ts ***!
+  \****************************************************/
+/*! exports provided: AuthenticationService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AuthenticationService", function() { return AuthenticationService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var AuthenticationService = /** @class */ (function () {
+    function AuthenticationService(http) {
+        this.http = http;
+        this.httpOptions = {
+            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]({
+                'Content-Type': 'application/json'
+            })
+        };
+        this.ROOT_URL = 'https://enigmatic-cove-26128.herokuapp.com/api';
+        this.Auth = '/login';
+        this.ChangePass = '/changepass';
+    }
+    AuthenticationService.prototype.login = function (username, password) {
+        return this.http.post(this.ROOT_URL + this.Auth, { username: username, password: password })
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (user) {
+            // login successful if there's a jwt token in the response
+            if (user && user.token) {
+                // store user details and jwt token in local storage to keep user logged in between page refreshes
+                localStorage.setItem('currentUser', JSON.stringify(user));
+            }
+            return user;
+        }));
+    };
+    AuthenticationService.prototype.changePassword = function (user, oldpassword, newpassword) {
+        return this.http.put(this.ROOT_URL + this.ChangePass, { username: user, newpassword: newpassword, oldpassword: oldpassword });
+    };
+    AuthenticationService.prototype.logout = function () {
+        // remove user from local storage to log user out
+        localStorage.removeItem('currentUser');
+        localStorage.removeItem('sellerId');
+        localStorage.removeItem('sellerIdMaster');
+    };
+    AuthenticationService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]])
+    ], AuthenticationService);
+    return AuthenticationService;
 }());
 
 
@@ -2259,8 +2889,13 @@ var OrdersService = /** @class */ (function () {
         this.GET_ARTICULOS_URL = '/articulos/';
         this.GET_ART_URL = '/articulos/id/';
         this.POST_ORDER_URL = '/pedcab/';
-        this.Get_Expresos = '/api/expresos';
-        this.Get_Expreso_Id = '/api/expresos/id/';
+        this.Get_Expresos = '/expresos';
+        this.Get_Expreso_Id = '/expresos/id/';
+        this.Get_Precio_id = '/precio/id_articulo/';
+        this.Get_Packings = '/packings/id/';
+        this.Get_Stock = '/articulos/id/';
+        this.Get_CondVen = '/conpag/';
+        this.Get_CondVen_Id = '/conpag/id/';
         this.httpOptions = {
             headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]({
                 'Content-Type': 'application/json'
@@ -2279,6 +2914,24 @@ var OrdersService = /** @class */ (function () {
     };
     OrdersService.prototype.getArticuloById = function (id) {
         return this.httpClient.get(this.ROOT_URL + this.GET_ART_URL + id);
+    };
+    OrdersService.prototype.getPrecio = function (id_articulo, id_conpag, id_cliente) {
+        return this.httpClient.get(this.ROOT_URL +
+            this.Get_Precio_id + id_articulo +
+            '/id_conpag/' + id_conpag +
+            '/id_cliente/' + id_cliente);
+    };
+    OrdersService.prototype.getStock = function (id) {
+        return this.httpClient.get(this.ROOT_URL + this.Get_Stock + id);
+    };
+    OrdersService.prototype.getPacking = function (id) {
+        return this.httpClient.get(this.ROOT_URL + this.Get_Packings + id);
+    };
+    OrdersService.prototype.getCondPag = function () {
+        return this.httpClient.get(this.ROOT_URL + this.Get_CondVen);
+    };
+    OrdersService.prototype.getCondPagId = function (id) {
+        return this.httpClient.get(this.ROOT_URL + this.Get_CondVen_Id + id);
     };
     OrdersService.prototype.submitOrder = function (order) {
         var postOrder;
@@ -2329,7 +2982,6 @@ var OtherdataService = /** @class */ (function () {
         this.Get_Expreso_Id = '/expresos/id/';
         this.Get_Provincia = '/provincia';
         this.Get_Provincia_Id = '/provincia/id/';
-        this.Get_Precio_id = '/precio/id_articulo/';
         this.httpOptions = {
             headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]({
                 'Content-Type': 'application/json'
@@ -2348,12 +3000,6 @@ var OtherdataService = /** @class */ (function () {
     };
     OtherdataService.prototype.getProvincia = function (id) {
         return this.httpClient.get(this.ROOT_URL + this.Get_Provincia_Id + id);
-    };
-    OtherdataService.prototype.getPrecio = function (id_articulo, id_conpag, id_cliente) {
-        return this.httpClient.get(this.ROOT_URL +
-            this.Get_Precio_id + id_articulo +
-            '/id_conpag/' + id_conpag +
-            '/id_cliente/' + id_cliente);
     };
     OtherdataService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
@@ -2439,13 +3085,15 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 // import { appReducerState }  from '../store/reducers/appReducers';
 var UserService = /** @class */ (function () {
     // ROOT_URL = 'http://lumasoft.dyndns.org:8000/api';
-    // constructor(private store: Store<AppState>) { }
     function UserService(httpClient) {
         this.httpClient = httpClient;
         this.ROOT_URL = 'https://enigmatic-cove-26128.herokuapp.com/api';
     }
     UserService.prototype.getSellers = function () {
         return this.httpClient.get(this.ROOT_URL + '/vend');
+    };
+    UserService.prototype.getSeller = function (id) {
+        return this.httpClient.get(this.ROOT_URL + '/vend/' + id);
     };
     UserService.prototype.getClientsBySeller = function (id) {
         return this.httpClient.get(this.ROOT_URL + '/clientes/vendedor/' + id);
