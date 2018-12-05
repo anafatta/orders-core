@@ -18,7 +18,7 @@ module.exports = {
     },
 
     findOne(req, res){
-    delete att.attributes
+    att={};
     att['attributes'] = ['id', 'nom'];
     if (!att['where']) { att['where'] = {} }
     att['where'] = { usr : req.params.userId }
