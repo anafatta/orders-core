@@ -147,6 +147,490 @@ var JwtInterceptor = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/accounts/accounts.module.ts":
+/*!*********************************************!*\
+  !*** ./src/app/accounts/accounts.module.ts ***!
+  \*********************************************/
+/*! exports provided: AccountsModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AccountsModule", function() { return AccountsModule; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _view_accounts_view_accounts_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./view-accounts/view-accounts.component */ "./src/app/accounts/view-accounts/view-accounts.component.ts");
+/* harmony import */ var _material_module__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../material.module */ "./src/app/material.module.ts");
+/* harmony import */ var _view_accounts_detail_view_accounts_detail_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./view-accounts-detail/view-accounts-detail.component */ "./src/app/accounts/view-accounts-detail/view-accounts-detail.component.ts");
+/* harmony import */ var _view_accounts_detail_doc_view_accounts_detail_doc_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./view-accounts-detail-doc/view-accounts-detail-doc.component */ "./src/app/accounts/view-accounts-detail-doc/view-accounts-detail-doc.component.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+// import { CreateAccountsComponent } from './create-accounts/create-accounts.component';
+
+
+// import { ViewAccountsDetailDocsComponent } from './view-accounts-details/view-accounts-details.component';
+
+
+
+// import { EditAccountsDetailsComponent } from './edit-accounts/edit-accounts.component';
+var accountsRoutes = [
+    //  { path: 'accounts/create', component: CreateAccountsComponent },
+    { path: 'accounts/view', component: _view_accounts_view_accounts_component__WEBPACK_IMPORTED_MODULE_4__["ViewAccountsComponent"] },
+    { path: 'accounts/view-docs', component: _view_accounts_detail_doc_view_accounts_detail_doc_component__WEBPACK_IMPORTED_MODULE_7__["ViewAccountsDetailDocComponent"] },
+];
+var AccountsModule = /** @class */ (function () {
+    function AccountsModule() {
+    }
+    AccountsModule = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"])({
+            imports: [
+                _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
+                _angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"].forChild(accountsRoutes),
+                _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
+                _angular_forms__WEBPACK_IMPORTED_MODULE_3__["ReactiveFormsModule"],
+                _material_module__WEBPACK_IMPORTED_MODULE_5__["MaterialModule"]
+            ],
+            declarations: [
+                //  CreateAccountsComponent,
+                _view_accounts_view_accounts_component__WEBPACK_IMPORTED_MODULE_4__["ViewAccountsComponent"],
+                _view_accounts_detail_view_accounts_detail_component__WEBPACK_IMPORTED_MODULE_6__["ViewAccountsDetailComponent"],
+                _view_accounts_detail_doc_view_accounts_detail_doc_component__WEBPACK_IMPORTED_MODULE_7__["ViewAccountsDetailDocComponent"],
+            ],
+            exports: [
+                //  CreateAccountsComponent,
+                _view_accounts_view_accounts_component__WEBPACK_IMPORTED_MODULE_4__["ViewAccountsComponent"],
+                _view_accounts_detail_view_accounts_detail_component__WEBPACK_IMPORTED_MODULE_6__["ViewAccountsDetailComponent"],
+                _view_accounts_detail_doc_view_accounts_detail_doc_component__WEBPACK_IMPORTED_MODULE_7__["ViewAccountsDetailDocComponent"],
+            ]
+        })
+    ], AccountsModule);
+    return AccountsModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/accounts/view-accounts-detail-doc/view-accounts-detail-doc.component.css":
+/*!******************************************************************************************!*\
+  !*** ./src/app/accounts/view-accounts-detail-doc/view-accounts-detail-doc.component.css ***!
+  \******************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "table {\n    width: 100%;\n}\n.mat-form-field {\n    width: 100%;\n}\n.mat-paginator {\n    display: block;\n    width: 100%;\n}\n.alert {\n    background-color: #FFD815;\n}\n.warn {\n    background-color: rgb(255, 76, 21);\n}"
+
+/***/ }),
+
+/***/ "./src/app/accounts/view-accounts-detail-doc/view-accounts-detail-doc.component.html":
+/*!*******************************************************************************************!*\
+  !*** ./src/app/accounts/view-accounts-detail-doc/view-accounts-detail-doc.component.html ***!
+  \*******************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<mat-card>\n  <mat-card-title>Cuentas Corrientes</mat-card-title>\n  <mat-grid-list cols=\"2\" rowHeight=\"80px\">\n    <mat-grid-tile>\n      <mat-form-field>\n        <input matInput (keyup)=\"applyFilter($event.target.value)\" placeholder=\"Filtrar resultados\">\n      </mat-form-field>\n    </mat-grid-tile>\n    <mat-grid-tile>\n      <mat-paginator [pageSizeOptions]=\"[25, 50, 100]\" showFirstLastButtons>\n      </mat-paginator>\n    </mat-grid-tile>\n  </mat-grid-list>\n  <div class=\"spinner-container\" *ngIf=\"dataSource.loading$ | async\">\n    <mat-spinner></mat-spinner>\n  </div>\n  <table mat-table [dataSource]=\"dataSource\" matSort>\n    <ng-container matColumnDef=\"estado\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado </th>\n      <td mat-cell *matCellDef=\"let accounts\">\n        <div *ngIf=\"accounts.estado === '1 RED'\"><button mat-mini-fab class=\"warn\" matTooltip=\"Más de una semana vencido\"\n            matTooltipPosition=\"above\"></button></div>\n        <div *ngIf=\"accounts.estado === '2 YELLOW'\"><button mat-mini-fab class=\"alert\" matTooltip=\"Menos de una semana vencido\"\n            matTooltipPosition=\"above\"></button></div>\n        <div *ngIf=\"accounts.estado === '3 GREEN'\"><button mat-mini-fab class=\"primary\" matTooltip=\"Sin vencer\"\n            matTooltipPosition=\"above\"></button></div>\n      </td>\n    </ng-container>\n    <ng-container matColumnDef=\"codfac\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>\n      <td mat-cell *matCellDef=\"let accounts\"> {{accounts.codfac}} </td>\n    </ng-container>\n    <ng-container matColumnDef=\"nom\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header> Cliente </th>\n      <td mat-cell *matCellDef=\"let accounts\"> {{ (accounts.nom)}} </td>\n    </ng-container>\n    <ng-container matColumnDef=\"nro\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header> Comprobante N° </th>\n      <td mat-cell *matCellDef=\"let accounts\"> {{ (accounts.nro)}} </td>\n    </ng-container>\n    <ng-container matColumnDef=\"tip\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo </th>\n      <td mat-cell *matCellDef=\"let accounts\"> {{ (accounts.tip)}} </td>\n    </ng-container>\n    <ng-container matColumnDef=\"fem\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Emisión </th>\n      <td mat-cell *matCellDef=\"let accounts\"> {{ (accounts.fem | date: 'dd/MM/yyyy')}} </td>\n    </ng-container>\n    <ng-container matColumnDef=\"fve\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Vencimiento </th>\n      <td mat-cell *matCellDef=\"let accounts\"> {{ (accounts.fve | date: 'dd/MM/yyyy')}} </td>\n    </ng-container>\n    <ng-container matColumnDef=\"obs\">\n        <th mat-header-cell *matHeaderCellDef mat-sort-header> Observaciones </th>\n        <td mat-cell *matCellDef=\"let accounts\"> {{ (accounts.obs)}} </td>\n      </ng-container>\n    <ng-container matColumnDef=\"saldo\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header> Saldo </th>\n      <td mat-cell *matCellDef=\"let accounts\"> {{ (accounts.saldo | currency)}} </td>\n    </ng-container>\n    <tr mat-header-row *matHeaderRowDef=\"displayedColumns; sticky: true\"></tr>\n    <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>\n\n  </table>\n  <button mat-raised-button color=\"accent\" [routerLink]=\"['/accountss/view']\">\n    <mat-icon aria-label=\"Volver\">arrow_back</mat-icon> Volver\n  </button>\n</mat-card>\n"
+
+/***/ }),
+
+/***/ "./src/app/accounts/view-accounts-detail-doc/view-accounts-detail-doc.component.ts":
+/*!*****************************************************************************************!*\
+  !*** ./src/app/accounts/view-accounts-detail-doc/view-accounts-detail-doc.component.ts ***!
+  \*****************************************************************************************/
+/*! exports provided: ViewAccountsDetailDocComponent, CustomersSource */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ViewAccountsDetailDocComponent", function() { return ViewAccountsDetailDocComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CustomersSource", function() { return CustomersSource; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _services_customers_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../services/customers.service */ "./src/app/services/customers.service.ts");
+/* harmony import */ var _services_data_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../services/data.service */ "./src/app/services/data.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _angular_cdk_collections__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/cdk/collections */ "./node_modules/@angular/cdk/esm5/collections.es5.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var src_app_services_otherdata_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/otherdata.service */ "./src/app/services/otherdata.service.ts");
+/* harmony import */ var src_app_services_user_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/services/user.service */ "./src/app/services/user.service.ts");
+/* harmony import */ var src_app_services_accounts_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/services/accounts.service */ "./src/app/services/accounts.service.ts");
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+
+
+
+
+var ViewAccountsDetailDocComponent = /** @class */ (function () {
+    function ViewAccountsDetailDocComponent(dataservice, router, route, customersService, userService, odService, accountService) {
+        this.dataservice = dataservice;
+        this.router = router;
+        this.route = route;
+        this.customersService = customersService;
+        this.userService = userService;
+        this.odService = odService;
+        this.accountService = accountService;
+        this.accountData = null;
+        this.displayedColumns = ['estado', 'codfac', 'nom', 'nro', 'tip', 'fem', 'fve', 'obs', 'saldo'];
+        this.dataSource = new _angular_material__WEBPACK_IMPORTED_MODULE_6__["MatTableDataSource"](this.accounts);
+    }
+    ViewAccountsDetailDocComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        // call service to retrieve accounts by seller
+        if (localStorage.getItem('sellerId')) {
+            var salesman = JSON.parse(localStorage.getItem('sellerId'));
+            this.accountService.get_Ctacli_Det2(salesman.id).subscribe(function (data) {
+                _this.accountData = data;
+                _this.dataSource.data = _this.accountData;
+            });
+        }
+        if (localStorage.getItem('sellerIdMaster')) {
+            var salesman = JSON.parse(localStorage.getItem('sellerIdMaster'));
+            this.accountService.get_Ctacli_Det2(salesman).subscribe(function (data) {
+                _this.accountData = data;
+                _this.dataSource.data = _this.accountData;
+            });
+        }
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+    };
+    ViewAccountsDetailDocComponent.prototype.applyFilter = function (filterValue) {
+        this.dataSource.filter = filterValue.trim().toLowerCase();
+    };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])(_angular_material__WEBPACK_IMPORTED_MODULE_6__["MatSort"]),
+        __metadata("design:type", _angular_material__WEBPACK_IMPORTED_MODULE_6__["MatSort"])
+    ], ViewAccountsDetailDocComponent.prototype, "sort", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])(_angular_material__WEBPACK_IMPORTED_MODULE_6__["MatPaginator"]),
+        __metadata("design:type", _angular_material__WEBPACK_IMPORTED_MODULE_6__["MatPaginator"])
+    ], ViewAccountsDetailDocComponent.prototype, "paginator", void 0);
+    ViewAccountsDetailDocComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-view-accounts-detail-doc',
+            template: __webpack_require__(/*! ./view-accounts-detail-doc.component.html */ "./src/app/accounts/view-accounts-detail-doc/view-accounts-detail-doc.component.html"),
+            styles: [__webpack_require__(/*! ./view-accounts-detail-doc.component.css */ "./src/app/accounts/view-accounts-detail-doc/view-accounts-detail-doc.component.css")],
+            providers: [_services_data_service__WEBPACK_IMPORTED_MODULE_2__["DataService"], _services_customers_service__WEBPACK_IMPORTED_MODULE_1__["CustomersService"], src_app_services_accounts_service__WEBPACK_IMPORTED_MODULE_9__["AccountsService"]]
+        }),
+        __metadata("design:paramtypes", [_services_data_service__WEBPACK_IMPORTED_MODULE_2__["DataService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"],
+            _services_customers_service__WEBPACK_IMPORTED_MODULE_1__["CustomersService"],
+            src_app_services_user_service__WEBPACK_IMPORTED_MODULE_8__["UserService"],
+            src_app_services_otherdata_service__WEBPACK_IMPORTED_MODULE_7__["OtherdataService"],
+            src_app_services_accounts_service__WEBPACK_IMPORTED_MODULE_9__["AccountsService"]])
+    ], ViewAccountsDetailDocComponent);
+    return ViewAccountsDetailDocComponent;
+}());
+
+var CustomersSource = /** @class */ (function (_super) {
+    __extends(CustomersSource, _super);
+    function CustomersSource(accountsService) {
+        var _this = _super.call(this) || this;
+        _this.accountsService = accountsService;
+        _this.accountsSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["BehaviorSubject"]([]);
+        _this.loadingSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["BehaviorSubject"](false);
+        _this.loading$ = _this.loadingSubject.asObservable();
+        return _this;
+    }
+    CustomersSource.prototype.connect = function (collectionViewer) {
+        if (localStorage.getItem('sellerId')) {
+            var salesman = JSON.parse(localStorage.getItem('sellerId'));
+            var sellerId = salesman.id;
+            return this.accountsService.getCustomers(sellerId);
+        }
+        if (localStorage.getItem('sellerIdMaster')) {
+            var salesman = JSON.parse(localStorage.getItem('sellerIdMaster'));
+            var sellerId = salesman;
+            return this.accountsService.getCustomers(sellerId);
+        }
+    };
+    CustomersSource.prototype.disconnect = function (collectionViewer) {
+        // this.accountsService.complete();
+        // this.loadingSubject.complete();
+    };
+    return CustomersSource;
+}(_angular_cdk_collections__WEBPACK_IMPORTED_MODULE_4__["DataSource"]));
+
+
+
+/***/ }),
+
+/***/ "./src/app/accounts/view-accounts-detail/view-accounts-detail.component.css":
+/*!**********************************************************************************!*\
+  !*** ./src/app/accounts/view-accounts-detail/view-accounts-detail.component.css ***!
+  \**********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "table {\n    width: 100%;\n}\n.mat-form-field {\n    width: 100%;\n}\n.mat-paginator {\n    display: block;\n    width: 100%;\n}\n.alert {\n    background-color: #FFD815;\n}\n.warn {\n    background-color: rgb(255, 76, 21);\n}"
+
+/***/ }),
+
+/***/ "./src/app/accounts/view-accounts-detail/view-accounts-detail.component.html":
+/*!***********************************************************************************!*\
+  !*** ./src/app/accounts/view-accounts-detail/view-accounts-detail.component.html ***!
+  \***********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<mat-card>\n    <mat-card-title>Detalle de cuenta de Cliente: {{accountsDetail.nom}}</mat-card-title>\n  \n    <mat-accordion>\n      <mat-expansion-panel [expanded]=\"true\">\n        <mat-expansion-panel-header>\n          <mat-panel-title>\n            <strong>Datos del cliente</strong>\n          </mat-panel-title>\n          <mat-panel-description>\n            Información comercial\n          </mat-panel-description>\n        </mat-expansion-panel-header>\n        <mat-grid-list cols=\"3\" rowHeight=\"50px\">\n          <mat-grid-tile>\n            <div class=\"static_field\">\n              <span class=\"static_label\">Cliente</span>\n              {{accountsDetail.nom}}\n            </div>\n          </mat-grid-tile>\n          <mat-grid-tile>\n            <div class=\"static_field\">\n              <span class=\"static_label\">C.U.I.T.</span>\n              {{accountsDetail.cuit}}\n            </div>\n          </mat-grid-tile>\n          <mat-grid-tile>\n            <div class=\"static_field\">\n              <span class=\"static_label\">Código de Facturación</span>\n              {{accountsDetail.codfac}}\n            </div>\n          </mat-grid-tile>\n          <mat-grid-tile>\n            <div class=\"static_field\">\n              <span class=\"static_label\">Razón Social</span>\n              {{accountsDetail.razonsoc}}\n            </div>\n          </mat-grid-tile>\n  \n          <mat-grid-tile *ngIf=\"accountsDetail.salesman.id == '37'\" [colspan]=\"3\">\n            <div class=\"static_field\">\n              <span class=\"static_label\">Vendedor</span>\n              {{accountsDetail.salesman.nom}}\n            </div>\n          </mat-grid-tile>\n        </mat-grid-list>\n      </mat-expansion-panel>\n    </mat-accordion>\n    <mat-accordion>\n      <mat-expansion-panel [expanded]=\"true\">\n        <mat-expansion-panel-header>\n          <mat-panel-title>\n            <strong>Direcciones</strong>\n          </mat-panel-title>\n          <mat-panel-description>\n            Información de facturación y envíos\n          </mat-panel-description>\n        </mat-expansion-panel-header>\n        <div *ngFor=\"let addr of accountsDetail.address\">\n          <mat-grid-list cols=\"3\" rowHeight=\"50px\">\n            <mat-grid-tile>\n              <div class=\"static_field\">\n                <span class=\"static_label\">Dirección</span>\n                {{addr.dir}}\n              </div>\n            </mat-grid-tile>\n            <mat-grid-tile>\n              <div class=\"static_field\">\n                <span class=\"static_label\">Localidad</span>\n                {{addr.localidad}}\n              </div>\n            </mat-grid-tile>\n            <mat-grid-tile>\n              <div class=\"static_field\">\n                <span class=\"static_label\">Código Postal</span>\n                {{addr.codpos}}\n              </div>\n            </mat-grid-tile>\n            <mat-grid-tile>\n              <div class=\"static_field\">\n                <span class=\"static_label\">Provincia</span>\n                {{provincia.nom}}\n              </div>\n            </mat-grid-tile>\n            <mat-grid-tile>\n              <div class=\"static_field\">\n                <span class=\"static_label\">Flete</span>\n                {{addr.flete.nom}}\n              </div>\n            </mat-grid-tile>\n          </mat-grid-list>\n  \n        </div>\n      </mat-expansion-panel>\n    </mat-accordion>\n  </mat-card>"
+
+/***/ }),
+
+/***/ "./src/app/accounts/view-accounts-detail/view-accounts-detail.component.ts":
+/*!*********************************************************************************!*\
+  !*** ./src/app/accounts/view-accounts-detail/view-accounts-detail.component.ts ***!
+  \*********************************************************************************/
+/*! exports provided: ViewAccountsDetailComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ViewAccountsDetailComponent", function() { return ViewAccountsDetailComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _services_accounts_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../services/accounts.service */ "./src/app/services/accounts.service.ts");
+/* harmony import */ var _services_otherdata_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../services/otherdata.service */ "./src/app/services/otherdata.service.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var ViewAccountsDetailComponent = /** @class */ (function () {
+    function ViewAccountsDetailComponent(route, router, accountsService, odService) {
+        this.route = route;
+        this.router = router;
+        this.accountsService = accountsService;
+        this.odService = odService;
+    }
+    ViewAccountsDetailComponent.prototype.ngOnInit = function () {
+    };
+    ViewAccountsDetailComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-view-accounts-detail',
+            template: __webpack_require__(/*! ./view-accounts-detail.component.html */ "./src/app/accounts/view-accounts-detail/view-accounts-detail.component.html"),
+            styles: [__webpack_require__(/*! ./view-accounts-detail.component.css */ "./src/app/accounts/view-accounts-detail/view-accounts-detail.component.css")],
+            providers: [_services_accounts_service__WEBPACK_IMPORTED_MODULE_2__["AccountsService"]]
+        }),
+        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"],
+            _services_accounts_service__WEBPACK_IMPORTED_MODULE_2__["AccountsService"],
+            _services_otherdata_service__WEBPACK_IMPORTED_MODULE_3__["OtherdataService"]])
+    ], ViewAccountsDetailComponent);
+    return ViewAccountsDetailComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/accounts/view-accounts/view-accounts.component.css":
+/*!********************************************************************!*\
+  !*** ./src/app/accounts/view-accounts/view-accounts.component.css ***!
+  \********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "table {\n    width: 100%;\n}\n.mat-form-field {\n    width: 100%;\n}\n.mat-paginator {\n    display: block;\n    width: 100%;\n}\n.alert {\n    background-color: #FFD815;\n}\n.warn {\n    background-color: rgb(255, 76, 21);\n}"
+
+/***/ }),
+
+/***/ "./src/app/accounts/view-accounts/view-accounts.component.html":
+/*!*********************************************************************!*\
+  !*** ./src/app/accounts/view-accounts/view-accounts.component.html ***!
+  \*********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<mat-card>\n  <mat-card-title>Cuentas Corrientes</mat-card-title>\n  <button mat-raised-button color=\"accent\" [routerLink]=\"['/accounts/view-docs']\">\n    Ver detalle de comprobantes\n  </button>\n  <mat-grid-list cols=\"2\" rowHeight=\"80px\">\n    <mat-grid-tile>\n      <mat-form-field>\n        <input matInput (keyup)=\"applyFilter($event.target.value)\" placeholder=\"Filtrar resultados\">\n      </mat-form-field>\n    </mat-grid-tile>\n    <mat-grid-tile>\n      <mat-paginator [pageSizeOptions]=\"[25, 50, 100]\" showFirstLastButtons>\n      </mat-paginator>\n    </mat-grid-tile>\n  </mat-grid-list>\n  <div class=\"spinner-container\" *ngIf=\"dataSource.loading$ | async\">\n    <mat-spinner></mat-spinner>\n  </div>\n  <table mat-table [dataSource]=\"dataSource\" matSort>\n    <ng-container matColumnDef=\"estado\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado </th>\n      <td mat-cell *matCellDef=\"let accounts\">\n        <div *ngIf=\"accounts.estado === '1 RED'\"><button mat-mini-fab class=\"warn\" matTooltip=\"Más de una semana vencido\"\n            matTooltipPosition=\"above\"></button></div>\n        <div *ngIf=\"accounts.estado === '2 YELLOW'\"><button mat-mini-fab class=\"alert\" matTooltip=\"Menos de una semana vencido\"\n            matTooltipPosition=\"above\"></button></div>\n        <div *ngIf=\"accounts.estado === '3 GREEN'\"><button mat-mini-fab class=\"primary\" matTooltip=\"Sin vencer\"\n            matTooltipPosition=\"above\"></button></div>\n      </td>\n    </ng-container>\n    <ng-container matColumnDef=\"codfac\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>\n      <td mat-cell *matCellDef=\"let accounts\"> {{accounts.codfac}} </td>\n    </ng-container>\n    <ng-container matColumnDef=\"nom\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header> Cliente </th>\n      <td mat-cell *matCellDef=\"let accounts\"> {{ (accounts.nom)}} </td>\n    </ng-container>\n    <ng-container matColumnDef=\"count\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header> Cantidad de comprobantes </th>\n      <td mat-cell *matCellDef=\"let accounts\"> {{ (accounts.count)}} </td>\n    </ng-container>\n    <ng-container matColumnDef=\"saldo\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header> Saldo </th>\n      <td mat-cell *matCellDef=\"let accounts\"> {{ (accounts.saldo | currency)}} </td>\n    </ng-container>\n    <ng-container matColumnDef=\"button\">\n      <th mat-header-cell *matHeaderCellDef> Ver </th>\n      <td mat-cell *matCellDef=\"let accounts\">\n        <button mat-mini-fab color=\"accent\" class=\"col-xs-1\" [routerLink]=\"['/accountss/detail', accounts.id]\"\n          matTooltip=\"Ver detalle\" matTooltipPosition=\"above\">\n          <mat-icon aria-label=\"Ver detalle\">search</mat-icon>\n        </button> </td>\n    </ng-container>\n    <tr mat-header-row *matHeaderRowDef=\"displayedColumns; sticky: true\"></tr>\n    <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>\n\n  </table>\n  <button mat-raised-button color=\"accent\" [routerLink]=\"['/accountss/view']\">\n    <mat-icon aria-label=\"Volver\">arrow_back</mat-icon> Volver\n  </button>\n</mat-card>\n"
+
+/***/ }),
+
+/***/ "./src/app/accounts/view-accounts/view-accounts.component.ts":
+/*!*******************************************************************!*\
+  !*** ./src/app/accounts/view-accounts/view-accounts.component.ts ***!
+  \*******************************************************************/
+/*! exports provided: ViewAccountsComponent, CustomersSource */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ViewAccountsComponent", function() { return ViewAccountsComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CustomersSource", function() { return CustomersSource; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _services_customers_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../services/customers.service */ "./src/app/services/customers.service.ts");
+/* harmony import */ var _services_data_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../services/data.service */ "./src/app/services/data.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _angular_cdk_collections__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/cdk/collections */ "./node_modules/@angular/cdk/esm5/collections.es5.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var src_app_services_otherdata_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/otherdata.service */ "./src/app/services/otherdata.service.ts");
+/* harmony import */ var src_app_services_user_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/services/user.service */ "./src/app/services/user.service.ts");
+/* harmony import */ var src_app_services_accounts_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/services/accounts.service */ "./src/app/services/accounts.service.ts");
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+
+
+
+
+var ViewAccountsComponent = /** @class */ (function () {
+    function ViewAccountsComponent(dataservice, router, route, customersService, userService, odService, accountService) {
+        this.dataservice = dataservice;
+        this.router = router;
+        this.route = route;
+        this.customersService = customersService;
+        this.userService = userService;
+        this.odService = odService;
+        this.accountService = accountService;
+        this.accountData = null;
+        this.displayedColumns = ['estado', 'codfac', 'nom', 'count', 'saldo', 'button'];
+        this.dataSource = new _angular_material__WEBPACK_IMPORTED_MODULE_6__["MatTableDataSource"](this.accounts);
+    }
+    ViewAccountsComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        // call service to retrieve accounts by seller
+        if (localStorage.getItem('sellerId')) {
+            var salesman = JSON.parse(localStorage.getItem('sellerId'));
+            this.accountService.get_Ctacli_Det1(salesman.id).subscribe(function (data) {
+                _this.accountData = data;
+                _this.dataSource.data = _this.accountData;
+            });
+        }
+        if (localStorage.getItem('sellerIdMaster')) {
+            var salesman = JSON.parse(localStorage.getItem('sellerIdMaster'));
+            this.accountService.get_Ctacli_Det1(salesman).subscribe(function (data) {
+                _this.accountData = data;
+                _this.dataSource.data = _this.accountData;
+            });
+        }
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+    };
+    ViewAccountsComponent.prototype.applyFilter = function (filterValue) {
+        this.dataSource.filter = filterValue.trim().toLowerCase();
+    };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])(_angular_material__WEBPACK_IMPORTED_MODULE_6__["MatSort"]),
+        __metadata("design:type", _angular_material__WEBPACK_IMPORTED_MODULE_6__["MatSort"])
+    ], ViewAccountsComponent.prototype, "sort", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])(_angular_material__WEBPACK_IMPORTED_MODULE_6__["MatPaginator"]),
+        __metadata("design:type", _angular_material__WEBPACK_IMPORTED_MODULE_6__["MatPaginator"])
+    ], ViewAccountsComponent.prototype, "paginator", void 0);
+    ViewAccountsComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-view-accounts',
+            template: __webpack_require__(/*! ./view-accounts.component.html */ "./src/app/accounts/view-accounts/view-accounts.component.html"),
+            styles: [__webpack_require__(/*! ./view-accounts.component.css */ "./src/app/accounts/view-accounts/view-accounts.component.css")],
+            providers: [_services_data_service__WEBPACK_IMPORTED_MODULE_2__["DataService"], _services_customers_service__WEBPACK_IMPORTED_MODULE_1__["CustomersService"], src_app_services_accounts_service__WEBPACK_IMPORTED_MODULE_9__["AccountsService"]]
+        }),
+        __metadata("design:paramtypes", [_services_data_service__WEBPACK_IMPORTED_MODULE_2__["DataService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"],
+            _services_customers_service__WEBPACK_IMPORTED_MODULE_1__["CustomersService"],
+            src_app_services_user_service__WEBPACK_IMPORTED_MODULE_8__["UserService"],
+            src_app_services_otherdata_service__WEBPACK_IMPORTED_MODULE_7__["OtherdataService"],
+            src_app_services_accounts_service__WEBPACK_IMPORTED_MODULE_9__["AccountsService"]])
+    ], ViewAccountsComponent);
+    return ViewAccountsComponent;
+}());
+
+var CustomersSource = /** @class */ (function (_super) {
+    __extends(CustomersSource, _super);
+    function CustomersSource(accountsService) {
+        var _this = _super.call(this) || this;
+        _this.accountsService = accountsService;
+        _this.accountsSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["BehaviorSubject"]([]);
+        _this.loadingSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["BehaviorSubject"](false);
+        _this.loading$ = _this.loadingSubject.asObservable();
+        return _this;
+    }
+    CustomersSource.prototype.connect = function (collectionViewer) {
+        if (localStorage.getItem('sellerId')) {
+            var salesman = JSON.parse(localStorage.getItem('sellerId'));
+            var sellerId = salesman.id;
+            return this.accountsService.getCustomers(sellerId);
+        }
+        if (localStorage.getItem('sellerIdMaster')) {
+            var salesman = JSON.parse(localStorage.getItem('sellerIdMaster'));
+            var sellerId = salesman;
+            return this.accountsService.getCustomers(sellerId);
+        }
+    };
+    CustomersSource.prototype.disconnect = function (collectionViewer) {
+        // this.accountsService.complete();
+        // this.loadingSubject.complete();
+    };
+    return CustomersSource;
+}(_angular_cdk_collections__WEBPACK_IMPORTED_MODULE_4__["DataSource"]));
+
+
+
+/***/ }),
+
 /***/ "./src/app/app.component.css":
 /*!***********************************!*\
   !*** ./src/app/app.component.css ***!
@@ -154,7 +638,7 @@ var JwtInterceptor = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "html,\nbody {\n  height: 100%;\n  background-color: #fff;\n  margin: 0;\n  font-family: sans-serif;\n}\n\nbody {\n  /* Full height */\n  height: 100%;\n  /* Center and scale the image nicely */\n}\n\n.header img {\n  margin: auto;\n  height: auto;\n  max-height: 30px;\n}\n\n.header {\n  color: #fff;\n  background: #39643a;\n}\n\n.button-row {\n  position: fixed;\n  z-index: 999;\n  bottom: 1%;\n  right: 1%;\n}\n\n.example-container {\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n}\n\n.example-events {\n  width: 300px;\n  height: 200px;\n  overflow: auto;\n  border: 1px solid #555;\n}\n\n.mat-grid-tile .mat-figure {\n  align-items: flex-start!important;\n}\n\n.header img {\n  margin: auto;\n}\n\n.header {\n  color: #fff !important;\n}\n\n.static_label {\n  color: #4caf50;\n}\n\n.example-container {\n  position: absolute;\n  top: 60px;\n  bottom: 0px;\n  left: 0;\n  right: 0;\n}\n\n.example-sidenav {\n  display: block;\n  align-items: center;\n  justify-content: center;\n  width: 200px;\n  background: rgba(224, 224, 224, 0.5);\n}\n\n.example-header {\n  position: fixed;\n  top: 0;\n  left: 0;\n  right: 0;\n}\n\n.example-footer {\n  position: fixed;\n  bottom: 0;\n  left: 0;\n  right: 0;\n}\n\n.sidenavend {\n  min-width: 200px;\n}\n\n.user {\n  font-size: 14px;\n  font-weight: 400;\n  padding-right: 15px;\n}\n\n@media only screen and (max-width: 768px) {\n  .header img {\n    max-height: 20px;\n  }\n}"
+module.exports = "html,\nbody {\n  height: 100%;\n  background-color: #fff;\n  margin: 0;\n  font-family: sans-serif;\n}\n\nbody {\n  /* Full height */\n  height: 100%;\n  /* Center and scale the image nicely */\n}\n\n.header img {\n  margin: auto;\n  height: auto;\n  max-height: 30px;\n}\n\n.header {\n  color: #fff;\n  background: #39643a;\n}\n\n.button-row {\n  position: fixed;\n  z-index: 999;\n  bottom: 1%;\n  right: 1%;\n}\n\n.example-container {\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n}\n\n.example-events {\n  width: 300px;\n  height: 200px;\n  overflow: auto;\n  border: 1px solid #555;\n}\n\n.mat-grid-tile .mat-figure {\n  align-items: flex-start!important;\n}\n\n.header img {\n  margin: auto;\n}\n\n.header {\n  color: #fff !important;\n}\n\n.static_label {\n  color: #4caf50;\n}\n\n.example-container {\n  position: absolute;\n  top: 60px;\n  bottom: 0px;\n  left: 0;\n  right: 0;\n}\n\n.example-sidenav {\n  display: block;\n  align-items: center;\n  justify-content: center;\n  width: 200px;\n  background: rgba(224, 224, 224, 0.5);\n}\n\n.example-header {\n  position: fixed;\n  top: 0;\n  left: 0;\n  right: 0;\n}\n\n.example-footer {\n  position: fixed;\n  bottom: 0;\n  left: 0;\n  right: 0;\n}\n\n.sidenavend {\n  min-width: 200px;\n}\n\n.user {\n  font-size: 14px;\n  font-weight: 400;\n  padding-right: 15px;\n}\n\n.mat-grid-tile .mat-figure {\n  align-items: end!important;\n}\n\n@media only screen and (max-width: 768px) {\n  .header img {\n    max-height: 20px;\n  }\n}"
 
 /***/ }),
 
@@ -165,7 +649,7 @@ module.exports = "html,\nbody {\n  height: 100%;\n  background-color: #fff;\n  m
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ng-container>\n  <mat-toolbar color=\"primary\" class=\"header\">\n    <button mat-icon-button (click)=\"sidenavmenu.toggle()\">\n      <mat-icon>menu</mat-icon>\n    </button>\n\n    <img src=\"assets/img/Simsiroglu-Logo-Blanco.svg\" alt=\"{{title}}\" (click)=\"sidenavmenu.close()\" />\n    <p class=\"user\">Bienvenido, {{user.firstname}} {{user.lastname}}</p>\n    <i class=\"material-icons\" matBadge=\"0\" matBadgeColor=\"warn\" matBadgePosition=\"above after\" style=\"cursor: pointer\"\n      matTooltip=\"Mensajes - Proximamente\" matTooltipPosition=\"left\" (click)=\"sidenavmenu.close()\">chat</i>\n  </mat-toolbar>\n\n  <mat-sidenav-container class=\"example-container\" (backdropClick)=\"close()\">\n    <mat-sidenav #sidenavmenu mode=\"side\" closed class=\"example-sidenav\" (keydown.escape)=\"close('escape')\"\n      disableClose>\n      <button mat-button (click)=\"sidenavmenu.close()\">\n        <mat-icon>home</mat-icon>\n        <span routerLink='/sellers'>Dashboard</span>\n      </button>\n      <mat-divider></mat-divider>\n      <mat-list>\n        <mat-list-item>\n          <mat-icon>people</mat-icon> <span>Clientes</span>\n        </mat-list-item>\n        <mat-list-item><button mat-button (click)=\"sidenavmenu.close()\" routerLink='/customers/view'>Mis Clientes</button></mat-list-item>\n        <mat-list-item><button mat-button (click)=\"sidenavmenu.close()\" routerLink='/customers/create'>Nuevo Cliente</button></mat-list-item>\n        <mat-divider></mat-divider>\n      </mat-list>\n      <!--<button mat-menu-item routerLink='/customers/detail'>Ver Pedido</button>-->\n      <mat-list>\n        <mat-list-item>\n          <mat-icon>people</mat-icon> <span>Pedidos</span>\n        </mat-list-item>\n      </mat-list>\n      <mat-list-item><button mat-button (click)=\"sidenavmenu.close()\" routerLink='/orders/view'>Mis Pedidos</button></mat-list-item>\n      <mat-list-item><button mat-button (click)=\"sidenavmenu.close()\" routerLink='/orders/detail'>Ver Pedido</button></mat-list-item>\n      <mat-list-item><button mat-button (click)=\"sidenavmenu.close()\" routerLink='/orders/create'>Nuevo Pedido</button></mat-list-item>\n      <mat-divider></mat-divider>\n      <button mat-button (click)=\"sidenavmenu.close()\">\n        <mat-icon>timeline</mat-icon>\n        <span routerLink='/pageNotFound'>Reportes</span>\n      </button>\n      <mat-divider></mat-divider>\n      <button mat-button><i class=\"material-icons\">settings</i> <span class=\"nav-link\" routerLink=\"/change-password\">Cambiar clave</span></button>\n      <button mat-button (click)=\"sidenavmenu.close()\">\n        <mat-icon>lock</mat-icon>\n        <span class=\"nav-link\" routerLink=\"/login\" (click)=\"logOut()\">Logout</span>\n      </button>\n    </mat-sidenav>\n\n    <mat-sidenav-content (click)=\"sidenavmenu.close()\">\n      <app-alert></app-alert>\n      <router-outlet></router-outlet>\n    </mat-sidenav-content>\n    <mat-sidenav #sidenav closed mode=\"side\" position=\"end\" class=\"sidenavend\">\n    </mat-sidenav>\n  </mat-sidenav-container>\n\n</ng-container>\n<app-speed-dial-fab></app-speed-dial-fab>\n"
+module.exports = "<ng-container>\n  <mat-toolbar color=\"primary\" class=\"header\">\n    <button mat-icon-button (click)=\"sidenavmenu.toggle()\">\n      <mat-icon>menu</mat-icon>\n    </button>\n\n    <img src=\"assets/img/Simsiroglu-Logo-Blanco.svg\" alt=\"{{title}}\" (click)=\"sidenavmenu.close()\" />\n    <p class=\"user\">Bienvenido, {{user.firstname}} {{user.lastname}}</p>\n    <i class=\"material-icons\" matBadge=\"0\" matBadgeColor=\"warn\" matBadgePosition=\"above after\" style=\"cursor: pointer\"\n      matTooltip=\"Mensajes - Proximamente\" matTooltipPosition=\"left\" (click)=\"sidenavmenu.close()\">chat</i>\n  </mat-toolbar>\n\n  <mat-sidenav-container class=\"example-container\" (backdropClick)=\"close()\">\n    <mat-sidenav #sidenavmenu mode=\"side\" closed class=\"example-sidenav\" (keydown.escape)=\"close('escape')\"\n      disableClose>\n      <button mat-button (click)=\"sidenavmenu.close()\">\n        <mat-icon>home</mat-icon>\n        <span routerLink='/sellers'>Dashboard</span>\n      </button>\n      <mat-divider></mat-divider>\n      <mat-list>\n        <mat-list-item>\n          <mat-icon>people</mat-icon> <span>Clientes</span>\n        </mat-list-item>\n        <mat-list-item><button mat-button (click)=\"sidenavmenu.close()\" routerLink='/customers/view'>Mis Clientes</button></mat-list-item>\n        <mat-list-item><button mat-button (click)=\"sidenavmenu.close()\" routerLink='/customers/create'>Nuevo Cliente</button></mat-list-item>\n        <mat-divider></mat-divider>\n      </mat-list>\n      <!--<button mat-menu-item routerLink='/customers/detail'>Ver Pedido</button>-->\n      <mat-list>\n        <mat-list-item>\n          <mat-icon>people</mat-icon> <span>Pedidos</span>\n        </mat-list-item>\n      </mat-list>\n      <mat-list-item><button mat-button (click)=\"sidenavmenu.close()\" routerLink='/orders/view'>Mis Pedidos</button></mat-list-item>\n      <mat-list-item><button mat-button (click)=\"sidenavmenu.close()\" routerLink='/orders/detail'>Ver Pedido</button></mat-list-item>\n      <mat-list-item><button mat-button (click)=\"sidenavmenu.close()\" routerLink='/orders/create'>Nuevo Pedido</button></mat-list-item>\n      <mat-divider></mat-divider>\n      <button mat-button (click)=\"sidenavmenu.close()\">\n        <mat-icon>timeline</mat-icon>\n        <span routerLink='/pageNotFound'>Reportes</span>\n      </button>  \n      <button mat-button (click)=\"sidenavmenu.close()\">\n        <mat-icon>timeline</mat-icon>\n        <span routerLink='/messages'>Mensajes</span>\n      </button>   \n      <mat-divider></mat-divider>\n      <button mat-button><i class=\"material-icons\">settings</i> <span class=\"nav-link\" routerLink=\"/change-password\">Cambiar clave</span></button>\n      <button mat-button (click)=\"sidenavmenu.close()\">\n        <mat-icon>lock</mat-icon>\n        <span class=\"nav-link\" routerLink=\"/login\" (click)=\"logOut()\">Logout</span>\n      </button>\n    </mat-sidenav>\n    <mat-sidenav-content (click)=\"sidenavmenu.close()\">\n      <app-alert></app-alert>\n      <router-outlet></router-outlet>\n    </mat-sidenav-content>\n    <mat-sidenav #sidenav closed mode=\"side\" position=\"end\" class=\"sidenavend\">\n    </mat-sidenav>\n  </mat-sidenav-container>\n\n</ng-container>\n<app-speed-dial-fab></app-speed-dial-fab>\n"
 
 /***/ }),
 
@@ -271,10 +755,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _commonApp_speed_dial_fab_speed_dial_fab_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./commonApp/speed-dial-fab/speed-dial-fab.component */ "./src/app/commonApp/speed-dial-fab/speed-dial-fab.component.ts");
 /* harmony import */ var _services_authentication_service__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./services/authentication.service */ "./src/app/services/authentication.service.ts");
 /* harmony import */ var _services_alert_service__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./services/alert.service */ "./src/app/services/alert.service.ts");
-/* harmony import */ var _helpers_error_interceptor__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./_helpers/error.interceptor */ "./src/app/_helpers/error.interceptor.ts");
-/* harmony import */ var _helpers_jwt_interceptor__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./_helpers/jwt.interceptor */ "./src/app/_helpers/jwt.interceptor.ts");
-/* harmony import */ var _helpers_global__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./_helpers/global */ "./src/app/_helpers/global.ts");
-/* harmony import */ var _commonApp_alerts_alerts_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./commonApp/alerts/alerts.component */ "./src/app/commonApp/alerts/alerts.component.ts");
+/* harmony import */ var _services_accounts_service__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./services/accounts.service */ "./src/app/services/accounts.service.ts");
+/* harmony import */ var _helpers_error_interceptor__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./_helpers/error.interceptor */ "./src/app/_helpers/error.interceptor.ts");
+/* harmony import */ var _helpers_jwt_interceptor__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./_helpers/jwt.interceptor */ "./src/app/_helpers/jwt.interceptor.ts");
+/* harmony import */ var _helpers_global__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./_helpers/global */ "./src/app/_helpers/global.ts");
+/* harmony import */ var _commonApp_alerts_alerts_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./commonApp/alerts/alerts.component */ "./src/app/commonApp/alerts/alerts.component.ts");
+/* harmony import */ var _accounts_accounts_module__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./accounts/accounts.module */ "./src/app/accounts/accounts.module.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -309,6 +795,8 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 
+
+
 var appRoutes = [
     { path: '**', component: _commonApp_pagenotfound_pagenotfound_component__WEBPACK_IMPORTED_MODULE_9__["PagenotfoundComponent"] }
 ];
@@ -320,7 +808,7 @@ var AppModule = /** @class */ (function () {
             declarations: [
                 _app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"],
                 _commonApp_speed_dial_fab_speed_dial_fab_component__WEBPACK_IMPORTED_MODULE_19__["SpeedDialFabComponent"],
-                _commonApp_alerts_alerts_component__WEBPACK_IMPORTED_MODULE_25__["AlertsComponent"]
+                _commonApp_alerts_alerts_component__WEBPACK_IMPORTED_MODULE_26__["AlertsComponent"]
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
@@ -336,6 +824,7 @@ var AppModule = /** @class */ (function () {
                 _customers_customers_module__WEBPACK_IMPORTED_MODULE_14__["CustomersModule"],
                 _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_13__["BrowserAnimationsModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_3__["ReactiveFormsModule"],
+                _accounts_accounts_module__WEBPACK_IMPORTED_MODULE_27__["AccountsModule"]
             ],
             providers: [
                 _services_orders_service__WEBPACK_IMPORTED_MODULE_10__["OrdersService"],
@@ -344,10 +833,11 @@ var AppModule = /** @class */ (function () {
                 _services_sidenav_service__WEBPACK_IMPORTED_MODULE_18__["SidenavService"],
                 _services_otherdata_service__WEBPACK_IMPORTED_MODULE_16__["OtherdataService"],
                 _services_authentication_service__WEBPACK_IMPORTED_MODULE_20__["AuthenticationService"],
+                _services_accounts_service__WEBPACK_IMPORTED_MODULE_22__["AccountsService"],
                 _services_alert_service__WEBPACK_IMPORTED_MODULE_21__["AlertService"],
-                { provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_11__["HTTP_INTERCEPTORS"], useClass: _helpers_jwt_interceptor__WEBPACK_IMPORTED_MODULE_23__["JwtInterceptor"], multi: true },
-                { provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_11__["HTTP_INTERCEPTORS"], useClass: _helpers_error_interceptor__WEBPACK_IMPORTED_MODULE_22__["ErrorInterceptor"], multi: true },
-                _helpers_global__WEBPACK_IMPORTED_MODULE_24__["GlobalApp"]
+                { provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_11__["HTTP_INTERCEPTORS"], useClass: _helpers_jwt_interceptor__WEBPACK_IMPORTED_MODULE_24__["JwtInterceptor"], multi: true },
+                { provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_11__["HTTP_INTERCEPTORS"], useClass: _helpers_error_interceptor__WEBPACK_IMPORTED_MODULE_23__["ErrorInterceptor"], multi: true },
+                _helpers_global__WEBPACK_IMPORTED_MODULE_25__["GlobalApp"]
             ],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"]]
         })
@@ -818,6 +1308,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pagenotfound_pagenotfound_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./pagenotfound/pagenotfound.component */ "./src/app/commonApp/pagenotfound/pagenotfound.component.ts");
 /* harmony import */ var _seller_seller_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./seller/seller.component */ "./src/app/commonApp/seller/seller.component.ts");
 /* harmony import */ var _material_module__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../material.module */ "./src/app/material.module.ts");
+/* harmony import */ var _messages_messages_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./messages/messages.component */ "./src/app/commonApp/messages/messages.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -833,9 +1324,11 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 
+
 var commonAppRoutes = [
     { path: '', component: _homepage_homepage_component__WEBPACK_IMPORTED_MODULE_5__["HomepageComponent"] },
-    { path: 'sellers', component: _seller_seller_component__WEBPACK_IMPORTED_MODULE_7__["SellerComponent"] }
+    { path: 'sellers', component: _seller_seller_component__WEBPACK_IMPORTED_MODULE_7__["SellerComponent"] },
+    { path: 'messages', component: _messages_messages_component__WEBPACK_IMPORTED_MODULE_9__["MessagesComponent"] }
 ];
 var CommonAppModule = /** @class */ (function () {
     function CommonAppModule() {
@@ -853,13 +1346,15 @@ var CommonAppModule = /** @class */ (function () {
                 _navbar_navbar_component__WEBPACK_IMPORTED_MODULE_4__["NavbarComponent"],
                 _homepage_homepage_component__WEBPACK_IMPORTED_MODULE_5__["HomepageComponent"],
                 _pagenotfound_pagenotfound_component__WEBPACK_IMPORTED_MODULE_6__["PagenotfoundComponent"],
-                _seller_seller_component__WEBPACK_IMPORTED_MODULE_7__["SellerComponent"]
+                _seller_seller_component__WEBPACK_IMPORTED_MODULE_7__["SellerComponent"],
+                _messages_messages_component__WEBPACK_IMPORTED_MODULE_9__["MessagesComponent"]
             ],
             exports: [
                 _navbar_navbar_component__WEBPACK_IMPORTED_MODULE_4__["NavbarComponent"],
                 _homepage_homepage_component__WEBPACK_IMPORTED_MODULE_5__["HomepageComponent"],
                 _pagenotfound_pagenotfound_component__WEBPACK_IMPORTED_MODULE_6__["PagenotfoundComponent"],
-                _seller_seller_component__WEBPACK_IMPORTED_MODULE_7__["SellerComponent"]
+                _seller_seller_component__WEBPACK_IMPORTED_MODULE_7__["SellerComponent"],
+                _messages_messages_component__WEBPACK_IMPORTED_MODULE_9__["MessagesComponent"]
             ]
         })
     ], CommonAppModule);
@@ -927,6 +1422,123 @@ var HomepageComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [])
     ], HomepageComponent);
     return HomepageComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/commonApp/messages/messages.component.css":
+/*!***********************************************************!*\
+  !*** ./src/app/commonApp/messages/messages.component.css ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "mat-card {\n    max-width: 80%;\n    margin: 2em auto;\n    text-align: left;\n}\n\n.login .mat-form-field {\n    min-width: 100% !important;\n}\n\ntable {\n    width: 100%;\n}\n\n.mat-form-field {\n    width: 100%;\n}\n\n.mat-paginator {\n    display: block;\n    width: 100%;\n}"
+
+/***/ }),
+
+/***/ "./src/app/commonApp/messages/messages.component.html":
+/*!************************************************************!*\
+  !*** ./src/app/commonApp/messages/messages.component.html ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<mat-grid-list cols=\"3\" rowHeight=\"2:2\">\n  <mat-grid-tile></mat-grid-tile>\n  <mat-grid-tile>\n    <mat-card class=\"login\">\n      <mat-card-title>Mensajes</mat-card-title>\n      <form [formGroup]=\"messageForm\" (ngSubmit)=\"send()\">\n        <mat-form-field>\n            <mat-select dividerColor=\"accent\" placeholder=\"Para\" formControlName=\"to\" data-live-search=\"true\">\n            <mat-option *ngFor=\"let user of users\" [value]=\"user.nro\">\n              {{user.firstname}} {{user.lastname}}\n            </mat-option>\n          </mat-select>\n        </mat-form-field>\n        <mat-form-field>\n          <textarea matInput type=\"text\" placeholder=\"Mensaje\" dividerColor=\"accent\" formControlName=\"message\"\n            #message required cdkTextareaAutosize></textarea>\n        </mat-form-field>\n        <mat-card-actions align=\"middle\">\n          <button mat-raised-button color=\"accent\" (submit)=\"send();\">Enviar</button>\n        </mat-card-actions>\n      </form>\n    </mat-card>\n  </mat-grid-tile>\n  <mat-grid-tile></mat-grid-tile>\n</mat-grid-list>\n<mat-card>\n  <mat-card-title>Mis Mensajes</mat-card-title>\n  <mat-grid-list cols=\"2\" rowHeight=\"80px\">\n    <!--mat-grid-tile>\n      <mat-form-field>\n        <input matInput (keyup)=\"applyFilter($event.target.value)\" placeholder=\"Filtrar resultados\">\n      </mat-form-field>\n    </mat-grid-tile-->\n    <mat-grid-tile>\n      <mat-paginator [pageSizeOptions]=\"[25, 50, 100]\" showFirstLastButtons>\n      </mat-paginator>\n    </mat-grid-tile>\n  </mat-grid-list>\n  <div class=\"spinner-container\" *ngIf=\"dataSource.loading$ | async\">\n    <mat-spinner></mat-spinner>\n  </div>\n  <table mat-table [dataSource]=\"dataSource\" matSort>\n    <ng-container matColumnDef=\"createdD\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </th>\n      <td mat-cell *matCellDef=\"let message\"> {{message.createdD| date:'dd-MM-yyyy'}} </td>\n    </ng-container>\n    <ng-container matColumnDef=\"fromName\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header> De </th>\n      <td mat-cell *matCellDef=\"let message\"> {{message.fromName}} </td>\n    </ng-container>\n    <ng-container matColumnDef=\"message\">\n        <th mat-header-cell *matHeaderCellDef mat-sort-header> Mensaje </th>\n        <td mat-cell *matCellDef=\"let message\"> {{message.message}}</td>\n      </ng-container>\n    <tr mat-header-row *matHeaderRowDef=\"displayedColumns; sticky: true\"></tr>\n    <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>\n\n  </table>\n</mat-card>\n\n"
+
+/***/ }),
+
+/***/ "./src/app/commonApp/messages/messages.component.ts":
+/*!**********************************************************!*\
+  !*** ./src/app/commonApp/messages/messages.component.ts ***!
+  \**********************************************************/
+/*! exports provided: MessagesComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MessagesComponent", function() { return MessagesComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _services_user_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../services/user.service */ "./src/app/services/user.service.ts");
+/* harmony import */ var _services_messages_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../services/messages.service */ "./src/app/services/messages.service.ts");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+var MessagesComponent = /** @class */ (function () {
+    function MessagesComponent(userService, messagesService) {
+        this.userService = userService;
+        this.messagesService = messagesService;
+        this.messagesToMe = null;
+        this.displayedColumns = ['createdD', 'fromName', 'message'];
+        this.dataSource = new _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatTableDataSource"](this.messages);
+    }
+    MessagesComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.messageForm = new _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormGroup"]({
+            to: new _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControl"](),
+            toName: new _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControl"](),
+            message: new _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControl"](),
+        });
+        this.userService.getUsers()
+            .subscribe(function (data) {
+            _this.users = data;
+        });
+        console.log(this.users);
+        this.messagesService.get().subscribe(function (data) {
+            console.log("mensajes : " + data);
+            _this.messagesToMe = data.docs;
+            _this.dataSource.data = _this.messagesToMe;
+            console.log("mensaje recuperado : " + _this.messagesToMe);
+            //this.get();
+        });
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        ;
+    };
+    MessagesComponent.prototype.send = function () {
+        var to = this.messageForm.get('to').value;
+        var selectedUser = this.users.find(function (usr) { return usr.nro == to; });
+        var toName = selectedUser.lastname;
+        var text = this.messageForm.get('message').value;
+        // Validar que to y text no esten vacios
+        console.log("entro al send : " + this.messageForm.get('to').value + " " + this.messageForm.get('message').value);
+        this.messagesService.send(to, toName, text).subscribe(function (data) {
+            console.log("mensaje enviado : " + data);
+        });
+        this.messageForm.reset();
+    };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])(_angular_material__WEBPACK_IMPORTED_MODULE_4__["MatSort"]),
+        __metadata("design:type", _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatSort"])
+    ], MessagesComponent.prototype, "sort", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])(_angular_material__WEBPACK_IMPORTED_MODULE_4__["MatPaginator"]),
+        __metadata("design:type", _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatPaginator"])
+    ], MessagesComponent.prototype, "paginator", void 0);
+    MessagesComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-messages',
+            template: __webpack_require__(/*! ./messages.component.html */ "./src/app/commonApp/messages/messages.component.html"),
+            styles: [__webpack_require__(/*! ./messages.component.css */ "./src/app/commonApp/messages/messages.component.css")]
+        }),
+        __metadata("design:paramtypes", [_services_user_service__WEBPACK_IMPORTED_MODULE_2__["UserService"], _services_messages_service__WEBPACK_IMPORTED_MODULE_3__["MessagesService"]])
+    ], MessagesComponent);
+    return MessagesComponent;
 }());
 
 
@@ -1068,7 +1680,7 @@ var PagenotfoundComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".example-card {\n    max-width: 100%;\n}\n.mat-grid-tile .mat-figure {\n    align-items: flex-start!important;\n}\n.mat-card {\n    width: 85%;\n}\n.mat-grid-tile {\n    text-align: left!important;\n}\n.alert {\n    background-color: #FFD815;\n}\n.mat-form-field {\n    display: inline-block;\n    position: relative;\n    text-align: left;\n    width: 90%!important;\n}"
+module.exports = ".example-card {\n    max-width: 100%;\n}\n.mat-grid-tile .mat-figure {\n    align-items: end!important;\n}\n.mat-card {\n    width: 85%;\n}\n.mat-grid-tile {\n    text-align: left!important;\n}\n.alert {\n    background-color: #FFD815;\n}\n.mat-form-field {\n    display: inline-block;\n    position: relative;\n    text-align: left;\n    width: 90%!important;\n}\n.count {\n    width: 25px;\n    height: 25px;\n    border-radius: 25px;\n    line-height: 25px;\n    color: #333;\n    background: #eee;\n    display: inline-block;\n    text-align: center;\n    font-weight: 700;\n    margin-bottom: 4px;\n}\n.ordstatus button {\n    width: 100%;\n}"
 
 /***/ }),
 
@@ -1079,7 +1691,7 @@ module.exports = ".example-card {\n    max-width: 100%;\n}\n.mat-grid-tile .mat-
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-card *ngIf=\"isAdmin\">\n  <mat-grid-list cols=\"3\" rowHeight=\"10:1\">\n    <mat-grid-tile>\n      <mat-card-title>Bienvenido</mat-card-title>\n    </mat-grid-tile>\n    <mat-grid-tile>\n      <p>Usted a iniciado sesión como usuario Admin</p>\n    </mat-grid-tile>\n    <mat-grid-tile>\n      <mat-form-field>\n        <mat-select placeholder=\"Seleccione un vendedor\" (ngModelChange)=\"onClick($event)\" [(ngModel)]=\"selectedSeller\">\n          <mat-option *ngFor=\"let seller of sellers\" [value]=\"seller.id\">\n            {{seller.nom}}\n          </mat-option>\n        </mat-select>\n      </mat-form-field>\n\n    </mat-grid-tile>\n  </mat-grid-list>\n</mat-card>\n<mat-card>\n  <mat-card-title>Dashboard</mat-card-title>\n  <mat-grid-list cols=\"3\" rowHeight=\"1:1\">\n    <mat-grid-tile>\n      <mat-card>\n        <mat-card-title>Pedidos</mat-card-title>\n        <mat-card-subtitle>Estado de pedidos</mat-card-subtitle>\n        <mat-divider></mat-divider>\n        <mat-card-content>\n          <p></p>\n          <p> <button mat-mini-fab color=\"primary\">123</button> <strong>Aprobados</strong> </p>\n          <p><button mat-mini-fab class=\"alert\">23</button> <strong>Pendientes</strong></p>\n          <p><button mat-mini-fab color=\"warn\">12</button> <strong>Rechazados</strong> </p>\n        </mat-card-content>\n        <mat-divider></mat-divider>\n        <mat-card-actions align=\"right\">\n          <button mat-raised-button color=\"primary\">VER</button>\n        </mat-card-actions>\n      </mat-card>\n    </mat-grid-tile>\n    <mat-grid-tile>\n      <mat-card>\n        <mat-card-title>Clientes</mat-card-title>\n        <mat-card-subtitle>Estado de clientes</mat-card-subtitle>\n        <mat-divider></mat-divider>\n        <mat-card-content>\n          <p></p>\n          <p> <button mat-mini-fab color=\"primary\">123</button> <strong>Aprobados</strong> </p>\n          <p><button mat-mini-fab class=\"alert\">23</button> <strong>A confirmar</strong></p>\n          <p><button mat-mini-fab color=\"warn\">12</button> <strong>Con revisiones</strong> </p>\n        </mat-card-content>\n        <mat-divider></mat-divider>\n        <mat-card-actions align=\"right\">\n          <button mat-raised-button color=\"primary\">VER</button>\n        </mat-card-actions>\n      </mat-card>\n    </mat-grid-tile>\n    <mat-grid-tile>\n      <mat-card>\n        <mat-card-title>Reportes</mat-card-title>\n        <mat-card-subtitle>Al 31/10/2018</mat-card-subtitle>\n        <mat-divider></mat-divider>\n        <mat-card-content>\n          <p></p>\n          <p>Proximamente </p>\n        </mat-card-content>\n        <mat-divider></mat-divider>\n        <mat-card-actions align=\"right\">\n          <button mat-raised-button color=\"primary\">VER</button>\n        </mat-card-actions>\n      </mat-card>\n    </mat-grid-tile>\n  </mat-grid-list>\n</mat-card>\n"
+module.exports = "<mat-card *ngIf=\"isAdmin\">\n  <mat-grid-list cols=\"3\" rowHeight=\"10:1\">\n    <mat-grid-tile>\n      <mat-card-title>Bienvenido</mat-card-title>\n    </mat-grid-tile>\n    <mat-grid-tile>\n      <p>Usted a iniciado sesión como usuario Admin</p>\n    </mat-grid-tile>\n    <mat-grid-tile>\n      <mat-form-field>\n        <mat-select placeholder=\"Seleccione un vendedor\" (ngModelChange)=\"onClick($event)\" [(ngModel)]=\"selectedSeller\">\n          <mat-option *ngFor=\"let seller of sellers\" [value]=\"seller.id\">\n            {{seller.nom}}\n          </mat-option>\n        </mat-select>\n      </mat-form-field>\n\n    </mat-grid-tile>\n  </mat-grid-list>\n</mat-card>\n<mat-card>\n  <mat-card-title>Dashboard</mat-card-title>\n  <mat-grid-list cols=\"3\" rowHeight=\"470px\">\n    <mat-grid-tile>\n      <mat-card>\n        <mat-card-title>Pedidos</mat-card-title>\n        <mat-card-subtitle>Estado de pedidos</mat-card-subtitle>\n        <mat-divider></mat-divider>\n        <mat-card-content>\n          <p>&nbsp;</p>\n          <div class=\"ordstatus\" *ngFor=\"let status of ordStatus\">\n            <button routerLink=\"/orders/status/{{status.est}}\" mat-raised-button matBadge=\"{{status.count}}\" matBadgePosition=\"after\" matBadgeColor=\"accent\">\n                {{status.nom}}\n            </button>\n            <br />\n            <br />\n          </div>\n        </mat-card-content>\n      </mat-card>\n    </mat-grid-tile>\n    <mat-grid-tile>\n      <mat-card>\n        <mat-card-title>Clientes</mat-card-title>\n        <mat-card-subtitle>Estado de Ctas. Ctes.</mat-card-subtitle>\n        <mat-divider></mat-divider>\n        <mat-card-content>\n          <p> &nbsp;</p>\n          <p> <button mat-mini-fab color=\"warn\" matTooltip=\"Más de una semana vencido\" matTooltipPosition=\"above\">{{\n              det0[0].count }}</button> <strong> {{ det0[0].saldo | currency }}</strong>\n          </p>\n          <p><button mat-mini-fab class=\"alert\" matTooltip=\"Menos de una semana vencido\" matTooltipPosition=\"above\">{{\n              det0[1].count }}</button> <strong> {{ det0[1].saldo | currency}}</strong></p>\n          <p><button mat-mini-fab color=\"primary\" matTooltip=\"No vencido\" matTooltipPosition=\"above\">{{ det0[2].count\n              }}</button>\n            <strong> {{ det0[2].saldo | currency}}</strong>\n          </p>\n        </mat-card-content>\n        <mat-divider></mat-divider>\n        <mat-card-actions align=\"right\">\n          <button mat-raised-button color=\"primary\" routerLink='/accounts/view'>VER</button>\n        </mat-card-actions>\n      </mat-card>\n    </mat-grid-tile>\n    <mat-grid-tile>\n      <mat-card>\n        <mat-card-title>Reportes</mat-card-title>\n        <mat-card-subtitle>Al 31/10/2018</mat-card-subtitle>\n        <mat-divider></mat-divider>\n        <mat-card-content>\n          <p> &nbsp;</p>\n          <p> &nbsp;</p>\n          <p>Proximamente </p>\n          <p> &nbsp;</p>\n          <p> &nbsp;</p>\n        </mat-card-content>\n        <mat-divider></mat-divider>\n\n      </mat-card>\n    </mat-grid-tile>\n  </mat-grid-list>\n</mat-card>\n"
 
 /***/ }),
 
@@ -1096,7 +1708,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _services_user_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../services/user.service */ "./src/app/services/user.service.ts");
 /* harmony import */ var _services_data_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../services/data.service */ "./src/app/services/data.service.ts");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _services_otherdata_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../services/otherdata.service */ "./src/app/services/otherdata.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1110,24 +1723,27 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var SellerComponent = /** @class */ (function () {
-    function SellerComponent(router, userService, dataService) {
+    function SellerComponent(router, userService, dataService, otherdataService) {
         this.router = router;
         this.userService = userService;
         this.dataService = dataService;
+        this.otherdataService = otherdataService;
     }
     SellerComponent.prototype.ngOnInit = function () {
         var _this = this;
+        console.log('*****On init*****');
         // call service to retrieve client by seller
         var salesman = JSON.parse(localStorage.getItem('currentUser'));
-        console.log('El vendedor es: ' + salesman.lastname);
-        this.userService.getSeller(salesman.userId).subscribe(function (data) {
+        console.log('El vendedor es salesman.lastname: ' + salesman.userId + ' ' + salesman.lastname);
+        this.userServiceSubscription = this.userService.getSeller(salesman.userId).subscribe(function (data) {
             console.log('data ' + JSON.stringify(data));
             if (data) {
                 localStorage.setItem('sellerId', JSON.stringify(data));
             }
             var isSeller = JSON.parse(localStorage.getItem('sellerId'));
-            console.log('El vendedor es: ' + isSeller);
+            console.log('El vendedor es: isSeller.id' + isSeller.id);
             if (!isSeller) {
                 _this.isAdmin = true;
                 console.log(_this.isAdmin);
@@ -1136,7 +1752,21 @@ var SellerComponent = /** @class */ (function () {
                     console.log(_this.sellers);
                 });
             }
+            else {
+                _this.otherdataService.get_Ctacli_Det0(isSeller.id).subscribe(function (dt0) {
+                    console.log(JSON.stringify(dt0));
+                    _this.det0 = dt0;
+                });
+                _this.otherdataService.get_OrdersStatus(isSeller.id).subscribe(function (ordStat) {
+                    console.log(JSON.stringify(ordStat));
+                    _this.ordStatus = ordStat;
+                });
+            }
         });
+    };
+    SellerComponent.prototype.ngOnDestroy = function () {
+        console.log('***** Estoy en on destroy *******');
+        this.userServiceSubscription.unsubscribe();
     };
     SellerComponent.prototype.onClick = function (ven) {
         this.selectedSeller = ven;
@@ -1167,7 +1797,10 @@ var SellerComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./seller.component.html */ "./src/app/commonApp/seller/seller.component.html"),
             styles: [__webpack_require__(/*! ./seller.component.css */ "./src/app/commonApp/seller/seller.component.css")]
         }),
-        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"], _services_user_service__WEBPACK_IMPORTED_MODULE_1__["UserService"], _services_data_service__WEBPACK_IMPORTED_MODULE_2__["DataService"]])
+        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"],
+            _services_user_service__WEBPACK_IMPORTED_MODULE_1__["UserService"],
+            _services_data_service__WEBPACK_IMPORTED_MODULE_2__["DataService"],
+            _services_otherdata_service__WEBPACK_IMPORTED_MODULE_3__["OtherdataService"]])
     ], SellerComponent);
     return SellerComponent;
 }());
@@ -2027,7 +2660,7 @@ module.exports = ".mat-form-field {\n    width: 94%;\n}\n\n.static_field {\n    
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-card>\n  <mat-card-title>Orden de Pedido</mat-card-title>\n  <mat-accordion>\n    <mat-expansion-panel [expanded]=\"true\">\n      <mat-expansion-panel-header>\n        <mat-panel-title>\n          <strong>Datos del pedido</strong>\n        </mat-panel-title>\n        <mat-panel-description>\n          Información del cliente\n        </mat-panel-description>\n      </mat-expansion-panel-header>\n      <mat-grid-list cols=\"3\" rowHeight=\"60px\">\n        <mat-grid-tile>\n          <mat-form-field>\n            <input type=\"text\" placeholder=\"Cliente\" aria-label=\"Cliente\" matInput [formControl]=\"myControl\" [matAutocomplete]=\"auto\" (ngModelChange)=\"onClientSelected($event)\">\n            <mat-autocomplete autoActiveFirstOption #auto=\"matAutocomplete\" [displayWith]=\"displayFn\">\n              <mat-option *ngFor=\"let option of filteredOptions | async\" [value]=\"option\">\n                {{ option.nom }}\n              </mat-option>\n            </mat-autocomplete>\n          </mat-form-field>\n          <!--<mat-form-field>\n            <mat-select class=\"custom-select\" placeholder=\"Cliente\" (ngModelChange)=\"onClientSelected($event)\"\n              [(ngModel)]=\"clientId\" data-live-search=\"true\">\n              <mat-option *ngFor=\"let client of clients\" [value]=\"client.id\">\n                {{client.id}} - {{client.nom}}\n              </mat-option>\n            </mat-select>\n          </mat-form-field>-->\n        </mat-grid-tile>\n        <mat-grid-tile>\n          <mat-form-field *ngIf=\"selectedClient\">\n            <mat-select class=\"custom-select\" placeholder=\"Domicilio\" (ngModelChange)=\"onAdressSelected($event)\"\n              [(ngModel)]=\"selectedAddress\" data-live-search=\"true\">\n              <!--<mat-option [value]=\"selectedAddress\">\n                {{selectedAddress.dir}} - {{selectedAddress.localidad}}\n              </mat-option>-->\n              <mat-option *ngFor=\"let addr of selectedClient.address\" [value]=addr.id> {{addr.dir}} -\n                {{addr.localidad}}\n              </mat-option>\n            </mat-select>\n          </mat-form-field>\n          <!--<select *ngIf=\"selectedClient\" class=\"custom-select\" (ngModelChange)=\"onAdressSelected($event)\" [(ngModel)]=\"selectedAddress\"\n            data-live-search=\"true\" id=\"selectedAddress\">\n            <option [value]=\"selectedAddress\" selected=\"selected\">{{selectedAddress.dir}} -\n              {{selectedAddress.localidad}}\n            </option>\n            <option *ngFor=\"let addr of selectedClient.address\" [ngValue]=addr.id> {{addr.dir}} - {{addr.localidad}}\n            </option>\n          </select>-->\n        </mat-grid-tile>\n        <mat-grid-tile>\n          <div class=\"static_field\">\n            <span class=\"static_label\">Flete</span>\n            {{ (selectedClient && selectedAddress && selectedAddress.flete) ? selectedAddress.flete.nom : ''}}\n          </div>\n        </mat-grid-tile>\n        <mat-grid-tile>\n          <mat-form-field>\n            <mat-select placeholder=\"Condición de Pago\" [(ngModel)]=\"conven\" (ngModelChange)=\"onCondVentSelected($event)\" data-live-search=\"true\" id=\"convenId\">\n              <mat-option *ngFor=\"let cond of conpag\" [value]=\"cond\">\n                {{cond.nom}}\n              </mat-option>\n            </mat-select>\n          </mat-form-field>\n        </mat-grid-tile>\n        <mat-grid-tile [colspan]=\"2\">\n          <mat-form-field>\n            <input type=\"text\" matInput placeholder=\"Observaciones\">\n          </mat-form-field>\n        </mat-grid-tile>\n      </mat-grid-list>\n    </mat-expansion-panel>\n  </mat-accordion>\n  <mat-accordion>\n    <mat-expansion-panel>\n      <mat-expansion-panel-header>\n        <mat-panel-title>\n          <strong>Detalle del pedido</strong>\n        </mat-panel-title>\n        <mat-panel-description>\n          Detalle de la compra\n        </mat-panel-description>\n      </mat-expansion-panel-header>\n      <mat-grid-list cols=\"9\" rowHeight=\"60px\">\n        <mat-grid-tile [colspan]=\"7\">\n\n          <mat-form-field>\n            <input type=\"text\" placeholder=\"Artículo\" aria-label=\"Artículo\" matInput [formControl]=\"myControlArt\"\n              [matAutocomplete]=\"autoArt\" (ngModelChange)=\"onArtSelected($event)\">\n            <mat-autocomplete autoActiveFirstOption #autoArt=\"matAutocomplete\" [displayWith]=\"displayFnArt\">\n              <mat-option *ngFor=\"let art of filteredOptionsArt | async\" [value]=\"art\">\n                {{art.codfac}} - {{art.nom}}\n              </mat-option>\n            </mat-autocomplete>\n          </mat-form-field>\n\n        </mat-grid-tile>\n        <mat-grid-tile [colspan]=\"1\">\n          <div class=\"static_field\">\n            <span class=\"static_label\">Precio Sugerido</span>\n            $ {{ sugPrice }}\n          </div>\n        </mat-grid-tile>\n        <mat-grid-tile [colspan]=\"1\">\n          <mat-form-field>\n            <input matInput placeholder=\"Precio\" [(ngModel)]=\"price\" type=\"number\" min=\"0\" step=\"0.01\"\n              data-number-to-fixed=\"2\" data-number-stepfactor=\"100\" class=\"form-control currency\" id=\"price\" />\n          </mat-form-field>\n        </mat-grid-tile>\n      </mat-grid-list>\n      <mat-grid-list cols=\"9\" rowHeight=\"40px\">\n        <mat-grid-tile [colspan]=\"1\"><strong>Código</strong></mat-grid-tile>\n        <mat-grid-tile [colspan]=\"5\"><strong>Descripción</strong></mat-grid-tile>\n        <mat-grid-tile [colspan]=\"1\"><strong>Stock</strong></mat-grid-tile>\n        <mat-grid-tile [colspan]=\"1\"><strong>Cantidad</strong></mat-grid-tile>\n        <mat-grid-tile [colspan]=\"1\"><strong>Eliminar</strong></mat-grid-tile>\n        <div *ngFor=\"let item of selectedItems; let i = index\">\n          <mat-grid-tile [colspan]=\"1\">{{item.itemdatum.variante.codigo}} </mat-grid-tile>\n          <mat-grid-tile [colspan]=\"5\">{{item.itemdatum.variante.nom}}</mat-grid-tile>\n          <mat-grid-tile [colspan]=\"1\">{{item.itemdatum.variante.pza}}</mat-grid-tile>\n          <mat-grid-tile [colspan]=\"1\">\n            <mat-form-field>\n            <input matInput required placeholder=\"Cantidad\" #selectedCount (change)=\"addCount(i, selectedCount.value);\">\n            </mat-form-field>\n          </mat-grid-tile>\n          <mat-grid-tile [colspan]=\"1\">\n            <button mat-icon-button color=\"accent\" (click)=\"removeVariante(i)\" matTooltip=\"Eliminar variante\"\n              matTooltipPosition=\"above\">\n              <mat-icon aria-label=\"Eliminar variante\">remove_circle_outline</mat-icon>\n            </button>\n          </mat-grid-tile>\n        </div>\n      </mat-grid-list>\n    </mat-expansion-panel>\n  </mat-accordion>\n  <mat-accordion *ngIf=\"hasVariantes\">\n    <mat-expansion-panel [expanded]=\"true\">\n      <mat-expansion-panel-header>\n        <mat-panel-title>\n          <strong>Seleccione Variantes</strong>\n        </mat-panel-title>\n        <mat-panel-description>\n          Seleccione las variantes del producto que desea agregar al pedido\n        </mat-panel-description>\n      </mat-expansion-panel-header>\n      <mat-grid-list cols=\"9\" rowHeight=\"40px\">\n        <mat-grid-tile [colspan]=\"1\"><strong>Color</strong></mat-grid-tile>\n        <mat-grid-tile [colspan]=\"1\"><strong>Código</strong></mat-grid-tile>\n        <mat-grid-tile [colspan]=\"5\"><strong>Descripción</strong></mat-grid-tile>\n        <mat-grid-tile [colspan]=\"1\"><strong>Stock</strong></mat-grid-tile>\n        <mat-grid-tile [colspan]=\"1\"><strong>Agregar</strong></mat-grid-tile>\n        <div *ngFor=\"let item of variantes; let i = index\">\n          <mat-grid-tile [colspan]=\"1\">\n            <a *ngIf=\"item.imagen !== ''\" [href]=\"item.imagen\" data-lightbox=\"image\" data-title=\"Artículo: {{item.codigo}} - Variante: {{item.nom}}  - Stock: {{item.pza}}\">\n              <img [src]=\"item.imagen\" onError=\"this.src='https://simsiroglu.com.ar/sim/wp-content/uploads/2017/07/polish.png';\"\n                alt=\"Producto\" width=\"25\" style=\"border-radius:25px; height:25px; overflow:hidden; cursor:pointer\"\n                class=\"pict\" matTooltip=\"Ver imagen\" matTooltipPosition=\"above\" />\n            </a>\n            <a *ngIf=\"item.imagen == ''\" href=\"https://simsiroglu.com.ar/sim/wp-content/uploads/2017/07/polish.png\"\n              data-lightbox=\"image\" data-add=\"(item)\" data-title=\"Stock: {{item.codigo}} - Variante: {{item.nom}}  - Variante: {{item.pza}}\">\n              <img [src]=\"item.imagen\" onError=\"this.src='https://simsiroglu.com.ar/sim/wp-content/uploads/2017/07/polish.png';\"\n                alt=\"Producto\" width=\"25\" style=\"border-radius:25px; height:25px; overflow:hidden; cursor:pointer\"\n                class=\"pict\" matTooltip=\"Ver imagen\" matTooltipPosition=\"above\" />\n            </a>\n          </mat-grid-tile>\n          <mat-grid-tile [colspan]=\"1\">{{item.codigo}}</mat-grid-tile>\n          <mat-grid-tile [colspan]=\"5\">{{item.nom}}</mat-grid-tile>\n          <mat-grid-tile [colspan]=\"1\">{{item.pza}}</mat-grid-tile>\n          <mat-grid-tile [colspan]=\"1\">\n            <button id=\"button\" mat-icon-button color=\"accent\" (click)=\"addVariante(item)\" matTooltip=\"Agregar variante\"\n              matTooltipPosition=\"above\">\n              <mat-icon aria-label=\"Agregar variante\">add_circle_outline</mat-icon>\n            </button>\n          </mat-grid-tile>\n        </div>\n      </mat-grid-list>\n    </mat-expansion-panel>\n  </mat-accordion>\n  <br />\n  <mat-card-actions align=\"middle\">\n    <div fxFlex></div><button mat-raised-button color=\"accent\" (click)=\"submitOrderDetail()\">Enviar</button>\n  </mat-card-actions>\n</mat-card>\n"
+module.exports = "<mat-card>\n  <mat-card-title>Orden de Pedido</mat-card-title>\n  <mat-accordion>\n    <mat-expansion-panel [expanded]=\"true\">\n      <mat-expansion-panel-header>\n        <mat-panel-title>\n          <strong>Datos del pedido</strong>\n        </mat-panel-title>\n        <mat-panel-description>\n          Información del cliente\n        </mat-panel-description>\n      </mat-expansion-panel-header>\n      <mat-grid-list cols=\"3\" rowHeight=\"60px\">\n        <mat-grid-tile>\n          <mat-form-field>\n            <input type=\"text\" placeholder=\"Cliente\" aria-label=\"Cliente\" matInput [formControl]=\"myControl\"\n              [matAutocomplete]=\"auto\" (ngModelChange)=\"onClientSelected($event)\">\n            <mat-autocomplete autoActiveFirstOption #auto=\"matAutocomplete\" [displayWith]=\"displayFn\">\n              <mat-option *ngFor=\"let option of filteredOptions | async\" [value]=\"option\">\n                {{ option.nom }}\n              </mat-option>\n            </mat-autocomplete>\n          </mat-form-field>\n          <!--<mat-form-field>\n            <mat-select class=\"custom-select\" placeholder=\"Cliente\" (ngModelChange)=\"onClientSelected($event)\"\n              [(ngModel)]=\"clientId\" data-live-search=\"true\">\n              <mat-option *ngFor=\"let client of clients\" [value]=\"client.id\">\n                {{client.id}} - {{client.nom}}\n              </mat-option>\n            </mat-select>\n          </mat-form-field>-->\n        </mat-grid-tile>\n        <mat-grid-tile>\n          <mat-form-field *ngIf=\"selectedClient\">\n            <mat-select class=\"custom-select\" placeholder=\"Domicilio\" (ngModelChange)=\"onAdressSelected($event)\"\n              [(ngModel)]=\"selectedAddress\" data-live-search=\"true\">\n              <!--<mat-option [value]=\"selectedAddress\">\n                {{selectedAddress.dir}} - {{selectedAddress.localidad}}\n              </mat-option>-->\n              <mat-option *ngFor=\"let addr of selectedClient.address\" [value]=addr.id> {{addr.dir}} -\n                {{addr.localidad}}\n              </mat-option>\n            </mat-select>\n          </mat-form-field>\n          <!--<select *ngIf=\"selectedClient\" class=\"custom-select\" (ngModelChange)=\"onAdressSelected($event)\" [(ngModel)]=\"selectedAddress\"\n            data-live-search=\"true\" id=\"selectedAddress\">\n            <option [value]=\"selectedAddress\" selected=\"selected\">{{selectedAddress.dir}} -\n              {{selectedAddress.localidad}}\n            </option>\n            <option *ngFor=\"let addr of selectedClient.address\" [ngValue]=addr.id> {{addr.dir}} - {{addr.localidad}}\n            </option>\n          </select>-->\n        </mat-grid-tile>\n        <mat-grid-tile>\n          <div class=\"static_field\">\n            <span class=\"static_label\">Flete</span>\n            {{ (selectedClient && selectedAddress && selectedAddress.flete) ? selectedAddress.flete.nom : ''}}\n          </div>\n        </mat-grid-tile>\n        <mat-grid-tile>\n          <mat-form-field>\n            <mat-select placeholder=\"Condición de Pago\" [(ngModel)]=\"conven\" (ngModelChange)=\"onCondVentSelected($event)\"\n              data-live-search=\"true\" id=\"convenId\">\n              <mat-option *ngFor=\"let cond of conpag\" [value]=\"cond\">\n                {{cond.nom}}\n              </mat-option>\n            </mat-select>\n          </mat-form-field>\n        </mat-grid-tile>\n        <mat-grid-tile [colspan]=\"2\">\n          <mat-form-field>\n            <input type=\"text\" matInput placeholder=\"Observaciones\">\n          </mat-form-field>\n        </mat-grid-tile>\n      </mat-grid-list>\n    </mat-expansion-panel>\n  </mat-accordion>\n  <mat-accordion>\n    <mat-expansion-panel>\n      <mat-expansion-panel-header>\n        <mat-panel-title>\n          <strong>Detalle del pedido</strong>\n        </mat-panel-title>\n        <mat-panel-description>\n          Detalle de la compra\n        </mat-panel-description>\n      </mat-expansion-panel-header>\n      <mat-grid-list cols=\"9\" rowHeight=\"60px\">\n        <mat-grid-tile [colspan]=\"6\">\n\n          <mat-form-field>\n            <input type=\"text\" placeholder=\"Artículo\" aria-label=\"Artículo\" matInput [formControl]=\"myControlArt\"\n              [matAutocomplete]=\"autoArt\" (ngModelChange)=\"onArtSelected($event)\">\n            <mat-autocomplete autoActiveFirstOption #autoArt=\"matAutocomplete\" [displayWith]=\"displayFnArt\">\n              <mat-option *ngFor=\"let art of filteredOptionsArt | async\" [value]=\"art\">\n                {{art.codfac}} - {{art.nom}}\n              </mat-option>\n            </mat-autocomplete>\n          </mat-form-field>\n\n        </mat-grid-tile>\n        <mat-grid-tile [colspan]=\"2\">\n          <mat-form-field>\n            <mat-select class=\"custom-select\" placeholder=\"Enviar desde\" [(ngModel)]=\"selectedStock\" data-live-search=\"true\" (ngModelChange)=\"onStockSelected($event)\">\n              <mat-option [value]=\"0\">\n                Deposito\n              </mat-option>\n              <mat-option *ngFor=\"let pack of packing\" [value]=pack>\n                {{pack.obs}}\n              </mat-option>\n            </mat-select>\n          </mat-form-field>\n        </mat-grid-tile>\n        <mat-grid-tile [colspan]=\"1\">\n          <mat-form-field>\n            <input matInput placeholder=\"Precio\" [(ngModel)]=\"price\" type=\"number\" min=\"0\" step=\"0.01\"\n              data-number-to-fixed=\"2\" data-number-stepfactor=\"100\" class=\"form-control currency\" id=\"price\" value=\"{{ sugPrice }}\" />\n          </mat-form-field>\n        </mat-grid-tile>\n      </mat-grid-list>\n      <mat-grid-list cols=\"9\" rowHeight=\"40px\">\n        <mat-grid-tile [colspan]=\"1\"><strong>Código</strong></mat-grid-tile>\n        <mat-grid-tile [colspan]=\"5\"><strong>Descripción</strong></mat-grid-tile>\n        <mat-grid-tile [colspan]=\"1\"><strong>Stock</strong></mat-grid-tile>\n        <mat-grid-tile [colspan]=\"1\"><strong>Cantidad</strong></mat-grid-tile>\n        <mat-grid-tile [colspan]=\"1\"><strong>Eliminar</strong></mat-grid-tile>\n        <div *ngFor=\"let item of selectedItems; let i = index\">\n          <mat-grid-tile [colspan]=\"1\">{{item.itemdatum.variante.codigo}} </mat-grid-tile>\n          <mat-grid-tile [colspan]=\"5\">{{item.itemdatum.variante.nom}}</mat-grid-tile>\n          <mat-grid-tile [colspan]=\"1\">{{item.itemdatum.variante.pza}}</mat-grid-tile>\n          <mat-grid-tile [colspan]=\"1\">\n            <mat-form-field>\n              <input matInput required placeholder=\"Cantidad\" #selectedCount (change)=\"addCount(i, selectedCount.value);\">\n            </mat-form-field>\n          </mat-grid-tile>\n          <mat-grid-tile [colspan]=\"1\">\n            <button mat-icon-button color=\"accent\" (click)=\"removeVariante(i)\" matTooltip=\"Eliminar variante\"\n              matTooltipPosition=\"above\">\n              <mat-icon aria-label=\"Eliminar variante\">remove_circle_outline</mat-icon>\n            </button>\n          </mat-grid-tile>\n        </div>\n      </mat-grid-list>\n    </mat-expansion-panel>\n  </mat-accordion>\n  <mat-accordion *ngIf=\"hasVariantes\">\n    <mat-expansion-panel [expanded]=\"true\">\n      <mat-expansion-panel-header>\n        <mat-panel-title>\n          <strong>Seleccione Variantes</strong>\n        </mat-panel-title>\n        <mat-panel-description>\n          Seleccione las variantes del producto que desea agregar al pedido\n        </mat-panel-description>\n      </mat-expansion-panel-header>\n      <mat-grid-list cols=\"9\" rowHeight=\"40px\">\n        <mat-grid-tile [colspan]=\"1\"><strong>Color</strong></mat-grid-tile>\n        <mat-grid-tile [colspan]=\"1\"><strong>Código</strong></mat-grid-tile>\n        <mat-grid-tile [colspan]=\"5\"><strong>Descripción</strong></mat-grid-tile>\n        <mat-grid-tile [colspan]=\"1\"><strong>Stock</strong></mat-grid-tile>\n        <mat-grid-tile [colspan]=\"1\"><strong>Agregar</strong></mat-grid-tile>\n        <div *ngFor=\"let item of variantes; let i = index\">\n          <mat-grid-tile [colspan]=\"1\">\n            <a *ngIf=\"item.imagen !== ''\" [href]=\"item.imagen\" data-lightbox=\"image\" data-title=\"Artículo: {{item.codigo}} - Variante: {{item.nom}}  - Stock: {{item.pza}}\">\n              <img [src]=\"item.imagen\" onError=\"this.src='https://simsiroglu.com.ar/sim/wp-content/uploads/2017/07/polish.png';\"\n                alt=\"Producto\" width=\"25\" style=\"border-radius:25px; height:25px; overflow:hidden; cursor:pointer\"\n                class=\"pict\" matTooltip=\"Ver imagen\" matTooltipPosition=\"above\" />\n            </a>\n            <a *ngIf=\"item.imagen == ''\" href=\"https://simsiroglu.com.ar/sim/wp-content/uploads/2017/07/polish.png\"\n              data-lightbox=\"image\" data-add=\"(item)\" data-title=\"Stock: {{item.codigo}} - Variante: {{item.nom}}  - Variante: {{item.pza}}\">\n              <img [src]=\"item.imagen\" onError=\"this.src='https://simsiroglu.com.ar/sim/wp-content/uploads/2017/07/polish.png';\"\n                alt=\"Producto\" width=\"25\" style=\"border-radius:25px; height:25px; overflow:hidden; cursor:pointer\"\n                class=\"pict\" matTooltip=\"Ver imagen\" matTooltipPosition=\"above\" />\n            </a>\n          </mat-grid-tile>\n          <mat-grid-tile [colspan]=\"1\">{{item.codigo}}</mat-grid-tile>\n          <mat-grid-tile [colspan]=\"5\">{{item.nom}}</mat-grid-tile>\n          <mat-grid-tile [colspan]=\"1\">{{item.pza}}</mat-grid-tile>\n          <mat-grid-tile [colspan]=\"1\">\n            <button id=\"button\" mat-icon-button color=\"accent\" (click)=\"addVariante(item)\" matTooltip=\"Agregar variante\"\n              matTooltipPosition=\"above\">\n              <mat-icon aria-label=\"Agregar variante\">add_circle_outline</mat-icon>\n            </button>\n          </mat-grid-tile>\n        </div>\n      </mat-grid-list>\n    </mat-expansion-panel>\n  </mat-accordion>\n  <br />\n  <mat-card-actions align=\"middle\">\n    <div fxFlex></div><button mat-raised-button color=\"accent\" (click)=\"submitOrderDetail()\">Enviar</button>\n  </mat-card-actions>\n</mat-card>\n"
 
 /***/ }),
 
@@ -2142,9 +2775,23 @@ var CreateOrderComponent = /** @class */ (function () {
     };
     CreateOrderComponent.prototype.onArtSelected = function (event) {
         var _this = this;
-        console.log('Art = ' + event);
+        console.log('Art = ' + event.id);
         this.artId = event.id;
-        this.orderService.getArticuloById(this.artId).subscribe(function (data) {
+        this.orderService.getPacking(this.artId).subscribe(function (data) {
+            _this.packing = data;
+        });
+    };
+    CreateOrderComponent.prototype.onStockSelected = function (event) {
+        var _this = this;
+        if (event.id !== undefined) {
+            this.stkId = event.id;
+            console.log('Prd: ' + this.artId + 'Stock = ' + this.stkId);
+        }
+        else {
+            this.stkId = 0;
+            console.log('Prd: ' + this.artId + 'Stock = ' + this.stkId);
+        }
+        this.orderService.getArticuloById(this.artId, this.stkId).subscribe(function (data) {
             _this.articulo = data;
             if (_this.articulo && _this.articulo.variantes && _this.articulo.variantes.length > 0) {
                 _this.variantes = _this.articulo.variantes;
@@ -2258,8 +2905,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _create_order_create_order_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./create-order/create-order.component */ "./src/app/orders/create-order/create-order.component.ts");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var _view_orders_view_orders_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./view-orders/view-orders.component */ "./src/app/orders/view-orders/view-orders.component.ts");
-/* harmony import */ var _view_order_details_view_order_details_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./view-order-details/view-order-details.component */ "./src/app/orders/view-order-details/view-order-details.component.ts");
-/* harmony import */ var _material_module__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../material.module */ "./src/app/material.module.ts");
+/* harmony import */ var _view_orders_status_view_orders_status_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./view-orders-status/view-orders-status.component */ "./src/app/orders/view-orders-status/view-orders-status.component.ts");
+/* harmony import */ var _view_order_details_view_order_details_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./view-order-details/view-order-details.component */ "./src/app/orders/view-order-details/view-order-details.component.ts");
+/* harmony import */ var _material_module__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../material.module */ "./src/app/material.module.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2274,10 +2922,12 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 
+
 var ordersRoutes = [
     { path: 'orders/create', component: _create_order_create_order_component__WEBPACK_IMPORTED_MODULE_3__["CreateOrderComponent"] },
     { path: 'orders/view', component: _view_orders_view_orders_component__WEBPACK_IMPORTED_MODULE_5__["ViewOrdersComponent"] },
-    { path: 'orders/detail/:id', component: _view_order_details_view_order_details_component__WEBPACK_IMPORTED_MODULE_6__["ViewOrderDetailsComponent"] }
+    { path: 'orders/detail/:id', component: _view_order_details_view_order_details_component__WEBPACK_IMPORTED_MODULE_7__["ViewOrderDetailsComponent"] },
+    { path: 'orders/status/:id', component: _view_orders_status_view_orders_status_component__WEBPACK_IMPORTED_MODULE_6__["ViewOrdersStatusComponent"] }
 ];
 var OrdersModule = /** @class */ (function () {
     function OrdersModule() {
@@ -2289,17 +2939,19 @@ var OrdersModule = /** @class */ (function () {
                 _angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"].forChild(ordersRoutes),
                 _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormsModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_4__["ReactiveFormsModule"],
-                _material_module__WEBPACK_IMPORTED_MODULE_7__["MaterialModule"]
+                _material_module__WEBPACK_IMPORTED_MODULE_8__["MaterialModule"]
             ],
             declarations: [
                 _create_order_create_order_component__WEBPACK_IMPORTED_MODULE_3__["CreateOrderComponent"],
                 _view_orders_view_orders_component__WEBPACK_IMPORTED_MODULE_5__["ViewOrdersComponent"],
-                _view_order_details_view_order_details_component__WEBPACK_IMPORTED_MODULE_6__["ViewOrderDetailsComponent"]
+                _view_order_details_view_order_details_component__WEBPACK_IMPORTED_MODULE_7__["ViewOrderDetailsComponent"],
+                _view_orders_status_view_orders_status_component__WEBPACK_IMPORTED_MODULE_6__["ViewOrdersStatusComponent"]
             ],
             exports: [
                 _create_order_create_order_component__WEBPACK_IMPORTED_MODULE_3__["CreateOrderComponent"],
                 _view_orders_view_orders_component__WEBPACK_IMPORTED_MODULE_5__["ViewOrdersComponent"],
-                _view_order_details_view_order_details_component__WEBPACK_IMPORTED_MODULE_6__["ViewOrderDetailsComponent"]
+                _view_order_details_view_order_details_component__WEBPACK_IMPORTED_MODULE_7__["ViewOrderDetailsComponent"],
+                _view_orders_status_view_orders_status_component__WEBPACK_IMPORTED_MODULE_6__["ViewOrdersStatusComponent"]
             ]
         })
     ], OrdersModule);
@@ -2424,6 +3076,122 @@ var ViewOrderDetails = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/orders/view-orders-status/view-orders-status.component.css":
+/*!****************************************************************************!*\
+  !*** ./src/app/orders/view-orders-status/view-orders-status.component.css ***!
+  \****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "table {\n    width: 100%;\n}\n.mat-form-field {\n    width: 100%;\n}\n.mat-paginator {\n    display: block;\n    width: 100%;\n}"
+
+/***/ }),
+
+/***/ "./src/app/orders/view-orders-status/view-orders-status.component.html":
+/*!*****************************************************************************!*\
+  !*** ./src/app/orders/view-orders-status/view-orders-status.component.html ***!
+  \*****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<mat-card>\n  <mat-card-title>Estado de órdenes:\n    <span *ngIf=\"statusid === '0'\">Pendiente de aprobación por ventas</span>\n    <span *ngIf=\"statusid === '1'\">En espera</span>\n    <span *ngIf=\"statusid === '2'\">Pendiente de aprobación por créditos y cobranzas</span>\n    <span *ngIf=\"statusid === '3'\">Facturación</span>\n    <span *ngIf=\"statusid === '4'\">Pendiente de Preparación</span>\n    <span *ngIf=\"statusid === '5'\">En preparación en deposito</span>\n    <span *ngIf=\"statusid === '6'\">Espera</span>\n    <span *ngIf=\"statusid === '7'\">Espera</span>\n    <span *ngIf=\"statusid === '8'\">Espera</span>\n    <span *ngIf=\"statusid === '9'\">Espera</span>\n    <span *ngIf=\"statusid === '10'\">Rechazado</span>\n  </mat-card-title>\n  <mat-grid-list cols=\"2\" rowHeight=\"80px\">\n    <mat-grid-tile>\n      <mat-form-field>\n        <input matInput (keyup)=\"applyFilter($event.target.value)\" placeholder=\"Filtrar resultados\">\n      </mat-form-field>\n    </mat-grid-tile>\n    <mat-grid-tile>\n      <mat-paginator [pageSizeOptions]=\"[25, 50, 100]\" showFirstLastButtons>\n      </mat-paginator>\n    </mat-grid-tile>\n  </mat-grid-list>\n  <div class=\"spinner-container\" *ngIf=\"dataSource.loading$ | async\">\n    <mat-spinner></mat-spinner>\n  </div>\n  <table mat-table [dataSource]=\"dataSource\" matSort>\n    <ng-container matColumnDef=\"id\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header> # </th>\n      <td mat-cell *matCellDef=\"let order\"> {{order.nro}} </td>\n    </ng-container>\n    <ng-container matColumnDef=\"date\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </th>\n      <td mat-cell *matCellDef=\"let order\"> {{order.fem| date:'dd-MM-yyyy'}} </td>\n    </ng-container>\n    <ng-container matColumnDef=\"nom\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header> Cliente </th>\n      <td mat-cell *matCellDef=\"let order\"> {{order.cliente.nom}} </td>\n    </ng-container>\n    <ng-container matColumnDef=\"address\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header> Dirección </th>\n      <td mat-cell *matCellDef=\"let order\"> {{(order.address && order.address.dir) ? order.address.dir : \"-\"}}</td>\n    </ng-container>\n    <ng-container matColumnDef=\"button\">\n      <th mat-header-cell *matHeaderCellDef> Ver </th>\n      <td mat-cell *matCellDef=\"let order\">\n        <button mat-mini-fab color=\"accent\" class=\"col-xs-1\" [routerLink]=\"['/orders/detail', order.id]\" matTooltip=\"Ver orden completa\"\n          matTooltipPosition=\"above\">\n          <mat-icon aria-label=\"Ver detalle\">search</mat-icon>\n        </button> </td>\n    </ng-container>\n    <tr mat-header-row *matHeaderRowDef=\"displayedColumns; sticky: true\"></tr>\n    <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>\n\n  </table>\n  <button mat-raised-button color=\"accent\" [routerLink]=\"['/orders/view']\">\n    <mat-icon aria-label=\"Volver\">arrow_back</mat-icon> Volver\n  </button>\n</mat-card>\n"
+
+/***/ }),
+
+/***/ "./src/app/orders/view-orders-status/view-orders-status.component.ts":
+/*!***************************************************************************!*\
+  !*** ./src/app/orders/view-orders-status/view-orders-status.component.ts ***!
+  \***************************************************************************/
+/*! exports provided: ViewOrdersStatusComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ViewOrdersStatusComponent", function() { return ViewOrdersStatusComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _services_orders_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../services/orders.service */ "./src/app/services/orders.service.ts");
+/* harmony import */ var _services_data_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../services/data.service */ "./src/app/services/data.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+var ViewOrdersStatusComponent = /** @class */ (function () {
+    function ViewOrdersStatusComponent(dataservice, router, route, ordersService) {
+        this.dataservice = dataservice;
+        this.router = router;
+        this.route = route;
+        this.ordersService = ordersService;
+        this.ordersData = null;
+        this.displayedColumns = ['id', 'date', 'nom', 'address', 'button'];
+        this.dataSource = new _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatTableDataSource"](this.orders);
+    }
+    ViewOrdersStatusComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        // call service to retrieve orders by seller
+        var id = this.route.snapshot.paramMap.get('id');
+        this.statusid = this.route.snapshot.paramMap.get('id');
+        if (localStorage.getItem('sellerId')) {
+            var salesman_1 = JSON.parse(localStorage.getItem('sellerId'));
+            this.ordersService.getOrderStatus(id, salesman_1.id).subscribe(function (data) {
+                _this.ordersData = data;
+                _this.dataSource.data = _this.ordersData;
+                console.log(salesman_1.id);
+                // error => this.error = error
+            });
+        }
+        if (localStorage.getItem('sellerIdMaster')) {
+            var salesman = JSON.parse(localStorage.getItem('sellerIdMaster'));
+            this.ordersService.getOrderStatus(id, salesman).subscribe(function (data) {
+                _this.ordersData = data;
+                _this.dataSource.data = _this.ordersData;
+                // error => this.error = error
+            });
+        }
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+    };
+    ViewOrdersStatusComponent.prototype.applyFilter = function (filterValue) {
+        this.dataSource.filter = filterValue.trim().toLowerCase();
+    };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])(_angular_material__WEBPACK_IMPORTED_MODULE_4__["MatSort"]),
+        __metadata("design:type", _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatSort"])
+    ], ViewOrdersStatusComponent.prototype, "sort", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])(_angular_material__WEBPACK_IMPORTED_MODULE_4__["MatPaginator"]),
+        __metadata("design:type", _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatPaginator"])
+    ], ViewOrdersStatusComponent.prototype, "paginator", void 0);
+    ViewOrdersStatusComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-view-orders-status',
+            template: __webpack_require__(/*! ./view-orders-status.component.html */ "./src/app/orders/view-orders-status/view-orders-status.component.html"),
+            styles: [__webpack_require__(/*! ./view-orders-status.component.css */ "./src/app/orders/view-orders-status/view-orders-status.component.css")],
+            providers: [_services_data_service__WEBPACK_IMPORTED_MODULE_2__["DataService"], _services_orders_service__WEBPACK_IMPORTED_MODULE_1__["OrdersService"]]
+        }),
+        __metadata("design:paramtypes", [_services_data_service__WEBPACK_IMPORTED_MODULE_2__["DataService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"],
+            _services_orders_service__WEBPACK_IMPORTED_MODULE_1__["OrdersService"]])
+    ], ViewOrdersStatusComponent);
+    return ViewOrdersStatusComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/orders/view-orders/view-orders.component.css":
 /*!**************************************************************!*\
   !*** ./src/app/orders/view-orders/view-orders.component.css ***!
@@ -2537,6 +3305,65 @@ var ViewOrdersComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/services/accounts.service.ts":
+/*!**********************************************!*\
+  !*** ./src/app/services/accounts.service.ts ***!
+  \**********************************************/
+/*! exports provided: AccountsService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AccountsService", function() { return AccountsService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var AccountsService = /** @class */ (function () {
+    function AccountsService(httpClient) {
+        this.httpClient = httpClient;
+        this.ROOT_URL = 'https://enigmatic-cove-26128.herokuapp.com/api';
+        // ROOT_URL = 'http://localhost.:8000/api';
+        this.Get_Ctacli_Det0 = '/ctacli/det0/ven/';
+        this.Get_Ctacli_Det1 = '/ctacli/det1/ven/';
+        this.Get_Ctacli_Det2 = '/ctacli/det2/ven/';
+        this.httpOptions = {
+            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]({
+                'Content-Type': 'application/json'
+            })
+        };
+    }
+    AccountsService.prototype.get_Ctacli_Det0 = function (id) {
+        return this.httpClient.get(this.ROOT_URL + this.Get_Ctacli_Det0 + id);
+    };
+    AccountsService.prototype.get_Ctacli_Det1 = function (id) {
+        return this.httpClient.get(this.ROOT_URL + this.Get_Ctacli_Det1 + id);
+    };
+    AccountsService.prototype.get_Ctacli_Det2 = function (id) {
+        return this.httpClient.get(this.ROOT_URL + this.Get_Ctacli_Det2 + id);
+    };
+    AccountsService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root'
+        }),
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]])
+    ], AccountsService);
+    return AccountsService;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/services/alert.service.ts":
 /*!*******************************************!*\
   !*** ./src/app/services/alert.service.ts ***!
@@ -2640,6 +3467,7 @@ var AuthenticationService = /** @class */ (function () {
             })
         };
         this.ROOT_URL = 'https://enigmatic-cove-26128.herokuapp.com/api';
+        // ROOT_URL = 'http://localhost.:8000/api';
         this.Auth = '/login';
         this.ChangePass = '/changepass';
     }
@@ -2856,6 +3684,71 @@ var ImageService = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/services/messages.service.ts":
+/*!**********************************************!*\
+  !*** ./src/app/services/messages.service.ts ***!
+  \**********************************************/
+/*! exports provided: MessagesService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MessagesService", function() { return MessagesService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var MessagesService = /** @class */ (function () {
+    function MessagesService(httpClient) {
+        this.httpClient = httpClient;
+        this.ROOT_URL = 'https://enigmatic-cove-26128.herokuapp.com/api';
+        // ROOT_URL = 'http://localhost.:8000/api';
+        this.SEND_MESSAGE_URL = '/message';
+        this.GET_MESSAGE_URL = '/messages/';
+        this.httpOptions = {
+            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]({
+                'Content-Type': 'application/json'
+            })
+        };
+    }
+    MessagesService.prototype.send = function (to, toName, note) {
+        var user = JSON.parse(localStorage.getItem('currentUser'));
+        console.log("user: " + to + "     message:  " + note + "from user: " + user.userId);
+        var message = {
+            from: user.userId,
+            fromName: user.lastname,
+            to: to,
+            toName: toName,
+            message: note
+        };
+        return this.httpClient.post(this.ROOT_URL + this.SEND_MESSAGE_URL, message, this.httpOptions);
+    };
+    MessagesService.prototype.get = function () {
+        var user = JSON.parse(localStorage.getItem('currentUser'));
+        return this.httpClient.get(this.ROOT_URL + this.GET_MESSAGE_URL + user.userId, this.httpOptions);
+    };
+    MessagesService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root'
+        }),
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]])
+    ], MessagesService);
+    return MessagesService;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/services/orders.service.ts":
 /*!********************************************!*\
   !*** ./src/app/services/orders.service.ts ***!
@@ -2883,7 +3776,7 @@ var OrdersService = /** @class */ (function () {
     function OrdersService(httpClient) {
         this.httpClient = httpClient;
         this.ROOT_URL = 'https://enigmatic-cove-26128.herokuapp.com/api';
-        // ROOT_URL = 'http://lumasoft.dyndns.org:8000/api';
+        // ROOT_URL = 'http://localhost.:8000/api';
         this.GET_ORDERS_URL = '/pedcab/vendedor/';
         this.GET_ORDER_URL = '/pedcab/id/';
         this.GET_ARTICULOS_URL = '/articulos/';
@@ -2896,6 +3789,7 @@ var OrdersService = /** @class */ (function () {
         this.Get_Stock = '/articulos/id/';
         this.Get_CondVen = '/conpag/';
         this.Get_CondVen_Id = '/conpag/id/';
+        this.Get_Orders_Status = '/pedcab/estado/';
         this.httpOptions = {
             headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]({
                 'Content-Type': 'application/json'
@@ -2907,13 +3801,16 @@ var OrdersService = /** @class */ (function () {
         return this.httpClient.get(this.ROOT_URL + this.GET_ORDERS_URL + sellereId);
     };
     OrdersService.prototype.getOrder = function (id) {
-        return this.httpClient.get(this.ROOT_URL + this.GET_ORDER_URL + +id);
+        return this.httpClient.get(this.ROOT_URL + this.GET_ORDER_URL + id);
+    };
+    OrdersService.prototype.getOrderStatus = function (sts, sellereId) {
+        return this.httpClient.get(this.ROOT_URL + this.Get_Orders_Status + sts + '/vendedor/' + sellereId);
     };
     OrdersService.prototype.getArticulos = function () {
         return this.httpClient.get(this.ROOT_URL + this.GET_ARTICULOS_URL);
     };
-    OrdersService.prototype.getArticuloById = function (id) {
-        return this.httpClient.get(this.ROOT_URL + this.GET_ART_URL + id);
+    OrdersService.prototype.getArticuloById = function (id, packing) {
+        return this.httpClient.get(this.ROOT_URL + this.GET_ART_URL + id + '/' + packing);
     };
     OrdersService.prototype.getPrecio = function (id_articulo, id_conpag, id_cliente) {
         return this.httpClient.get(this.ROOT_URL +
@@ -2978,16 +3875,25 @@ var OtherdataService = /** @class */ (function () {
     function OtherdataService(httpClient) {
         this.httpClient = httpClient;
         this.ROOT_URL = 'https://enigmatic-cove-26128.herokuapp.com/api';
+        // ROOT_URL = 'http://localhost.:8000/api';
         this.Get_Expresos = '/expresos';
         this.Get_Expreso_Id = '/expresos/id/';
         this.Get_Provincia = '/provincia';
         this.Get_Provincia_Id = '/provincia/id/';
+        this.Get_Ctacli_Det0 = '/ctacli/det0/ven/';
+        this.Get_Order_Status = '/pedcab/estado/';
         this.httpOptions = {
             headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]({
                 'Content-Type': 'application/json'
             })
         };
     }
+    OtherdataService.prototype.get_Ctacli_Det0 = function (id) {
+        return this.httpClient.get(this.ROOT_URL + this.Get_Ctacli_Det0 + id);
+    };
+    OtherdataService.prototype.get_OrdersStatus = function (id) {
+        return this.httpClient.get(this.ROOT_URL + this.Get_Order_Status + id);
+    };
     // Retrieve adittional orders and customers data
     OtherdataService.prototype.getExpresos = function () {
         return this.httpClient.get(this.ROOT_URL + this.Get_Expresos);
@@ -3084,7 +3990,7 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 // import { AppState } from '../store/reducers';
 // import { appReducerState }  from '../store/reducers/appReducers';
 var UserService = /** @class */ (function () {
-    // ROOT_URL = 'http://lumasoft.dyndns.org:8000/api';
+    // ROOT_URL = 'http://localhost.:8000/api';
     function UserService(httpClient) {
         this.httpClient = httpClient;
         this.ROOT_URL = 'https://enigmatic-cove-26128.herokuapp.com/api';
@@ -3100,6 +4006,13 @@ var UserService = /** @class */ (function () {
     };
     UserService.prototype.getClient = function (id) {
         return this.httpClient.get(this.ROOT_URL + '/clientes/id/' + id);
+    };
+    UserService.prototype.getSelleById = function (userId) {
+        console.log("user: " + userId);
+        return this.httpClient.get(this.ROOT_URL + '/vend/' + userId);
+    };
+    UserService.prototype.getUsers = function () {
+        return this.httpClient.get(this.ROOT_URL + '/users');
     };
     UserService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
