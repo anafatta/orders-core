@@ -9,7 +9,7 @@ module.exports={
             return db.clientes.findByPk(req.params.id_cli).then (cliente=>{
                 console.log('db.clientes.findByPk ====> ' + JSON.stringify(cliente))
                 att['attributes']=['id', 'cli','nro','tip','tiptxt','fem','fve','obs','itot','ipen','est'];
-                att['where']={cli:cliente.codfac , est:0}
+                att['where']={cli:cliente.codfac , est:0, tip : {[Op.gt]: 0}}
                 if (req.params.fve){
                     att['where']['fve']={[Op.lte]: req.params.fve}
                 }
@@ -57,7 +57,7 @@ module.exports={
            ' WHEN (ctapencli.fve >= now()::date-7) and (ctapencli.fve <= now()::date) then \'2 YELLOW\''+
            ' WHEN ctapencli.fve > now()::date then \'3 GREEN\''+
         ' END AS estado, ' +     
-        ' clientes.codfac, clientes.nom, COUNT(*),'+
+        ' clientes.id, clientes.codfac, clientes.nom, COUNT(*),'+
         ' SUM( (ctapencli.itot-ctapencli.ipen) * (CASE WHEN ctapencli.tip < 50 then 1 else -1 end)) ::decimal(16,2) as saldo' +
     ' FROM public.clientes, public.ctapencli, public.vend'+
     ' WHERE' + 
@@ -66,7 +66,7 @@ module.exports={
         ' clientes.vend = ' +req.params.vend+ ' AND'+
         ' ctapencli.est = 0 AND' +
         ' ctapencli.tip > 0' +
-    ' GROUP BY clientes.nom, clientes.codfac, estado'+
+    ' GROUP BY clientes.nom, clientes.codfac, clientes.id, estado'+
     ' ORDER BY clientes.nom, estado'
 
     return  db.sequelize.query (qq,{ type : db.sequelize.QueryTypes.SELECT})
